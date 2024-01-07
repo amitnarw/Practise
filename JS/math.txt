@@ -1,0 +1,27 @@
+Math objects = 
+- Static
+- Have no constructor
+- works with number type and not with BigInt
+
+Static properties
+- Math.PI
+- Math.SQRT2
+- Math.E
+
+Static method
+- Math.abs(number) = returns absolute/positive value
+- Math.cbrt(number) = returns cuber root
+- Math.ceil(number) = rounded UP to nearest integer
+- Math.cos(number) = cosine value
+- Math.floor(number) = rounded DOWN to nearest integer
+- Math.log(number) = log value
+- Math.min(numbers) = returns smallest number
+- Math.max(numbers) = returns largest number
+- Math.pow(x,y) = x to the power of y
+- Math.random() = returns a random number b/w 0 and 1 (excluding 1)
+- Math.round(number) = rounded to its nearest integer
+- Math.sign(number) = returns -1 if number is -ve, 0 if number is 0 and 1 if number is +ve
+- Math.sin(number) = sine value
+- Math.sqrt(number) = returns square root
+- Math.tan(number) = tangent value
+- Math.trucn(number) = returns integer part (part before the decimal)
