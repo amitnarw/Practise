@@ -1,0 +1,157 @@
+- Number(value) = will convert a value to a number. If value cannot be converted, NaN is returned. If no value is provided then 0 is returned.
+Number(true) = 1
+Number(false) = 0
+Number(123) = 123
+Number("456") = 456
+Number(1.2) = 1.2
+Number(1,2) = NaN
+Number('  10 ') = 10
+Number(new Date()) = today's date in milliseconds
+Number('123 456') = NaN
+Number('string') = NaN
+
+- 123e5 = 123 * 1,00,000 = 1,23,00,000
+- 123e-5 = 123 * 0.00001 = 0.00123
+
+- Js numbers are always 64-bit floating point (as per IEEE 754 standard)
+- 1 bit (sign), 11 bits (exponent) and 52 bits (0-51 fraction or mantissa)
+
+- Integers without a peroid or exponent are accurate upto 15 digits.
+- Max number of decimals is 17.
+
+For addition = 
+- x = 10, y = 20
+innerText = 'Answer is ' + x + y 
+output = Answer is 1020
+
+innerText = 'Answer is ' + (x + y)
+output = Answer is 30
+
+- innerText = x + y
+output = 30
+
+- x = '10', y = 20
+innerText = x + y
+output = 1020
+
+For other then addition =
+x = 100, y = '10'
+innerText = x/y
+output = 10
+
+innerText = x*y
+output = 1000
+
+innerText = x-y
+output = 90
+
+- x = 100, y = NaN
+innerText = x + y
+output = NaN
+
+- typeof NaN
+output = number
+
+- Infinity will be return, if we calculate a number outside the largest possible number.
+- 2/0 = Infinity
+- -2/0 = -Infinity
+- typeof Infinity = number
+
+- If started with 0x, js interprets it as hexadecimal
+
+- Getting base values =
+num = 45
+innerText = num.toString(2)
+output = 101101
+
+innerText = num.toString(32)
+output = 1d
+
+- Js numbers are primitive (data that is not an object and has no methods or properties), but numbers can be defined as objects
+let x = new Number(22)
+innerText = typeof x;
+output = object
+
+- let x = 500, y = new Number(500)
+innerText = (x==y)
+output = true
+
+innerText = (x===y)
+output = false
+
+- let x = new Number(500), y = new Number(500)
+innerText = (x==y)
+output = false
+innerText = (x===y)
+output = false
+
+- innerText = Number.MIN_SAFE_INTEGER
+output = -9007199254740991
+innerText = Number.MAX_SAFE_INTEGER
+output = 9007199254740991
+
+- innerText = Number.isInteger(10)
+output = true
+innerText = Number.isInteger(3.6)
+output = false
+
+innerText = Number.isSafeInteger(10)
+output = true
+innerText = Number.isSafeInteger(12345678901234567890)
+output = false
+
+- As js numbers are accurate upto 15 digits and more then this will be rounded.
+- Rounding can compromise security. 9007199254740992 === 9007199254740993 (this is true)
+- Js can only safely represents Integers b/w (2^53-1) -(2^53-1)
+- That's why BigInt is created 
+
+- BigInt creation = 
+let x = 99999n
+or
+let x = BigInt(99999)
+
+- innerText = (typeof x)
+output = bigint
+
+- Arithmatic b/w BigInt and int is not allowed
+let x = 5n
+innerText = x / 2
+output = no output
+
+innerText = Number(x) / 2
+
+let x = 9n, y = 90n
+innerText = y/x
+output = 10
+
+Number methods =
+- numbertoString() = returns it as a string
+- number.toExponential(upto exponent) = returns a string, in it's exponential form 
+- number.toFixed(upto decimal) = returns a string, with specified number of decimals
+- number.toPrecision(upto precision) = returns a string, with specified lenght
+- number.valueOf() = to convert number object into number
+
+- All js data types have a valueOf() and toString() method
+
+- parseInt('string') = converts string into Integers
+parseInt('10.2') = 10
+parseInt('10 years') = 10
+parseInt('years 10') = NaN
+parseFloat('100ssd') = 100
+
+- Number() and parseFloat() functioning is similar, but
+Number('200xx') = NaN
+parseFloat('200xx') = 200
+
+Number('') and Number(' ') = 0
+parseFloat('') and Number(' ') = NaN
+
+Number('1.2.3') = NaN
+parseFloat('1.2.3') = 1.2
+
+Number properties = 
+- Number.EPSILON = Difference b/w 1 and smalled number > 1
+- Number.MAX_VALUE & MIN_VALUE = largest and smallest number possible in js
+- Number.MAX_SAFE_INTEGER & MIN_SAFE_INTEGER
+- Number.POSTIVE_INFINITY & NEGATIVE_INFINITY
+- Number.NaN
