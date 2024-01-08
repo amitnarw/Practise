@@ -1,0 +1,132 @@
+Strings will store texts and are written b/w quotes.
+
+- If we want to use quotes in our text, then we have to use different quote which is used to represent the string.
+"Hi, I am using 'quotes' here."
+Output = Hi, I am using 'quotes' here.
+
+"Hi, I am using "quotes" here" = Syntax error (Cannot use same quotes to denote a string and quotes using in text)
+
+If we wan to use same quotes then we have to use escape characters = 
+"Hi, I am using \"quotes\" here"
+
+If we want to show one backslash in our string then we have to add two backslashes.
+"I am using a \\ backslash"
+Output = I am using a \ backslash
+
+- Or we can use template strings (Not supported in Internet explorer) =
+`Hi, I am using 'single' and "double" quotes here.`
+Output = Hi, I am using 'single' and "double" quotes here.
+
+Escape characters (Originally designed to be used in typewriters, teletypes and faxmachines. These not make sense in HTML)= 
+- \
+- \b = backspace
+- \n = new line
+- \f = form feed
+
+- String as object = 
+let x = new String('hello')
+
+
+STRING METHODS = (all methods return new string, don't modify original string)
+
+    let x = 'Hello'
+
+- x.length = tells us the total length of the string
+
+- Extracting string characters =
+    - x.at(number) or x[number]. -ve numbers also allowed in x.at(-number). This will get character from the end.
+    - x.charAt(number) will do the same thing. But this does not accept -ve values.
+    - x.charCodeAt(number) returns a UTF-16 code (an integer between 0 and 65535).
+x.[2] = 'o' This will not work
+
+- Extracting string parts = 
+    - x.slice(startNum, endNum) = returns part b/w index startNum and endNum (not including endNum)
+    If endNum is not given, then returns characters from startNum to the end. If startNum is +ve then result will be from the start to the end and if -ve then from the last to the end.
+    If both are -ve then will give result from the end to the start. 
+    - x.substring(startNum, endNum) = same as slice(), except -ve numbers are not allowed
+    - x.substr(startNum, length) = same as slice(), except the 2nd part is length
+
+- Upper case = x.toUpperCase()
+
+- Lower case = x.toLowerCase()
+
+- Concat/adding strings = 
+let y = 'ok'
+x.concat(' ', y) = hello ok
+Can add as many strings as possible, just by separating them with , (comma)
+
+- '  hi  '.trim() = hi (Removes white space from the start and the end of the string)
+
+- .trimStart() = same as .trim(), but remove only from the start
+
+- .trimEnd() = same but remove only from end
+
+- x.padStart(length, '-') (not supported on Internet explorer) =
+Add string in the begining of the string untill string reaches specified length
+x.padStart(6, '-') = -Hello
+'hi'.padStart(5, '0') = 000hi
+This only works on string. If want to apply on number then first convert it into a string using toString().
+
+- x.padEnd(length, '-') (not supported on Internet explorer) =
+same as padStart, but works at the end of the string
+
+- x.repeat(number) = returns a number of copies of the string (not supported on Internet explorer)
+x.repeat(4) = HelloHelloHelloHello  
+
+- Replacing string content = 
+let y = 'Hi, how are you doing today'
+y.replace('are', x) = Hi, how Hello you today
+This will only replace the first match.
+
+To change all matched strings we have to use regular expressions =
+'Hi, how can I Hi you'.replace(/Hi/g, 'o') = o, how can I o you
+
+To change all string with same words but in different cases = 
+'Hi, how can I help you'.replace(/HOW/i, 'o') = Hi, o can I help you
+
+'How, how can I help you'.replace(/HOW/gi, 'o') = o, o can I help you
+
+replace and replaceAll behaves the same way, difference is that we have to use global flag in repalceAll or else it will throw an error. And repalceAll doesn't work on Internet explorer.
+
+- Converting a string into an array = 
+let y = 'Hi, how, are, you'
+y.split(',') = split at ,
+y.split('') = will split every single character into an array
+y.split() = whole string will be at the 0 index
+
+- endsWith() = To check if the string is ended with or not. Returns true or false
+let y = 'Hi, how, are, you'
+y.endsWith('you') = true
+y.endsWith('how', 7) = true (Checking in first 7 characters)
+
+- String.fromCharCode(numbers) = convert from unicode values to characters
+let z = String.fromCharCode(65)
+console.log(z) = A
+let zz = String.fromCharCode(72, 69, 76, 76, 79);
+console.log(zz) = HELLO
+
+- x.codePointAt(0) = returns unicode value at index 0
+
+- x.includes('hi') = if hi exist in string then returns true else false
+x.includes('hi', 4) = same as above + searching will start from lenght 4
+
+- x.indexOf('h') = return index of character h in the string. returns -1 if not found
+x.indexOf('h', 4) = same as above + searching starts from lenght 4
+
+- x.lastIndexOf('e') = last index of e in the string. returns -1 if not found
+x.lastIndexOf('e', 20) = same as above + searching starts from lenght 20
+
+- 'da'.localeCompare('de') = -1
+Compare 2 strings lexicographically (like in a dictionary) and returns -1 if first strings comes before second string, 1 if comes after and 0 if both are same.
+
+- x.match('hi') = hi
+returns array if string found. returns null if not found anything
+We can also use regular expressions here
+
+- x.matchAll('hi') = array of found strings
+
+- x.search('hi') = returns index if string found or else -1 if not found anything.
+Can use regular expressions
+It's different from indexOf bcoz we can use regular expressions here and we cannot set a starting point of our search.
+
+- x.valueOf() = used to convert string object to primitive string.
