@@ -21,3 +21,16 @@ git commit -am "changes title"
 
 - In last, push these changes to git (here files will be tracked)
 git push
+
+UPDATE REPO IF CREATED A NEW FILE/FOLDER = 
+- First check status, to see if there is any changes
+git status
+
+- Then add all the new files
+git add -all
+
+- Then commit these changes (here files will be called in untracked files)
+git commit -am "changes title"
+
+- In last, push these changes to git (here files will be tracked)
+git push
