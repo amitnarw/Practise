@@ -1,0 +1,117 @@
+Object is a collection of named values. It have key/value pairs/properties.
+Object is a variable too, that contain many values. In js almost everything is an object.
+All js values except primitive are objects.
+In js, all attributes can be read, but only value attributes can be changed and only if property is writable.   
+
+const obj = {
+    name: 'Demo',
+    age: '40',
+    country: 'IN',
+    language: 'Hindi',
+    email: 'email@gmail.com'
+}
+
+Access properties = 
+- console.log(obj.name) = Demo
+- console.log(obj['age']) = 40
+
+
+
+- Object.keys(obj) =
+Returns new array with keys of the object.
+Output = name,age,country,language,email
+
+- obj.phone = 1234567890
+console.log(obj.phone)
+Output = 1234567890
+
+- Can only use prototype when we create a new object using a function.
+
+function obj(name, age, country, language, email){
+    this.name = name;
+    this.age = age;
+    this.country = country;
+    this.language = language;
+    this.email = email;
+}
+
+obj.prototype.phone = 1234567890;
+const newValue = new obj('testing', 30, 'USA', 'English', 'em@em.com')
+console.log(obj.phone)
+Output = 1234567890
+This will add a new property with same value to the object obj. We can also add method like this.
+
+- obj.toString() OR Object.toString() =
+Return object as a string. Else return [object Object]
+
+- Js objects are mutable
+const x = obj
+This will not create a copy of person. Infact x will be obj. Both are same object.
+Meaning any changes to x will also changed for obj and vise-versa.
+
+- In js object, properties are unordered.
+
+- looping through object =
+for (let x in obj){
+    console.log(person[x])
+}
+Output = 
+Demo
+40
+IN
+Hindi
+email@gmail.com
+
+- Deleting properties =
+delete obj.age
+console.log(obj.age) OR console.log(person['age'])
+Output = undefined
+
+- Object inside another object =
+obj = {
+    name: 'Demo',
+    age: 40,
+    colors: {
+        one: 'black',
+        two: 'red',
+        three: 'orange'
+    }
+}
+console.log(obj.colors.two) OR console.log(obj.colors['two']) OR console.log(obj['colors']['two'])
+Output = red
+
+- Array inside object =
+obj = {
+    name: 'Demo',
+    age: 40,
+    numbers: [1,2,3,4,5,6]
+}
+console.log(obj['numbers'][0])
+Output = 1
+
+- Dsiplay js objects = 
+Using name =
+obj.name
+
+Using loop =
+for (let x in obj){
+    console.log(obj[x])
+}
+
+Using Object.values() =
+Object.values(obj) = This will show values
+Object.keys(obj) = This will show keys
+
+Using JSON.stringify() =
+JSON.stringify(obj) 
+Cannot stringify function. To fix this, we can first convert function into string.
+let obj = {
+    name: 'Demo',
+    age: 40,
+    fn: function(){
+        console.log('Hello')
+    }
+}
+obj.fn = obj.fn.toString();
+console.log(JSON.stringify(obj))
+
