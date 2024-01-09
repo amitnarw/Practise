@@ -50,7 +50,7 @@ Replace all values in selected array with the value provided. Or will fill from 
 arr.fill('x')
 Output = ['x','x','x','x','x','x','x']
 arr.fill('y', 3)
-Output = [1,2,3,'x','x','x','x']
+Output = [1,2,3,'y','y','y','y']
 
 - arr.filter(function(currentValue, index, arr), thisValue) =
 Returns element which follow the condition. Return empty array if no one follow the condition.
@@ -127,6 +127,11 @@ arr.indexOf(1, 3)
 Output = false
 
 -arr.lastIndexOf(item, start)
+Returns last index of the item in the array else -1 if not found.
+arr.lastIndexOf(2)
+Output = 6
+arr.lastIndexOf(2, -8)
+Output = -1
 
 - Array.isArray(obj) =
 Returns true if obj is an array else false.
@@ -142,4 +147,132 @@ Output = 1*2*3*4*five*six*2
 Returns the keys of an array.
 Output = 0,1,2,3,4,5,6
 
-- 
+- arr.length =
+Returns length of the array. We can also set lenght of the array by using this method.
+Output = 7
+arr.lenght = 20
+console.log(arr.lenght)
+Output = 20
+
+- arr.map(function(currentValue, index, arr), thisValue) = 
+Returns a new array of elements passed through a function.
+arr.map((x=>console.log(x + x)))
+Output =  [2,4,6,8,'fivefive','sixsix']
+let z = [
+    {name: 'Amit', age: 20},
+    {name: 'New', age: 0},
+    {name: 'Demo', age: 40}
+]
+z.map((x)=>x.name)
+Output = ['Amit', 'New', 'Demo']
+
+- Array.of() =
+Create an array
+const oo = Array.of('hi', 'hello', 'ok');
+console.log(oo)
+Output = ['hi', 'hello', 'ok']
+
+- arr.pop() =
+Removes the last element of an array.
+arr.pop()
+console.log(arr)
+Output = [1, 2, 3, 4, 'five', 'six']
+console.log(arr.pop()) = Return and remove last element of the array.
+Output = 2
+
+- Array.prototype.functionName
+By this we can add new properties and method to the array.
+Array.prototype.fn = function() {
+    return this.map(x=>console.log(x))
+}
+arr.fn()
+Output = 
+1
+2
+3
+4
+five
+six
+2
+
+- arr.push('item') =
+Adds new item at the end of the array.
+Output = [1,2,3,4,'five','six',2,'item']
+console.log(arr.push('item2'))
+Output = 8 (returns length of the array)
+
+- arr.reduce(function(total, currentValue, currentIndex, array), initialValue) =
+Returns accumulated result from the last call of callback function.
+arr.reduce((total, x)=>total + x)
+Output = 10fivesix2
+
+- arr.reduceRight(function(total, currentValue, currentIndex, array), initialValue) =
+Returns accumulated result from the last call of the callback function from right to left.
+arr.reduceRight((total, x)=>total + x)
+Output = 2sixfive4321
+
+- arr.reverse() =
+Reverse the original array in opposite direction OR reverses the order of elements in an array.
+Output = [2, 'six', 'five', 4, 3, 2, 1]
+
+- arr.shift() =
+Removes the first element of the array.
+Output = [2, 3, 4, 'five', 'six', 2]
+
+- arr.unshift() =
+Add a new element to the begining of the original array.
+arr.unshift('one', 'two')
+Output = ['one', 'two', 1, 2, 3, 4, 'five', 'six', 2]
+
+- arr.slice() =
+Returns a new array with selected elements.
+arr.slice(2) = all elements starting from index 2.
+Output = [3, 4, 'five', 'six', 2]
+arr.slice(2,4) = all elements b/w 2 and 4 (excluding 4).
+Output = [3, 4]
+arr.slice(-2) = all elements from second last position to the end of array.
+Output = ['six', 2]
+arr.slice(-4,-2) = all elements b/w 4th position from the last and 2nd position from the last (excluding 2nd last position).
+Output = [4, 'five']
+
+- arr.some(function(value, index, arr), this) =
+Returns true (and stops) if any element in the array passes the test. Else return false.
+arr.some(x=>x>3)
+Output = true
+arr.some(x=>x>9)
+Output = false
+
+- arr.sort() =
+Sort original array alphabetically in ascending order.
+let y = ['ok', 'bye', 'zebra', 'hello']
+Output = ['bye', 'hello', 'ok', 'zebra']
+This works onlt for strings, for numbers we have to give it a compare function. Because sort() only checks first number.
+let y =  [ 4, 2, 800, 9, 400 ]
+y.sort()
+Output = 2,4,400,800,9
+y.sort((a,b)=>a-b) (this is for ascending order, for descending = (a,b)=>b-a)
+Output = 2,4,9,400,800
+
+- arr.splice(index, howMany, items)
+Remove/add items in the original array
+arr.splice(2) = This will remove every element from the array, except 1st and 2nd element.
+console.log(arr.splice(2)) = This will show which items are removed form the array.
+arr.splice(2,1) = From index 2 remove 1 element
+arr.splice(2,1,'one','two') = From index 2 remove 1 element and add 'one', 'two'.
+arr.splice(2,0) = Will do nothing
+arr.splice(-2,1) = From index 2 from the last (2nd last) remove 1 element.
+
+- arr.toString() =
+Returns array as a string. Returns a string with elements of the array separated by comma.
+Output = 1, 2, 3, 4, 'five', 'six', 2
+JS normally uses this method internally to show/print object as a text.
+
+- arr.valueOf() =
+Returns the array itself. Works similar to arr.
+
+- arr.with(index, value) =
+Returns a new array with the updated element, without altering the original array.
+arr.with(2, 'edited')
+Output = [1, 2, 'edited', 3, 4, 'five', 'six', 2]
+arr.with(-2, 'edited')
+Output = [1, 2, 3, 4, 'five', 'edited', 2]
