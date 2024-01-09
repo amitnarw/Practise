@@ -1,0 +1,145 @@
+Array is a special variable or object that can hold more then 1 value. All elements are stored under single name.
+
+- can also create an array like this =
+const arr = new Array('one', 'two', 'three')
+
+- innerText = typeof arr[1, 2] = object
+
+- Array element can be an object, variable, function, array, etc.
+
+ARRAY METHODS = 
+
+let arr = [1, 2, 3, 4, 'five', 'six', 2]
+
+- arr.at(index) is same as arr[index]
+We can use -ve values in arr.at(index) which will give result from the end of the array.
+Negative values are not allowed in arr[]
+arr[2] = 3
+arr.at(2) = 3
+arr.at(-2) = 'six'
+
+- arr.concat(arr1) = concat/join both arrays and return a new array.
+We can concat as many arrays we want using this arr.concat(arr1, arr2, arr3, arr4)
+
+- copyWithin(target, start, end) = Overwrites/replace the existing values
+[1,2,3,4].copyWithin(2) = [1,2,1,4] copy index 0 element to index 2.
+[1,2,3,4].copyWithin(2,1) = [1,2,2,4] copy index 1 element to index 2.
+[1,2,3,4,5,6].copyWithin(2,0,2) = [1,2,1,2,5,6] copy elements from 0-2 to index 2.
+
+- arr.entries() = returns a new array with key/value pair
+for(let c of arr.entries()){console.log(x)}
+Output = 
+[0,1]
+[1,2]
+[2,3]
+[3,4]
+[4,'five']
+[5,'six']
+[6,2]
+
+- arr.every(function(currentValue, index, arr), thisValue) =
+Returns true if condition is true for every element else return false.
+Empty element will be treated like the one who is not following the condition.
+arr.every((x)=>x!=='')
+Output = true
+arr.every((x)=>typeof x=='number')
+Output = false
+
+- arr.fill(value, start, end) =
+Replace all values in selected array with the value provided. Or will fill from start index to end index if given.
+arr.fill('x')
+Output = ['x','x','x','x','x','x','x']
+arr.fill('y', 3)
+Output = [1,2,3,'x','x','x','x']
+
+- arr.filter(function(currentValue, index, arr), thisValue) =
+Returns element which follow the condition. Return empty array if no one follow the condition.
+arr.filter((x)=>x>2)
+Output = [3,4]
+
+- arr.find(function(currentValue, index, arr), thisValue) =
+Only returns the first element that follow the condition, else return undefined if no one follows.
+arr.find((x)=>typeof x=='string')
+Output = five
+
+- arr.findIndex(function(currentValue, index, arr), thisValue) =
+Only returns the first element's index that follow the condition, else -1.
+arr.findIndex((x)=>x==2)
+Output = 1
+
+- arr.findLast(function(currentValue, index, arr), thisValue) =
+Only returns the value of last element that pass the test. Else undefined.
+arr.findLast((x)=>x==2)
+Output = 2
+
+- arr.findLastIndex(function(currentValue, index, arr), thisValue) =
+Only returns index of the last element that pass the test. Else -1.
+arr.findLastIndex((x)=>x==2)
+Output = 6
+
+- arr.flat(depth) = 
+Returns a new array with sub-array concatenated. depth means how deep should flat() works. default is 1.
+[[1,2],[3,4],[5,6]].flat()[1] = 2
+[1,2,[3,[4,5],6],9,8].flat()[3] = 4,5
+[1,2,[3,[4,5],6],9,8].flat(2)[3] = 4
+
+- arr.flatMap(function(currentValue, index, arr), thisValue) =
+Returns values by flattening an array.
+let y = [1,2,[3,4],5]
+y.flatMap((x)=>console.log(x+x))
+Output =
+2
+4
+6
+8
+10
+
+- arr.forEach(function(currentValue, index, arr), thisValue) =
+Calls a function for each element of the array and modifies the original array.
+arr.forEach((x)=>console.log(x+x))
+Output = 
+2
+4
+6
+8
+five2
+six2
+4
+
+- Array.from(object, mapFunction) =
+Converts object into an array
+Array.from('ABCD')
+Output = A,B,C,D
+
+- arr.includes(element, start) =
+Returns true if element present in the array else false. Can start search from a position also.
+arr.includes('five')
+Output = true
+arr.includes(1, 4)
+Output = false
+
+- arr.indexOf(item, start) =
+Returns index if present else -1
+Can start search from a position also.
+arr.indexOf(1)
+Output = true
+arr.indexOf(1, 3)
+Output = false
+
+-arr.lastIndexOf(item, start)
+
+- Array.isArray(obj) =
+Returns true if obj is an array else false.
+Array.isArray(arr)
+Output = true
+
+- arr.join(separator) =
+Returns array as a string, elements separated by the separator used.
+arr.join('*')
+Output = 1*2*3*4*five*six*2
+
+- arr.keys() or Object.keys(arr) =
+Returns the keys of an array.
+Output = 0,1,2,3,4,5,6
+
+- 
