@@ -1,9 +1,10 @@
+Javascript is an object-oriented programming language. Means almost everything is an object in JS.
 Object is a collection of named values. It have key/value pairs/properties.
-Object is a variable too, that contain many values. In js almost everything is an object.
+Object is a variable too, that contain many values.
 All js values except primitive are objects.
 In js, all attributes can be read, but only value attributes can be changed and only if property is writable.   
 
-const obj = {
+ const obj = {
     name: 'Demo',
     age: '40',
     country: 'IN',
@@ -16,12 +17,12 @@ Access properties =
 - console.log(obj['age']) = 40
 
 
-
 - Object.keys(obj) =
 Returns new array with keys of the object.
 Output = name,age,country,language,email
 
-- obj.phone = 1234567890
+- Adding a new property
+obj.phone = 1234567890
 console.log(obj.phone)
 Output = 1234567890
 
@@ -115,3 +116,271 @@ let obj = {
 obj.fn = obj.fn.toString();
 console.log(JSON.stringify(obj))
 
+- Object accessors =
+Js getter =
+let z = {
+    name: 'Demo',
+    age: 40,
+    email: 'demo@gmail.com',
+    get em(){
+        return this.email;
+    },
+    set em1(val){
+        this.email = val;
+    }
+}
+console.log(z.em)
+Output = demo@gmail.com
+
+Js setter =
+z.em1 = 'new@gmail.com'
+console.log(z.email)
+Output = new@gmail.com
+
+- Object.defineProperty =
+Also used for getter and setter
+const obj = {
+    cal: 0
+}
+Object.defineProperty(obj, 'reset', {
+    get: function(){
+        this.cal = 0
+    }
+})
+Object.defineProperty(obj, 'add', {
+    set: function(val){
+        this.cal += val
+    }
+})
+Object.defineProperty(obj, 'sub', {
+    set: function(val){
+        this.cal -= val
+    }
+})
+obj.add = 7
+obj.sub = 2
+console.log(obj.cal)
+Output = 5
+
+- Object constructor =
+It's good practise to make first letter of constructor name capital.
+This is object constructor function.
+function Obj(name, age, email, language){
+    this.name = name;
+    this.age = age;
+    this.email = email;
+    this.lang = language;
+}
+Sometimes we need same type of object more then once, so we need blueprint.
+Objects of same type will be created by calling constructor with new keyword.
+const per1 = new Obj('Demo', 40, 'demo@gmail.com', 'IN')
+const per2 = new Obj('New', 35, 'new@email.com', 'EN')
+console.log(per1.name + ' ' + per2.name)
+Output = Demo New
+
+- Adding a new property =
+per1.color = 'Green'
+This will add new property only to per1.
+
+- Adding a new method =
+Similarly we can add a new method also
+per1.cal = function(){return 1+1};
+This also adds a new method only to per1.
+
+- We can only add new property and method to an object. But we cannot add them to a constructor.
+To add them to a constructor, we have to write them manually in a constructor function.
+OR we have to use prototype. Prototype will add same value of property or method to all the objects.
+
+- Built-in constructors = 
+new String(), new Number(), new Boolean, new Object(), new Array(), new function(), new RegExp(), new Date()
+Math is a global object, new keyword cannot be used on it.
+We can create object of primitive values but they will be created as a complex objects.
+primitive values are much faster then these, so it's better to use them as primitive values.
+
+- Object Sets =
+Sets are a collection of unique values. Each value can occur once in a it and it can hold any value of data type. If we try to add same value again, then the first occurance of that value will be saved and 
+other will be not added in the set.
+
+- Sets are object, so if we check it's type
+console.log(typeof num)
+Output = object
+
+- console.log(num instanceof Set)
+Output = true
+
+- Creating a new set =
+We can create a set using 3 methods =
+
+1. Passing an array to new Set()
+const num = new Set([1,2,3,4])
+
+2. Creating a new set and adding values to it.
+const num = new Set();
+num.add(1);
+num.add(2);
+
+3. Create a new set and add values to variables and add those variables to the set.
+const one = 1;
+const two = 2;
+const three = 3;
+
+const num = new Set();
+num.add(one);
+num.add(two);
+num.add(three);
+
+Set Properties =
+num.size = tells the size/length of the set
+const num = new Set([1,2,3,4])
+console.log(num.size)
+Output = 4
+
+Set Method = 
+- Adding new values to a set =
+num.add(6)
+console.log(num.size)
+Output = 5
+
+- Deleting/removing a value from a set =
+num.delete(6)
+console.log(num.size)
+Output = 4
+
+- Checking if a set has a value or not (true/false)=
+console.log(num.has(2))
+Output = true
+
+- Loop in a set using forEach =
+num.forEach(x=>console.log(x))
+Output = 1234
+
+- We can also access all values of a set using set.values() =
+for (const x of num.values()){
+    console.log(x)
+}
+Output =
+1
+2
+3
+4
+
+- A set has no keys. So using set.keys() will behave the same as set.values()
+
+- A set has no keys so set.entries() will returns [value,value] instead of [key,value]
+We can print set.entries() values using a loop.
+
+- Clearing/deleting all the values from a set =
+num.clear()
+console.log(num.size)
+Output = 0
+
+- We can also get items from a set from a particular index by =
+console.log(Array.from(num)[2])
+Output = 3
+
+Map in an object =
+Map holds key/value pair, where key can be any datatype.
+Map remembers the original insertion order of the keys.
+
+- Maps are objects so =
+console.log(typeof val)
+Output = object
+
+- console.log(val instanceof Map)
+Output = true
+
+Map Properties =
+To get the lenght or number of elements in a Map =
+console.log(val.size);
+Output = 3
+
+Map Methods =
+
+- Creating a new Map =
+1. Passing an array to new Map() =
+const val = new Map([
+    ['one', 22],
+    ['two', 43],
+    ['ok', 'new']
+])
+2. Create a Map and add/set new keys by using map.set()
+const val = new Map()'
+val.set('old', 432);
+
+- Adding new elements to a Map =
+val.set('name', 'Amit')
+
+- Gets the value for a key in a Map = 
+console.log(val.get('ok'))
+Output = new
+
+- Deleting an element from a Map =
+val.delete('ok');
+console.log(val.size);
+Output = 2
+
+- Checking if a Map has a key or not (true/false) =
+console.log(val.has('ppqq'))
+Output = false
+
+- Looping =
+val.forEach((value, key){
+    console.log(value)
+})
+Output = 
+22
+43
+new
+
+- To get iterator object with [key,value] in a Map =
+for (const x of val.entries()){
+        console.log(x)
+}
+Output = 
+['one', 22]
+['two', 43]
+['ok', 'new']
+
+- To get iterator object with keys in a Map =
+for (const x of val.keys()){
+        console.log(x)
+}
+Output = 
+one
+two
+ok
+
+- To get iterator object with values in a Map =
+for (const x of val.values()){
+        console.log(x)
+}
+Output = 
+22
+43
+new
+
+- Clearing/deleteing all the elements of the Map =
+val.clear();
+console.log(val.size);
+Output = 0
+
+- We can also use objects as keys in a Map =
+const one = {name: 'Demo'}
+const two = {age: 40}
+const three = {language: 'EN'}
+
+const info = new Map();
+
+info.set(one, 200)
+info.set(two, 500)
+info.set(three, 'new')
+
+console.log(info.get(one));
+Output = 200
+
+Object Map vs Normal Object = 
+- Map is directly itrable but object is not.
+- Map has a size property but object don't.
+- Keys in Map can by of any datatype but in object it should be a string or symbol.
+- Keys are ordered at the time of insertion, but in objects it's not well oredered.
+- Map don't have default key, but object do.
