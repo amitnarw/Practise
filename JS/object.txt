@@ -198,7 +198,8 @@ We can create object of primitive values but they will be created as a complex o
 primitive values are much faster then these, so it's better to use them as primitive values.
 
 - Object Sets =
-Sets are a collection of unique values. Each value can occur once in a it and it can hold any value of data type. If we try to add same value again, then the first occurance of that value will be saved and 
+Sets are a collection of unique values. Each value can occur once in a it and it can hold any value of data type. 
+If we try to add same value again, then the first occurance of that value will be saved and 
 other will be not added in the set.
 
 - Sets are object, so if we check it's type
