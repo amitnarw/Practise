@@ -138,6 +138,7 @@ console.log(z.email)
 Output = new@gmail.com
 
 - Object.defineProperty =
+Object.defineProperty(object, property, {value : 'value'}) 
 Also used for getter and setter
 const obj = {
     cal: 0
@@ -385,3 +386,49 @@ Object Map vs Normal Object =
 - Keys in Map can by of any datatype but in object it should be a string or symbol.
 - Keys are ordered at the time of insertion, but in objects it's not well oredered.
 - Map don't have default key, but object do.
+
+- Changing Meta Data =
+We can change meta data of properties also.
+We can change writable, enumerable and configurable. These are property flags.
+
+const obj = {
+    name: 'Demo',
+    age: 40,
+    country: 'IN',
+    language: 'Hindi',
+    email: 'email@gmail.com'
+}
+
+- writable = means property is changeable or not.
+Object.defineProperty(obj, 'age', {writable: false})
+obj.age = 50;
+console.log(obj.age)
+Output = 40
+
+Object.defineProperty(obj, 'age', {writable: true})
+obj.age = 50;
+console.log(obj.age)
+Output = 50
+
+- enumerable = means property can be listed or not
+Object.defineProperty(obj, 'age', {enumerable: false})
+console.log(Object.keys(obj));
+Output = name, country, language, email
+
+- configurable = means other 2 attributes can be used and the property can be deleted or not.
+
+We can change these flags/attributes using Object.defineProperty.
+Object.defineProperty(object, propertyName, descriptor)
+All values are false by default, unless we change them.
+
+Object.getOwnPropertyDescriptors(objectName) = 
+This will help in showing/cloning all the flags of a property.
+
+Sealing an object globally =
+- Object.preventExtensions(objectName) = This will not allow addition of new properties to the object.
+- Object.seal(objectName) = This will not allow both addition/deletion of properties to the object.
+- Object.freeze(objectName) = Not allow adding/removing/changing of properties.
+Object.freeze will sets configuration and writable flags to false.
+- Object.isExtensible(objectName) = returns false if adding properties are not allowed.
+- Object.isSealed(objectName) = returns true if adding/removing properties are not allowed.
+- Object.isFrozen(objectName) = returns true if adding/removing/changing not allowed.
