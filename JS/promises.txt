@@ -1,0 +1,227 @@
+Promises are important for asynchronous tasks in js. We can use callbacks for this but there are
+some downsides of using callbacks. Like =
+Suppose we order a pizza from a shop. 
+1. First it detects our locatin.
+2. Then check if pizza which we want is available or not.
+3. If it is available, then it checks of there is any offer which it or not.
+4. At last it confirms our purchase.
+
+Here to make this happen we have to use a lot of callbacks. That if a condition is fulfilled then
+it checks for another condition and so on. And these conditions are in callbacks.
+This is call callback hell and it is confusing, prone to errors and looks like a pyramid, which will be
+harder to check for.
+
+Promise is an object that links Producing code to Consuming code.
+Producing code produces a result over a certain amount of time.
+Consuming code works on the result of the Producing code, so it waits for the Producing code's result.
+
+Promise contains an executer function which tells if we got a result or an error.
+A promise that is either resolved or rejected, means gave us some result is said to be settled.
+
+let fn = new Promise(function(resolve, reject){
+    (This is producing code, which can take some time)
+
+    resolve() = run this when got a result
+    reject() = run this in case of an error
+})
+
+resolve() and reject() are callback functions. Only one of them will be called, others will be ignored.
+
+Just like an object, promise also have properties and methods.
+
+Promise properties = 
+There are 2 promise properties state and result.
+
+State         Result
+
+pending       undefined
+fulfilled     result value
+rejected      error object
+
+We cannot access these properties.
+To access we have to use Promise methods.
+
+Promise methods = 
+.then()
+.catch()
+.finally()
+These help to create the link between the executer and the consumer functions. 
+
+fn.then((result)=>console.log(result), (error)=>console.log(error))
+fn.then(
+    (result)=>console.log(result), 
+    (error)=>console.log(error)
+    )
+
+We can handle errors in better way using .catch() =
+In promise chain we only have to use one .catch() at the end and we can catch all of the errors.
+.then(result=>console.log(result))
+.catch(error=>console.log(error))
+
+.finally() method will be always called irrespective of the settelment.
+Meaning if promise is either resolved or rejected, .finally() will be called.
+So we can perform actions using .finally() which we want to perform after we completed our promise task.
+
+Promise chain =
+promise.then() will always returns a promise. It allow us to call next .then() method.
+First .then() will returns a value, next .then() can receive that.
+This second .then() can pass it to the third. That's how we form a chain.
+We don't have to make a new promise, bcoz .then() will automatically returns a promise.
+We just have to return .then() and it will pass to then next .then()
+
+promise.then(
+    (result)=>{
+        let a = result;
+        return a;
+    }).then(
+        (result)=>{
+            return result
+    }).catch(
+        (error)=>console.log(error)
+    )
+
+This is not a promise chain (This can even introduce bugs) = 
+promise.then(
+    (result)=>{
+        let a = result;
+        return a;
+    });
+promise.then(
+        (result)=>{
+            return result
+    });
+
+This is how we can attach multiple handlers. These don't pass data to each other.
+These will just run independently.
+
+Handle multiple promises (Promise API) = 
+There are six additional static methods.
+1. Promise.all
+2. Promise.any
+3. Promise.allSettled
+4. Promise.race
+5. Promise.resolve
+6. Promise.reject
+
+Promise.all() =
+Accepts a colelction (array) of promises as an argument and execute them in parallel.
+This will wait for all promises and returns result in array.
+If one of these promises rejects or failed, all other promises result will be ignored.
+
+let promise1 = pro(1)
+let promise2 = pro(2)
+let promise3 = pro(3)
+
+Promise.all([promise1, promise2, promise3]).then(
+    result=>console.log(result)
+).catch(
+    error=>console.log(error)
+)
+
+Promise.any() = 
+Same as .all(), but it doesn't wait for all promises to resolve.
+It will give result if anyone of the promises is fulfilled, meaning gave result not gave any error.
+
+Promise.allSettled =
+This will wait for all promises to settled (resolve/reject) and return result in array.
+It gives status and value of that promise.
+If any promise rejects, it will give it's reason in result.
+
+Promise.race() =
+It will give result for the first/quickest promise to settle, and give returns result/error.
+
+Promise.resolve/reject()
+This will resolve or reject a promise just like in the new Promise() function.
+
+- We can make a new promise and store it in a variable.
+
+let pro = new Promise((resolve, reject)=>{
+    resolve()
+})
+
+But if we need to access it's method.
+We have to access it using the variable in which we stored it in.
+
+pro.then(data=>console.log(data));
+
+- We can also make a new promise without string it in a varibale.
+
+new Promise((resolve, reject)=>{
+    resolve
+}).then(data=>console.log(data))
+
+And to access it, we can directly attach .then() at the end of this promise.
+
+Example = 
+
+function getInfo(URL){
+    return new Promise((resolve, reject)=>{
+        fetch(URL)
+		.then(data=>resolve(data))
+		.catch(()=>reject('errorrrrrr'));
+    })
+}
+
+let promise = getInfo('https://pokeapi.co/api/v2/pokemon?limit=20');
+
+promise.then(data=>data.json())
+.then(data2=>console.log(data2.results))
+.catch(error=>console.log('error'));
+
+Output = 
+Array of result
+
+- We can use fetch() here. It will always return a promise.
+Things which we handle with fetch, completed before everything else, bcoz for fetch our browser
+creates a new task queue called micro task queue/prority task queue/fetch task queue.
+It's like a VIP section, it's entry is before everyone else.
+
+fetch(URL)
+.then()
+.catch()
+
+fetch('https://pokeapi.co/api/v2/pokemon?offset=20&limit=20')
+.then(data=>return data.json())
+.then(data=>console.log(data.results))
+.catch(error=>console.log(error))
+
+Output = 
+Array of the data
+
+fetch('https://pokeapi.co/api/v2/pokemon?offset=20&limit=20')
+.then(data=> data.json())
+.then(data=>data.results)
+.then(data=>console.log(data[2].name))
+.catch(error=>console.log(error))
+
+Output = ekans
+
+fetch('https://pokeapi.co/api/v2/pokemon-bad')
+.then(data=> data.json())
+.catch(()=>console.log('Error'))
+
+Output = Error
+
+fetch('https://pokeapi.co/api/v2/pokemon-bad')
+.then(data=> data.json())
+.catch(()=>console.log('Error'))
+.finally(()=>console.log('Completed'))
+
+Output = 
+Error
+Completed
+
+Promise.all([
+    fetch().then(),
+    fetch().then()
+]);
+
+Promise.all([
+    fetch('https://pokeapi.co/api/v2/pokemon/bulbasaur'),
+    fetch('https://pokeapi.co/api/v2/pokemon/raticate')
+]).then(data=>console.log(data.json()))
+.catch(()=>console.log('Error'));
+
+Output = 
+Array of 2 results
+

@@ -1,0 +1,115 @@
+Like everything in js, dates are also objects.
+Dates are static object. By default js will use browser's time zone to display a date.
+Js by default gives dates using toString() method.
+
+console.log(new Date()) = Thu Jan 11 2024 14:58:28 GMT+0530 (India Standard Time)
+
+console.log(new Date('02-01-2001')) = Thu Feb 01 2001 00:00:00 GMT+0530 (India Standard Time)
+
+Using new Date() we create a date. This is a date constructor.
+
+We can create a new date using = 
+new Date()
+new Date(year,month) (We have to write month also if we want year, or else it's treated as milliseconds)
+new Date(year,month,day,hours,minutes,seconds,ms) (We can use anything we want here)
+new Date(milliseconds)
+new Date("October 13, 2014 11:13:00")
+new Date("2022-03-25") this is in format (YYYY-MM-DD)
+
+Js count months from 0 to 11 (0 = January to 11 = December).
+
+new Date(99, 11) = Wed Dec 01 1999 00:00:00 GMT+0530 (India Standard Time)
+99 here is treated as 1999.
+
+new Date(9, 11) = Wed Dec 01 1909 00:00:00 GMT+0530 (India Standard Time)
+9 here is treated as 1909.
+
+Js stores dates as milliseconds since January 01, 1970.
+
+new Date(0) = Thu Jan 01 1970 05:30:00 GMT+0530 (India Standard Time)
+So when we request for new Date(86400000), it means 01 Jan 1970 + 86400000 milliseconds.
+
+To get a date before 01 Jan 1970, we have to give -ve milliseconds.
+new Date(-100000000000) = Mon Oct 31 1966 19:43:20 GMT+0530 (India Standard Time)
+
+More readable format
+new Date().toDateString() = Thu Jan 11 2024
+
+UTC (Universal Time Coordinated) standard date
+new Date().toUTCString() = Thu, 11 Jan 2024 09:54:08 GMT
+
+ISO (International Organization for Standardization) standard time
+new Date().toISOString() = 2024-01-11T09:52:02.929Z (toJSON() works same)
+Here time is separated with T and Z define UTC time.
+If we want to modifify time relative to UTC, we have to remove Z and add +HH:MM or subtract -HH::MM
+If T and Z are not included in date-time string, different browsers can give different results. 
+UTC is same as GMT (Greenwich Mean Time)
+
+If we request for a date, without specifying a time zone, then result will be in browser's time zone.
+
+Parsing/changing time in milliseconds
+Date.parse('March 12 2020') = 1583951400000
+Converts date string into milliseconds. Milliseconds is time b/w the date and 01 Jan 1970.
+
+Returning milliseconds b/w a date and 1 Jan 1970
+Date.UTC(2020, 01, 22) = 1582329600000
+
+Returning date (not the time) according to local convention
+new Date().toLocaleDateString() = 11/1/2024
+
+Returning time according to local convention
+new Date().toLocaleTimeString() = 4:42:05 pm
+
+
+
+DATE METHODS = 
+Date method allow use to operate on dates.
+
+Get methods =
+
+new Date("2021-03-25").getFullYear = 2021
+new Date().getYear() is deprecated
+new Date().getMonth = 0-11
+new Date().getDate = 1-31
+new Date().getHours = 0-23
+new Date().getMinutes = 0-59
+new Date().getSeconds = 0-59
+new Date().getMilliseconds = 0-999
+new Date().getDay() = 0-6 (0 = sunday to 6 = Saturday)
+new Date().getTime() = milliseconds
+Date.now() = milliseconds
+
+UTC get methods = 
+same as above, just add UTC b/w
+new Date().getUTCFullYear()
+
+Get difference in minutes b/w local time and UTC =
+new Date().getTimezoneOffset() = -330
+
+Set methods = 
+
+new Date().setFullYear('2020') = This will returns today's date and month but 2020 as year.
+new Date().setMonth = 0-11
+new Date().setDate = 1-31
+new Date().setHours = 0-23
+new Date().setMinutes = 0-59
+new Date().setSeconds = 0-59
+new Date().setMilliseconds = 0-999
+new Date().setDay() = 0-6 (0 = sunday to 6 = Saturday)
+new Date().setTime() = milliseconds
+
+const dd = new Date();
+dd.setFullYear(2021)
+console.log(dd) = Mon Jan 11 2021 16:12:28 GMT+0530 (India Standard Time)
+
+Compare dates = 
+new Date('01-02-2020') < new Date('02-02-2020') = true
+
+There is no method available in js to know timezone of a differnet country, also parsing, validating, 
+manipulating and displaying date/time becomes easy when using js library MomentJS.
+
+MOMENT JS =
+To start using moment js we first have to include it's script or download npm when using nodejs.
+
+<script type = "text/JavaScript" src = "https://momentjs.com/downloads/moment.min.js"></script>
+

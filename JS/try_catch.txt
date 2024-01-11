@@ -1,0 +1,38 @@
+We can handle errors using try...catch statement.
+We have to wrap it around some code to catch an error or to do the next thing if we don't face any error.
+
+function ok(){
+    try{
+        console.log('ok')
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+We can even use nested try catch, if we want.
+
+try{
+    try{
+        console.log('ok')
+    } catch(err) {
+        console.log(err)
+    }
+} catch(err) {
+    console.log(err)
+}
+
+We can also use finally with this.
+Code in finally will always executes, even if you catch any error or not.
+Finally will also run even if we use return in try.
+If we want to do some process (logout, lock files, informing the admin, etc) even 
+after an error then that thing won't run, bcoz nothing will run after an error.
+So we have to use finally when we want something or process to run even after an error.
+
+CUSTOM ERRORS =
+We can throw our own error whereever we want.
+
+throw new Error('this is an error');
+throw new ReferenceError('this is a reference error');
+
+console.log(error.name) = Error or ReferenceError.
+console.log(error.message) = 'this is an error' or 'this is a reference error'.

@@ -1,0 +1,44 @@
+This is a sepcial syntax to work with promises.
+In promises we sometimes need to use .then() again and again, we can still read it.
+But using aysnc/await we can make it look cleaner and clearer.
+
+We just have to write async keyword in front of a function and use await keyword,
+in front of process which can take some time to complete.
+Doing this will automatically make it behave as a promise.
+Here also if we call more then 1 async function, they will run in parallel, just like promises.
+
+ex1 = 
+async function getInfo(URL){
+    await fetch(URL)
+    .then(data=>data.json())
+    .then(data2=>console.log(data2.results))
+    .catch(error=>console.log('error'));
+}
+
+getInfo('https://pokeapi.co/api/v2/pokemon?limit=20');
+
+Output = Array of result
+
+ex2 = 
+async function getInfo(URL){
+    let ww = await fetch(URL);
+    console.log(ww);
+}
+
+getInfo('https://pokeapi.co/api/v2/pokemon?limit=20');
+
+In ex2 we are saving result in a variable ww. Because of this we cannot use .then() or .catch() here.
+If we want to use .then() and .catch(), then we have to call await without saving it in a varibale.
+Then we can use .then() and .catch() here.
+
+ex3 = 
+async function getInfo(URL){
+    return await fetch(URL);
+}
+
+const ab = getInfo('https://pokeapi.co/api/v2/pokemon?limit=20');
+
+ab.then(data=>console.log(data))
+
+If we really want to use .then() and .catch(), then we can return the result of the await process,
+save this result of async function in a variable and call .then() and .catch() on this varibale.
