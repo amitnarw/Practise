@@ -1,6 +1,7 @@
 Like everything in js, dates are also objects.
 Dates are static object. By default js will use browser's time zone to display a date.
 Js by default gives dates using toString() method.
+Timezone is not a list of time zones but a historical data of all time zone changes since 1970.
 
 console.log(new Date()) = Thu Jan 11 2024 14:58:28 GMT+0530 (India Standard Time)
 
@@ -32,7 +33,7 @@ So when we request for new Date(86400000), it means 01 Jan 1970 + 86400000 milli
 To get a date before 01 Jan 1970, we have to give -ve milliseconds.
 new Date(-100000000000) = Mon Oct 31 1966 19:43:20 GMT+0530 (India Standard Time)
 
-More readable format
+More readable formats 
 new Date().toDateString() = Thu Jan 11 2024
 
 UTC (Universal Time Coordinated) standard date
@@ -110,6 +111,97 @@ manipulating and displaying date/time becomes easy when using js library MomentJ
 
 MOMENT JS =
 To start using moment js we first have to include it's script or download npm when using nodejs.
+MomentJS is quite heavy library for it's function. If someone is working on performance sensitive
+web application, it might cause huge performance issues bcoz it's complex APIs and large bundle
+size. That's why project is in maintainance mode and there should be no new feature development.
 
 <script type = "text/JavaScript" src = "https://momentjs.com/downloads/moment.min.js"></script>
 
+console.log(moment()) (Current date)
+Output = Fri Jan 12 2024 10:10:43 GMT+0530
+
+console.log(moment(new Date(2018,10,08))) (Date creation 1)
+Output = Thu Nov 08 2018 00:00:00 GMT+0530 
+
+console.log(moment('2020-01-02', 'YYYY-DD-MM')) (Date creation 2)
+Output = Sat Feb 01 2020 00:00:00 GMT+0530
+
+console.log(moment().hours()) (Getting current hours)
+Output = 17
+
+conosle.log(moment().format(DD-MM-YYYY)) (Date in a specific format)
+Output = 11-01-2024
+
+Date validation is also simplified in momentjs
+console.log(moment('2020-02-01', 'YYYY-MM-DD').isValid())
+Output = true
+
+console.log(moment('abcd', 'YYYY-MM-DD').isValid())
+Output = false
+
+But this will return true even for partial dates
+console.log(moment("2019 was a great year because I got married", 'YYYY-MM-DD').isValid())
+Output = true
+
+But we can avoid this also, by passing momentjs into strict mode
+console.log(moment("2019 was a great year because I got married", 'YYYY-MM-DD', true).isValid())
+Output = false
+
+Time From Now =
+Past date 
+console.log(moment('2024-01-02', 'YYYY-MM-DD').fromNow())
+Output = 10 days ago
+
+Future date
+console.log(moment('2024-01-02', 'YYYY-DD-MM').fromNow()) 
+Output = in 20 days
+
+Comparing dates
+console.log(moment('01-01-1900', 'DD-MM-YYYY').from(moment('01-01-2000', 'DD-MM-YYYY')))
+Output = 100 years ago
+
+There are different formats available in momentjs, which we can access using
+moment().format('L')
+moment().format('l')
+moment().format('LL')
+moment().format('ll')
+moment().format('LLL')
+moment().format('lll')
+moment().format('LLLL')
+moment().format('llll')
+
+moment().format('dddd') = Friday
+moment().format(''MMM Do YY'') = Jan 12th 24
+
+Adding/subtract to current date
+moment().add(1, 'day')              = Sat Jan 13 2024 10:00:05 GMT+0530
+moment().subtract(1, 'month')       = Tue Dec 12 2023 10:01:07 GMT+0530
+
+Difference b/w dates = 
+console.log(moment('01-01-2010', 'DD-MM-YYYY').diff(moment('01-01-2000', 'DD-MM-YYYY')))
+Output = 315619200000
+
+console.log(moment('01-01-2010', 'DD-MM-YYYY').diff(moment('01-01-2000', 'DD-MM-YYYY'), 'years'))
+Output = 10
+
+Date queries =
+console.log(moment('2020-01-01').isAfter('2019-01-01')) (isAfter, isBefore, isSame)
+Output = true
+
+console.log(moment([2020]).isLeapYear())
+Output = true
+
+By default momentjs also gives time according to user's timezone.
+To get time from a different time zone, we have to load their timezone script = 
+
+<script type='text/JavaScript' src='https://momentjs.com/downloads/moment-timezone-with-data.js'></script> 
+
+console.log(moment().tz("America/Los_Angeles").format('DD-MM-YYYY'));
+Output = 11-01-2024  (CUrrent date is 12-01-2024)
+
+Parsing in zone = 
+console.log(moment.tz("May 12th 2014 8PM", "MMM Do YYYY hA", "America/Toronto"))
+Output = Returns an object
+Object { _isAMomentObject: true, _i: "May 12th 2014 8PM", _f: "MMM Do YYYY hA",
+ _isUTC: true, _pf: {…}, _locale: {…}, _a: (7) […], _d: Date Tue May 13 2014 01:30:00 GMT+0530
+  (India Standard Time), _isValid: true, _z: {…}, … }
