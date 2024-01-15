@@ -1,0 +1,31 @@
+Enum is a special class that represents a group of constants.
+Enums is of 2 types string and number.
+
+Numeric enums (This is default) =
+By default first value in enum is 0 and just like index increment by 1.
+
+- enum list {one, two, three, four};
+console.log(list.three);
+2
+
+- Initialized numeric enums
+We can set value of first numeric enum and it will auto increment from there.
+enum list {one = 1, two, three, four};
+console.log(list.three);
+3
+
+- Fully initialized numeric enums
+We can also assign unique number values to each enum value. These will not increment automatically.
+enum list {one=22, two=11, three=932, four=0};
+console.log(list.three);
+932
+
+String enums =
+Enums can also contain strings and these are more commonly used then numeric enums, because of it's
+better readibility and intent.
+
+enum list {one='ok', two='hello', three='bye', four='new'};
+console.log(list.three);
+bye
+
+We can mix both numeric and string enums, but it's not recommended.

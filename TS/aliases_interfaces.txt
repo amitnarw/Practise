@@ -1,0 +1,61 @@
+We can define types seperatly and then use them on whichever variable we want.
+Aliases and interfaces allows types to be shared b/w variables/objects.
+
+Type aliases =
+This allow types to be defined with custom name called alias. This can be used for both primitive
+as well as on complex types.
+
+type numType = number
+type stType = string
+type booType = boolean
+type listType = {
+    name: stType,
+    age: numType,
+    married: boolean
+}
+
+const per1Name: stType = 'demo'
+const per1Age: numType = 40
+const per1Married: booType = true
+const list: listType = {
+    name: per1Name,
+    age: per1Age,
+    married: per1Married
+}
+console.log(list.age);
+40
+
+Type interfaces =
+- These are similar to alias except these are only applicable on objects.
+
+interface listType {
+    name: string,
+    age: number
+}
+
+const list: listType = {
+    name: 'demo',
+    age: 40
+}
+console.log(list.age);
+40
+
+- Extending interfaces
+Interface can extend each other definition.
+
+interface listType {
+    name: string,
+    age: number
+}
+
+interface listType2 extends listType {
+    married: boolean
+}
+
+const list: listType2 = {
+    name: 'demo',
+    age: 40,
+    married: true
+}
+console.log(list.age);
+40

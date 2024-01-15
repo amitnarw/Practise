@@ -1,0 +1,38 @@
+Ts for arrays =
+For arrays ts has a specific syntax.
+
+- const arr: string[] = [];
+arr.push(22) = This will give an error, bcoz number cannot be pushed in string type array.
+
+- Readonly
+This will prevent an array from being changed.
+const arr: readonly string[] = [];
+arr.push('new') (Will throw an error here, bcoz we can't add anything in readonly)
+
+- Type inference
+If an array already have values, ts can infer it's type of data.
+const arr = []
+arr.push(22)
+console.log(typeof arr[0]) = number
+
+Tuple =
+It is a typed array with predefined lenght and type for each index. useState in react is also tuple.
+let tup: [string, number, boolean];
+tup = ['new', 22, true];
+
+If we rearrange it's types and values in wrong order, it will thorw an error.
+let tup: [string, number, boolean];
+tup = [22, 'new', true];
+
+- Readonly tuple
+It is good practise to make tuple readonly.
+let tup: readonly [string, number, boolean];
+tup = ['new', 22, true];
+
+- Named tuple
+This will provide context for values at each index.
+const tup: [x:number, y:number] = [22, 01]
+
+- Destructuring tuple
+let tup: [number, number] = [22, 1]
+let [x, y] = tup;

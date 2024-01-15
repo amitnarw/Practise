@@ -1,0 +1,15 @@
+Union types are used when more then 1 type is used. We have to use | b/w parameters.
+
+function name(val: string|number){
+    console.log(val);
+}
+
+name(20) = 20
+name('demo') = demo
+
+- Errors in union type
+function namE(val: string|number){
+    console.log(val.toUpperCase());
+}
+Here it will show error, because both types should have this function. Here we can't use toUpperCase()
+on a number.

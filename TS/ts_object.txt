@@ -1,0 +1,26 @@
+Ts Object types =
+
+const obj: {name:string, dob:number, married:boolean} = {name:'demo', dob:12-12-2020, married:true}
+
+- Infer
+const obj = {name:'demo'}
+
+- Optional properties
+We have give value to every property, or else it will give error.
+const obj: {name:string, dob:number, married:boolean} = {name:'demo', dob:12-12-2020}
+Error: 'married' is missing in type.
+
+To solve this we can make this property optional by using ? at the end of property name.
+const obj: {name:string, dob:number, married?:boolean} = {name:'demo', dob:12-12-2020}
+No error now.
+
+- Index signatures
+Objects without defined properties.
+const obj: {[index: string]: number} = {}
+obj.score = 50;
+console.log(obj.score)
+50
+
+obj.name = '50';
+Error: Type string is not assignable to type number.
+

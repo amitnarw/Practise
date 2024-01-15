@@ -1,0 +1,55 @@
+TypeScript = JavaScript + type syntax
+Syntactical superset of js, which adds static typing.
+Js is llosly typed language, so it can be difficult to understand what types of data are being
+passed around. Like in a function parameter and variable. 
+Ts specify type of data being passed around and can report error if types don't match.
+In js if we pass a string in place of number, no error will be reported, but in ts error will be reported.
+Ts uses compile time type checking, so it checks specified type before running code and not while code
+is running. Ts converts into js, meaning ts can be run where js is running.
+
+To use typescript we first have to install it. 
+npm install -g typescript
+We can check our install by
+tsc --version
+To run ts
+tsc fileName
+This will create a .js file. Now we have to run this .js file.
+node fileName
+We also have to make a tsconfig.json file, to use ts in vscode. Then press ctrl+space to fill this file
+with prefilled info, which will be used to run ts.
+In js file, types will be removed and let will be converted into var.
+
+Commonly used primitive in ts = boolean, number and string
+Less used primitive in ts = bigint, symbol
+
+Type assignment =
+- Explicit = Writing the type. Easier to read and more intentional.
+let name: string = 'demo';
+
+- Implicit = TypeScript will guess the type, based on the assigned value. When typescript guess the type,
+it's called infer. These are short, faster to type and often used when developing and testing.
+let name = 'demo';
+
+Ts may not infer properly everytime, in those cases it will set type to any, which disabled type 
+checking. 
+let val = JSON.parse('22');
+console.log(typeof val);
+tsc fileName (This will create a .js file)
+node fileName (This will run .js file)
+
+Ts special types = These may not refer to any specific type of data.
+- any 
+This will disable type checking and will allow all types to be used.
+But ts will not able to give any type safety and tools which rely on type data will not work.
+So it should be avoided.
+
+- unknown
+Ts will prevent using unknown types. This is an safer alternative to any. This is used when we don't
+know the type of data. To add a type later we have to cast it, meaning have to use 'as' keyword for
+casting.
+
+- never
+Throws an error whenever a type is defined by this.
+
+- undefined and null
+Not have much use, unless strictNullChecks is used. typeof undefined is undefined and of null is object.

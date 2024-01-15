@@ -1,0 +1,26 @@
+Sometimes when working with types we have to override the type of variable, like when wrong type is
+provided by a library. This overriding is called casting.
+
+- Casting with as
+let x: unknown = 'demo';
+console.log((x as string).length);
+4
+
+This doesn't change the type of the data within the varibale.
+let x: unknown = 20;
+console.log((x as string).length);
+undefined
+
+Also if we try to run this, it will give us an error. So ts here is preventing casting
+console.log((4 as string).length);
+
+- Casting with <>
+This also works the same way. But this will not work with TSX (react files).
+console.log((<string>x).length);
+4
+
+- Force casting
+To override type errors that ts may throw when casting, we have to force cast.
+let x = 20;
+console.log(((x as unknown) as string).length); 
+undefined

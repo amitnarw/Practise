@@ -1,0 +1,65 @@
+Ts have special syntax for type in function parameters and return values.
+
+- Type of return
+function abc(): number {
+    return 20;
+}
+console.log(abc());
+20
+
+If no type is defined, then ts will infer using returned value.
+
+- void return type
+function abc(): void {
+    return 'demo';
+}
+console.log(abc());
+This will throw an error, because we have used void in type and void means we are not returning anything.
+
+- Type of parameters
+Just like varibale declaration
+
+function abc(a:number, b:string){
+    return a+' '+b;
+}
+console.log(abc(20, 'demo'));
+20 demo
+
+If no type is defined, then ts will use any by default.
+
+- Optional parameters
+By default ts assumes all parameters are needed.
+function abc(a:number, b?:string){
+    return a;
+}
+But if we use ? after variable, then it will be treated as optional.
+
+- Default parameters
+We can also set default values to the parameters.
+function abc(a:number, b:string = 'dd'){
+    return a+' '+b;
+}
+Ts will also infer from this default value if needed.
+
+- Named parameters
+function abc({x, y}: {x:number, y:string}){
+    return x+' '+y;
+}
+console.log(abc({x:20, y:'demo'}));
+
+- Rest parameters
+Their type is defined like normal parameters, but the type must be an array because rest parameters are
+always arrays.
+function abc(a:number, b:string, ...rest: number[]) {
+    return a + b + rest.reduce((total, item)=>total+item);
+}
+console.log(abc(1,'demo',20,30,10,50));
+1demo110
+
+- Type alias
+Type in a function can be specified separately with type alias. These types have to be written like
+arrow functions.
+type fnType = (val: number) => number;
+const fn: fnType = (val) => val+1;
+console.log(fn(20));
+21
