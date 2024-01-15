@@ -23,7 +23,78 @@ older computers use 16 bit for resolution and newer use 24 to 32 bit
 
 Window location = 
 Use to get current page url and to open a new url. Can be written without window keyword
-location.href       = https://www.w3schools.com/js/tryit.asp
-location.hostname   = www.w3schools.com
-location.pathname   = /js/tryit.asp
-location.protocol   = https:
+location.href           = https://www.w3schools.com/js/tryit.asp
+location.hostname       = www.w3schools.com
+location.pathname       = /js/tryit.asp
+location.protocol       = https:
+location.port           = Most browser will show nothing, if port number is default (http = 80, https = 443)
+location.assign('url')  = Loads a new document
+
+Window History =
+window.history contains browsers history. To protect user's privacy there is a limitation of how
+js can access this object.
+history.back() = same as clicking back in the browser
+history.forward = same as clicking forward in the browser
+history.lenght = number of overall session history
+history.go() = reloads the current page
+if we put a value in history.go(number), it will try to go forward or back according to it.
+If number is out of range then do nothing.
+history.pushState(state, unused, url) = adds new entry to the browser's session history stack/list.
+Whenever history is changed, to monitor alteration to the history of the browser.
+
+Navigator = (no need to write window as prefix)
+- navigator.cookieEnabled = If enabled returns true else false
+- navigator.userAgent = returns user agent header sent by browser
+- navigator.platform = returns OS
+- navigator.language = returns browser's language
+- navigator.onLine = returns true if browser online else false
+- navigator.javaEnabled() = returns true if enabled else false
+
+Popup alert = (No need to write window keyword as prefix)
+- alert('Hi') = alert box Popup
+- confirm('Press button to check') = confirm box to verify user action. Returns true if OK pressed else false
+- prompt('text', defaultValue) = If we want user to input a value. OK pressed will return input value else null
+We can use \n in popup box to break line
+
+Timing events = (No need to write window keyword as prefix)
+- setTimeout(function, milliseconds) = execute a function only once after specified milliseconds
+We can use clearTimeout() to stop setTimeout execution
+ex = const nn = setTimeout(function, milliseconds)
+clearTimeout(nn)
+- setInterval(function, milliseconds) = execute function again and again after every milliseconds intervals
+We can use clearInterval to stop setInterval execution (working is same as clearTimeout)
+
+- Js cookies =
+We can store user information in cookies. Cookies are data which is stored in small text files,
+on our computer.
+When a we server sent a data to the user, it forgets everything about the user. To solve this cookies 
+were made. When a user visit a page for the first time, user name is stored in cookies and cookie remeber
+user name everytime user visit the page again.
+ex: username = demo
+Whenever browser request page from the server, cookies related to that page will be added to the request.
+
+Creating a cookie
+- document.cookie = 'username=demo';
+We can also add expiry date in UTC to the cookie, so that cookie deleted by that time. By default cookie
+is deleted when browser is closed.
+- document.cookie = 'username=demo; expires=Thu, 18 Jan 2024 12:00:00 UTC';
+We can also tell cookie that which path it belongs to. By default, cookie belong to current page
+- document.cookie = 'username=demo; path = /';
+
+Reading a cookie
+- const data = document.cookie (all cookies will be returned in data like cookie1=value; cookie2=value2);
+We have to decode a cookie t read it properly.
+
+Change/edit a cookie (same way like we created one)
+
+Deleting a cookie
+To delete we have to specify time in UTC. We also have to specify path to which this cookie belongs to, else
+in some browsers it won't be deleted.
+
+
+
+
+
+
+
+
