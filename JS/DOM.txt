@@ -1,0 +1,355 @@
+With Html DOM (Document Object Model), js can access and edit all the elements of HTML document.
+When a web page is loaded, browser creates a DOM of the page as a tree of objects.
+
+                                Document
+                                    |   
+                            Root element <html>
+                                    |
+                     ----------------------------------
+                     |                                |
+                Element <head>                  Element <body>
+                     |                                |
+                Element <title>             ---------------------
+                     |                      |                   |
+                 Text 'myTitle'         Element <a>         Element <h1>
+
+Js with Object model can do anything in HTML. It can create, read, update and delete anything dynamically.
+We can even react to and create new events of HTML page. Like mouse click, keyboard click, hove, etc.
+
+HTML DOM have methods and properties.
+Using properties we can set or change values, using methods we can perform actions.
+
+document.getElementById = method
+innerText, innerHTML = properties
+
+Finding HTML elements (methods) =
+- document.getElementById
+- document.getElementsByTagName
+- document.getElementsByClassName
+
+Changing HTML elements =
+Properties 
+- innerHTML = Change HTML of the element
+- innerText = Only change the text of the element
+- .attribute = Change the attribute value of th element
+- .style.property = To change the style of HTML element
+
+Method
+.setAttribute(attribute, value) = Change the attribute value of the element
+
+Adding/deleting elements (methods) = 
+- document.createElement(element) = Create HTML element
+- document.removeChild(element) = Remove HTML element
+- document.appendChild(element) = Add HTML element
+- document.replaceChild(new, old) = Replacing HTML element
+- document.write(text) = write into HTML output stream (replace/overwrite on everything before)
+
+Adding event handlers = 
+document.getElementById(id).onclick = function() (Adding a function on click event of element with id)
+
+Finding HTML objects =
+We can find any thing from HTML elements using document.elementType
+ex = document.body, document.cookie, document.forms, document.images, document.title, etc.
+
+We can find an element using id, class, tag, css selectors, HTML object collection.
+document.getElementById(id) (using id)
+document.getElementsByClassName (using class name)
+document.getElementsByTagName (using tag name)
+document.querySelectorAll(cssSelector) (using css selectors like p.intro. Returns all <p> elements with class 'intro')
+document.HTMLobject (using HTML object collection. Like document.forms will return all values of a form)
+
+Changing value of attribute =
+
+<img id='newImg' src='oldImage.jpg'>
+
+document.getElementById('newImg').src = 'newImage.jpg'
+
+Here src is attribute of <img> element.
+
+DOM FORMS =
+
+- Form validation (empty values)
+
+<form id='form1' action='next-page.html' onsubmit='return validation()'>
+Name: <input type='text' name='fname'>
+<input type='submit' value='submit'>
+</form>
+
+<script>
+function validation(){
+    if (document.forms['form1']['fname'].value == ''){
+        alert('Please fill your name');
+        return false;
+    }
+}
+</script>
+
+- Form validation (invalid values)
+
+Write a number b/w 1 and 10: <input type='text' id='num'>
+<button onclick='fn()'>Submit</button>
+
+<script>
+function fn(){
+    let x = document.getElementById('num').value;
+
+    if (isNaN(x) || x> 10 || x<1){
+        alert('Invalid number')
+    } else {
+        alert(x)
+    }
+}
+</script>
+
+- Automatic form valdation =
+<form>
+<input type='text' required>
+<input type='submit'>
+</form>
+
+Using 'required' keyword in text input, will make sure that the input is not empty.
+
+- Data validation =
+Client side validation is when web browser validate data before sending data to the server.
+Server side valdation is when web server validate data after data is sent to the server.
+
+Constraint validation =
+Based on HTML input attributes, css pseudo selectors and DOM properties and methods.
+
+1. HTML input attributes =
+
+- autocomplete (This will allow browser to predict value which user is typing)
+<input type='text' autocomplete='off'>
+We can set this in form also, to apply it on all input fields
+
+- autofocus (Input field automatically gets focused on page load)
+<input type='text' autofocus>
+
+- value (Gives initial value for an input)
+<input type='text' value='vv'>
+
+- readonly (User cannot modify this input, only highlight and copy it)
+<input type='text' readonly>
+
+- disabled (Input will be unusable and unclickable and it's value is not submitted when submitting form)
+<input type='text' disabled>
+
+- height and width (Height and width of image input type)
+<input type='text' height=20 width=18>
+
+- list (Works on datalist element, which suggest options available in datalist)
+<input type='text' list='datalistName'>
+
+- size (Set a size/width for input field)
+<input type='text' size='20'>
+
+- maxlength (Specify max number of characters allowed in input filed)
+<input type='text' maxlength=5>
+
+- min and max (Minimum and maximum values for an input field)
+<input type='number' min=2 max=10>
+
+- multiple (User allowed to enter more then 1 value. Works for email and file)
+<input type='file' multiple>
+
+- pattern (A regular expression which will be checked on submiting the form)
+[abc] = do expression for only a, b and c
+[^a] = do expression for characters that are not a
+[a-d] = do expression for characters from a to d
+[1-10] = do expression for characters from 1 to 10
+[^4-7] = do expression for numbers that are not b/w 4-7
+(a|b) = do expression for a OR b
+n+ = do expression for atleast 1 n (Hello, nice Nun) = n,n (case sensitive)
+n{X} = any string that contains a sequence of X n's 
+ex = '100, 1000, 10000'/\d{4}/ = 1000(first sequence of 4 digits)
+'100, 1000, 10000'/\d{4}/g = 1000, 10000(all sequence of 4 digits)
+'100, 1000, 10000'/0{4}/g = 10000(all sequence of 4 0)
+n{X,Y} = any string that contains a sequence of X to Y n's 
+
+Example = 
+<input type='text' pattern='[A-Za-z]{3}'>
+Here capital or small, 3 characters from a-z are allowed.
+
+- placeholder (Hint)
+<input type='text' placeholder='Name'>
+
+- required (Input field must be field out before submiting the form)
+<input type='text' required>
+
+- step (Number intervals allowed for input field)
+<input type='text' step=3>
+Here values can be 0 or multiple of 3
+
+
+2. HTML input form attributes =
+
+- form (Specify the input elements belongs to which form)
+<form id='fm1'>
+<input type='text' name='fname'>
+</form>
+<input type='email' name='email' form='fm1'>
+
+- formaction (Specify the file/url which will open after form submition. This will override original action)
+<form action='new.html'>
+<input type='text'>
+<button formaction='new2.html'>Submit</button>
+</form>
+
+- formmethod (Specify method which will be used on submiting the form. Override original method)
+<form action='new.html' method='get'>
+<input type='text'>
+<button formmethod='method'>Submit</button>
+</form>
+
+- formtarget (Specify where to display response that is received after form submition. Also overrides)
+<form>
+<input type='text'>
+<button formtarget='_blank'>Submit</button>
+</form>
+
+- formnovalidate (Input element should not be validated on submition)
+<form>
+<input type='text' required>
+<button formnovalidate='formnovalidate'>Submit</button>
+</form>
+
+Can also use it in form =
+<form novalidate>
+<input type='text' required>
+<button>Submit</button>
+</form>
+
+PSEUDO CLASSESS = 
+Define a special state of an element.
+
+selector:pseudo-class{
+    property: value;
+}
+
+Like style an element when we put mouse over it, style an element on focus, site visited or unvisited links.
+
+- :first-child = 
+First child of any element
+
+ex1 = 
+<style>
+p:first-style{
+    color: red;
+}
+</style>
+
+<p>This is one</p> (This will be effected)
+<p>This is two</p>
+
+<div>
+<p>This is three</p> (This will be effected)
+<p>This is four</p>
+</div>
+
+ex2 =
+<style>
+q:lang(new){
+    quotes: '~' '~';
+}
+</style>
+
+<p>Demo text with <q lang='new'>quotes</q>.</p>
+
+Output = Demo text with ~quotes~.
+
+DOM CHANGING HTML STYLE = 
+
+document.getElementById('id').style.property = new style;
+
+Using events = 
+Execute a code when an event happens. Like element clicked, page loaded, inout field changed, etc.
+
+- In this example oninput is used in input type text. On every input function will run =
+<input type='text' id='one' oninput='fn()'>
+
+function fn(){
+    let x = document.getElementById('one');
+    x.value = x.value.toUpperCase();
+}
+
+- onchange() = event will work when user changed the focus of the input text type.
+- onmouseover() = when user mouses over the element
+- onmouseout() = mouses out of the element
+- onclick() = onmousedown() + onmouseup() (mousedown means clicked, and up means when mouse button is released)
+- onload() = page has finished toLocaleDateString
+- onfocus() = when input gets focused
+
+DOM EVENT LISTNER = 
+
+- addEventListner() 
+Attaches event handler to specified element without overwriting existing even handlers.
+We can also remove event listener by using removeEventListener()
+
+element.addEventListner(event, function, useCapture)
+event is like click, mousedown, etc
+useCapture is a boolean value. True means use event capture or else event bubbling.
+
+We can add as many event handler we want to a single element.
+We can add same function on differnet event
+element.addEventListner('click', fn())
+element.addEventListner('mouseover', fn())
+
+or different function on same event
+element.addEventListner('click', fn())
+element.addEventListner('click', fn1())
+
+- Event propagation (bubbling or capturing) is a way of defining the element order when an event happens.
+In bubbling innermost element's event handled first and then the outer.
+In capturing outer most then the inner.
+
+NODES = 
+Everything in HTML DOM is a node.
+Entire document is document node.
+Every HTML element is an element node.
+Text inside HTML element is text node.
+All comments are comment node.
+
+- Node relationship = nodes in node tree have hierarchical relationship to each other.
+Terms parent, child sibling are used to describe the relationship.
+
+On top is called root or root node. Every node has exactly one parent except root node which has no parent.
+A node can have a number of children. Siblings are nodes with same parent.
+
+- Element node doesn't contain text, but contain text nodes, which contains text.
+And to access text from text nodes we can use innerHTML, innerText, etc.
+
+document.getElementById('demo').innerText is same as document.getElementById('demo').firstChild.nodeValue
+or we can also access firstChild by childNodes[0].nodeValue
+
+- DOM root nodes
+There are 2 special properties that allow us to access the full document.
+1. document.body
+2. document.documentElement
+
+- nodeName property specifies the name of a node. It is read only and it's same as tag name.
+nodeName of a text is always #text and of a document is always #document.
+nodeName always contain uppercase tag name of an HTML element.
+
+- nodeValue specifies value of a node.
+For an element it's null. For text nodes, it's text itself and for attribute nodes it's attribut itself.
+
+-nodeType is readonly.
+
+CREATING NEW HTML ELEMENTS NODES = 
+- First create an element node, then text node. Then append text node to the element node.
+In last append element to the div.
+
+const one = document.createElement('p');
+const two = document.createTextNode('Hello');
+one.appendChild(two);
+
+const three = document.getElementById('div1');
+const four = document.getElementById('p1');
+
+three.appendChild(one);         (This will insert element 'one' at the end of div1)
+three.insertBefore(one, four);  (This will insert element 'one' before element four)
+four.remove()                   (This will remove element four, but this may not work in some browsers)
+three.removeChild(four)         (This will remove element four)
+three.replaceChild(one, four)   (This will replace four element with element one)
+
+

@@ -1,0 +1,29 @@
+Brwoser Object Model (BOM) allows js to interact with browser.
+document (of HTML DOM) is also a property of window object.
+window.document.write = document.write
+
+- window.innerHeight = inner height of the browser window in px.
+- window.innerWidth = inner width of the browser window in px.
+This does not include toolbars and scrollbars.
+
+- window.open('uuu') = open a new window in new tab with url 'uuu'
+window.open('', '', "width=400, height=200") = open a new window in new tab, behaves like _target.
+- window.close() = will close the window
+- window.moveTo() = move the current window to a new place
+- window.resizeTo(width, height) = resize the current window
+
+window.screen object can be written without window keyword
+- screen.height
+- screen.width
+- screen.availWidth
+- screen.availHeight
+- screen.colorDepth = returns number of bits to display one color
+older computers use 16 bit for resolution and newer use 24 to 32 bit
+
+
+Window location = 
+Use to get current page url and to open a new url. Can be written without window keyword
+location.href       = https://www.w3schools.com/js/tryit.asp
+location.hostname   = www.w3schools.com
+location.pathname   = /js/tryit.asp
+location.protocol   = https:
