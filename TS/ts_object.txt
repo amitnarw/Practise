@@ -1,5 +1,8 @@
 Ts Object types =
 
+const obj: object = {name: 'demo', age: 40} (Here we assign obj type as object. But ts will think it as
+empty object. So we can't use any of it's values.)
+Above example will behaves like const obj ={}
 const obj: {name:string, dob:number, married:boolean} = {name:'demo', dob:12-12-2020, married:true}
 
 - Infer

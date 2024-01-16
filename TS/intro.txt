@@ -1,11 +1,12 @@
 TypeScript = JavaScript + type syntax
-Syntactical superset of js, which adds static typing.
-Js is llosly typed language, so it can be difficult to understand what types of data are being
+Syntactical superset of js, which adds static typing. Ts is enhanced version of Js.
+Js is loosly typed language, so it can be difficult to understand what types of data are being
 passed around. Like in a function parameter and variable. 
 Ts specify type of data being passed around and can report error if types don't match.
 In js if we pass a string in place of number, no error will be reported, but in ts error will be reported.
 Ts uses compile time type checking, so it checks specified type before running code and not while code
 is running. Ts converts into js, meaning ts can be run where js is running.
+Ts is made by Microsoft.
 
 To use typescript we first have to install it. 
 npm install -g typescript
@@ -46,10 +47,31 @@ So it should be avoided.
 - unknown
 Ts will prevent using unknown types. This is an safer alternative to any. This is used when we don't
 know the type of data. To add a type later we have to cast it, meaning have to use 'as' keyword for
-casting.
+casting. Ts powers are used here as compare to any where it is not.
 
 - never
-Throws an error whenever a type is defined by this.
+Throws an error whenever a type is defined by this. Used in showing errors.
+function error(msg,code){
+    throw {msg, code}
+}
+console.log(error('error', 500))
+By default this function have void type and this will work in void type also. But to maintain standard
+we use never here.
+function error(msg, code):never{
+        throw {msg, code}
+}
+console.log(error('error', 500))
 
 - undefined and null
 Not have much use, unless strictNullChecks is used. typeof undefined is undefined and of null is object.
+
+- let val = 10   (here ts will automatically assume the type of val is number)
+- const val = 10 (here ts will automatically assume the type of val is 10, bcoz we can't change const value)
+We can also assign digit as a type of any variable.
+- let val:5 = 5  (But we can only assign 5 in value here, any other value will give error)
+
+- If we want to compile ( make changes in js file from ts file) multiple files, then we can use 
+tsc -w
+OR
+tsc --watch
+But before this we have to generate config file (using tsc init)

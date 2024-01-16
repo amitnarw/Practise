@@ -2,6 +2,9 @@ Ts for arrays =
 For arrays ts has a specific syntax.
 
 - const arr: string[] = [];
+If we try to assign strings to an array like this
+const arr: string = []
+it will give error
 arr.push(22) = This will give an error, bcoz number cannot be pushed in string type array.
 
 - Readonly
@@ -16,16 +19,18 @@ arr.push(22)
 console.log(typeof arr[0]) = number
 
 Tuple =
-It is a typed array with predefined lenght and type for each index. useState in react is also tuple.
+It is a typed array with predefined length and type for each index. useState in react is also tuple.
 let tup: [string, number, boolean];
 tup = ['new', 22, true];
+(This is not recommended when we have more values in an array. In that case we can use type any, or
+leave it so that ts can infer it's type.)
 
-If we rearrange it's types and values in wrong order, it will thorw an error.
+If we rearrange it's types and values in wrong order, it will throw an error.
 let tup: [string, number, boolean];
 tup = [22, 'new', true];
 
 - Readonly tuple
-It is good practise to make tuple readonly.
+It is good practice to make tuple readonly.
 let tup: readonly [string, number, boolean];
 tup = ['new', 22, true];
 

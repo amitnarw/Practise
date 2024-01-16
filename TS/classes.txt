@@ -1,0 +1,93 @@
+Ts adds types and visibility modifiers to js classes.
+
+- Members types =
+Properties and methods of a class are typed similar to variables.
+
+class cls {
+    name: string;
+}
+
+- Members visibility =
+Class members are given special modifiers which effect visibility.
+There are 3 main visibilities in ts
+1. public (default) = allow access to class members from any where
+2. private = only allow access to class members within the class
+3. protected = only allow access in their class or subclass
+
+class Person {
+  private name: string;
+  public constructor(name: string){
+  this.name = name;
+  }
+  public getName(): string {
+  return this.name;
+  }
+}
+      
+const person = new Person("Jane");
+
+console.log(person.getName()); (This is accessible so gives no error, because it's public)
+console.log(person.name);      (This is not accessible so gives error, because it's private)
+
+- Parameter properties =
+We can also add visibility modifiers to the parameter of a class member in the constructor.
+public constructor(private name: string)
+So no need to define name as private.
+
+- Readonly 
+private readonly name: string;
+This will prevent class members from being changed.
+Read-only properties may have initializers 
+and may be assigned to in constructors within the same class declaration, but otherwise assignments 
+to read-only properties are disallowed.
+
+- Inheritance: implements
+Interface is used to define type a class must follow through implements keyword.
+
+interface Ty {
+  getName: () => string;
+}
+
+class Info implements Ty {
+  public constructor(protected firstName: string, protected lastName: string) {}
+
+  public getName(): string {
+      return this.firstName +' '+ this.lastName;
+  }
+}
+
+const val = new Info('demo', 'text');
+
+console.log(val.getName());
+demo text
+
+- Inheritance: extends
+Classes can extend each other using keyword extends. A class can only extends one other class.
+interface Ty {
+  getName: () => string;
+}
+
+class Info implements Ty {
+  public constructor (protected firstName: string, protected lastName: string) {}
+
+  public getName(): string {
+      return this.firstName+' '+this.lastName;
+  }
+}
+
+class Fname extends Info {
+  public constructor(firstName: string){
+      super(firstName, firstName);
+  }
+}
+
+const val = new Fname('dem');
+console.log(val.getName());
+dem dem
+
+- Override =
+When a class extends another class, it can replace members of a parent class with same name.
+To stop this we can use override keyword.
+By default override keyword is optional when overriding a method, because it prevents accidental 
+overriding methods that does not exist. We have to use setting noImplicitOverride to force it
+to be used when overriding.

@@ -1,0 +1,58 @@
+- We can also exclude some files, which we don't want to execute. (We have to use double quotes in tsconfig)
+We can do this by adding these files/folder names in tsconfig file in an array named exclude.
+"exclude": ["fileName.ts", "folderName"]
+If we want to exclude a file which is in a folder = "src/fileName.ts"
+If we want to exclude a file which is present in different folder/places but have same name = "*/fileName.ts"
+
+- We can also include some files/folder, which we want to execute.
+"include": ["fileName.ts", "folderName"]
+
+- In tsconfig file under compilerOptions we can choose target, using which we can tell ts to compile
+my ts file to js using specified ECMA script. Older ones will use var instead of let, const but newer
+ones will use let and const. Older one uses older rules and newer one uses newer rules.
+
+- By default, whenever js files are complied they are created in the same directory on top of the ts file.
+But if we want to place these js files in a specified folder then we can do that by using "outDir":
+option which is available in tsconfig.json file.
+"outDir": "./result"
+
+- By default, tsc will compile all ts files to js files. But we can tell tsc to compile only from a particular
+folder using "rootDir": option available in tsconfig.json file.
+"rootDir": "./src"
+
+- If we have comments in our ts files and we don't want them in our js file then we can use "removeComments"
+option.
+"removeComments": true
+
+- Code quality improvements =
+Small things which we left but didn't bother to remove or check. This is not a good practice.
+These will not cause any error but code will not be improved. 
+If we use these options, these will give us warning so that we can remove them.
+
+1. noUnusedLocals
+function x(){
+    let y = 'new';
+    return true;
+}
+x();
+Here y is written but not used, so by using this "noUnusedLocals": true option, this will give us a 
+warning that y is not used, so remove it or use it.
+
+2. noUnusedParameters
+function x(val){
+    return true;
+}
+x('ok')
+Here we are not using parameter val, so it will tell us that if we use "noUnusedParameters": true.
+
+3. noImplicitReturns
+if (val===20){
+    return true;
+}else{
+    console.log('ok');
+}
+Here we are returning true in if but in else we are doing something entirely different. We have to return
+something from else also. "noImplicitReturns": true = this will tells us about that.
+
+4. noFallthroughCasesInSwitch
+Sometimes we forgot to use break in switch. "noFallthroughCasesInSwitch": true
