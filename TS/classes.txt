@@ -1,4 +1,26 @@
-Ts adds types and visibility modifiers to js classes.
+Class is user-defined type for a object. string, number, etc these are default types and not user-defined
+types. We can say that class is a blue print of object.
+Good practice = We can make a class with name Apple, this will still works but not a good practice.
+Because Apple is a subject not object.
+
+This is a simple class
+
+class Users{
+  name='';
+  age=''
+
+  addUser(user){
+    return this.user
+  }
+}
+
+let user1 = new Users;
+user1.addUser('demo');
+
+
+Ts adds types and visibility modifiers to js classes. It is good practice to use class name's first
+alphabet capital. Also whenever we create a new ts files and we want to create a new class in that file,
+then it is good practice to name both app and class same.
 
 - Members types =
 Properties and methods of a class are typed similar to variables.
@@ -8,12 +30,49 @@ class cls {
 }
 
 - Members visibility =
+Access modifiers is a OOPs (Object Oriented Programming) concept. Access modifiers define accessibility
+of functions and properties of a class. If we can use these outside a class or not.
 Class members are given special modifiers which effect visibility.
 There are 3 main visibilities in ts
-1. public (default) = allow access to class members from any where
+1. public (default) = allow access to class members from any where 
 2. private = only allow access to class members within the class
 3. protected = only allow access in their class or subclass
 
+ex1 =
+class Users {
+  name = '';
+
+  setName(name){
+    this.name = name;
+  }
+
+  getName(){
+    console.log(this.name)
+  }
+}
+
+const user1 = new Users;
+user1.setName('demo');
+user1.getName();
+
+Outside = demo
+
+But it is by default public, so we can do this also by mistake
+
+const user1 = new Users;
+user1.setName('demo');
+user1.name='ok'
+user1.getName(); 
+
+Output = ok (Because it is public and it can be modified globally. To prevent this we use private)
+
+  private name: string ; (Now if we try to do that again, it will give us an error.)
+
+Also if there is any function if made private, then it's only accessible inside the class not outside.
+So if we want to access it outside then what we can do is, call that function inside another function
+which is public and call this public function outside.
+
+ex2 =
 class Person {
   private name: string;
   public constructor(name: string){
@@ -29,6 +88,19 @@ const person = new Person("Jane");
 console.log(person.getName()); (This is accessible so gives no error, because it's public)
 console.log(person.name);      (This is not accessible so gives error, because it's private)
 
+- Constructor
+constructor is called everytime we made object of a class.
+So we can also assign values at this time. 
+Also we can use shorthand initialization in constructor.
+
+class Users{
+  constructor(public name, public age){}
+}
+
+const user1 = new User('demo', 40)
+
+Now we can use these object values anywhere inside class.
+
 - Parameter properties =
 We can also add visibility modifiers to the parameter of a class member in the constructor.
 public constructor(private name: string)
@@ -36,14 +108,55 @@ So no need to define name as private.
 
 - Readonly 
 private readonly name: string;
+
 This will prevent class members from being changed.
 Read-only properties may have initializers 
 and may be assigned to in constructors within the same class declaration, but otherwise assignments 
 to read-only properties are disallowed.
+Works properly when not using any constructor.
 
 - Inheritance: implements
 Interface is used to define type a class must follow through implements keyword.
 
+Suppose we are creating a signup process for normal users and employees also. Here there are some
+things which is common in both processes, like creating an email.
+So inheritance (using extends) just means using one function for both processes which is common.
+
+ex1 = 
+class Email{
+  createEmail(name){
+    return `${name}@email.com`
+  }
+}
+
+class Users extends Email{
+  addUser(user){
+    return user+' added as a user';
+  }
+}
+
+class Employees extends Email{
+  addEmployee(emp){
+    return emp+' added as an employee'
+  }
+}
+
+const user1 = new Users();
+console.log(user1.addUser('demo'));
+console.log(user1.createEmail('demo'));
+
+const epm1 = new Employees();
+console.log(epm1.addEmployee('dd'));
+console.log(epm1.createEmail('dd'));
+
+Output = 
+demo added as a user
+demo@email.com
+dd added as an employee
+dd@email.com
+
+
+ex2 =
 interface Ty {
   getName: () => string;
 }
@@ -91,3 +204,8 @@ To stop this we can use override keyword.
 By default override keyword is optional when overriding a method, because it prevents accidental 
 overriding methods that does not exist. We have to use setting noImplicitOverride to force it
 to be used when overriding.
+
+- Abstract classes
+Sometimes some classes also have something in common which we have to write for every class. Instead
+of writing them again and again we can make a single class only for these common things.
+As we know class is a blue print of object, just like that abstract class is a blue print of classes.

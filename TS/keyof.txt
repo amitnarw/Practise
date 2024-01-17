@@ -1,0 +1,23 @@
+This keyof keyword in ts is used to extract type of key from object.
+keyof takes object type and produces union of it's keys. 
+
+const User = {
+    name: 'demo',
+    age: 40,
+    email: 'demo@email.com',
+    isAdmin: true
+}
+
+type UserData = typeof User;
+This means =
+type UserData = {
+    name: string;
+    age: number;
+    email: string;
+    isAdmin: boolean
+}
+
+
+type UserData1 = keyof typeof User;
+This means =
+type UserData1 = "name" | "age" | "email" | "isAdmin"

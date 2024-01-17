@@ -1,0 +1,11 @@
+We can also define a type after we create a function or when we are calling our values.
+Using this we can define whatever type we want when assigning new values.
+Meaning we can control type like a function.
+
+function gen<T>(a:T, b:T){
+  return a;
+}
+
+console.log(gen<number>(1,2))               = 1
+console.log(gen<string>('new', 'old'))      = new
+console.log(gen<Array<number>>([2],[3]))    = [ 2 ]

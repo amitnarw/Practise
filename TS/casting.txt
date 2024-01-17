@@ -6,7 +6,7 @@ let x: unknown = 'demo';
 console.log((x as string).length);
 4
 
-This doesn't change the type of the data within the varibale.
+This doesn't change the type of the data within the variable.
 let x: unknown = 20;
 console.log((x as string).length);
 undefined

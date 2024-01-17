@@ -1,0 +1,31 @@
+Intersection means 'and', & is used to denote Intersection. It is use to join different types.
+
+type A = type B & type C
+
+Here type A will have both type B and C properties.
+
+interface Type1 {
+    name: string;
+    age: number
+}
+
+interface Type2 {
+    email: string;
+    password: string
+}
+
+interface Type3 {
+    phone: number;
+    address: string
+}
+
+type Employee = Type1 & Type2 & Type3
+
+let emp1: Employee = {
+    name: 'demo',
+    age: 40,
+    email: 'demo@email.com',
+    password: 'demo123',
+    phone: 1234567890,
+    address: 123, xyz dist, state 123456
+}

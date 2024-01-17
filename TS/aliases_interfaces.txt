@@ -1,4 +1,4 @@
-We can define types seperatly and then use them on whichever variable we want.
+We can define types separately and then use them on whichever variable we want.
 Aliases and interfaces allows types to be shared b/w variables/objects.
 
 Type aliases =

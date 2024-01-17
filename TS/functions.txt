@@ -17,7 +17,7 @@ console.log(abc());
 This will throw an error, because we have used void in type and void means we are not returning anything.
 
 - Type of parameters
-Just like varibale declaration
+Just like variable declaration
 
 function abc(a:number, b:string){
     return a+' '+b;

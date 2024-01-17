@@ -22,7 +22,7 @@ console.log(list.three);
 
 String enums =
 Enums can also contain strings and these are more commonly used then numeric enums, because of it's
-better readibility and intent.
+better readability and intent.
 
 enum list {one='ok', two='hello', three='bye', four='new'};
 console.log(list.three);

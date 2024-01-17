@@ -19,6 +19,8 @@ node fileName
 We also have to make a tsconfig.json file, to use ts in vscode. Then press ctrl+space to fill this file
 with prefilled info, which will be used to run ts.
 In js file, types will be removed and let will be converted into var.
+If we open both files(.ts and .js) at the same time, it will show some error. So it's better to open
+1 file at a time.
 
 Commonly used primitive in ts = boolean, number and string
 Less used primitive in ts = bigint, symbol
