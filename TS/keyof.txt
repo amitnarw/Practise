@@ -21,3 +21,6 @@ type UserData = {
 type UserData1 = keyof typeof User;
 This means =
 type UserData1 = "name" | "age" | "email" | "isAdmin"
+
+Now if we made a similar data somewhere, we don't have to write it's types again, we can just
+use type UserData1 for that.

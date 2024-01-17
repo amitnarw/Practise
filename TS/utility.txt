@@ -1,0 +1,84 @@
+Types that can help in type manipulation is called utility types.
+
+- Partial =
+This is used to make all fields/properties optional in a type. Just like when we use ? at the end of a field name
+to make it optional, we use Partial keyword to make all fields optional.
+
+type User = {
+    name: string,
+    age: number,
+    email: string,
+    password: number
+}
+
+let user1: User = {
+    name: 'demo'
+}
+This will show an error that, there are some fields/properties missing.
+
+But if we use Partial keyword
+let user1:Partial<User>= {
+    name: 'demo'
+}
+Now we will get no such errors.
+
+- Pick = 
+Pick<data, keys>
+If we want to copy types from one type to another, one way is to make all these types separately and 
+then just add their type names. Another way is Pick type.
+We can Pick some types from another type which we want and if we update these types in original type
+then it will be updated in new type also.
+
+type User = {
+    name: string,
+    age: number,
+    email: string,
+    password: number,
+    id: number
+}
+
+type Employee = {
+    details:Array<Pick<User, 'name'|'age'|'email'>>
+}
+
+- Omit =
+Omit<data, keys>
+Just like pick where we are picking properties, in Omit we will not using selected properties.
+So it's just opposite of Pick.
+
+type User = {
+    name: string,
+    age: number,
+    email: string,
+    password: number,
+    id: number
+}
+
+type Employee = {
+    details:Array<Pick<User, 'id'|'age'>>
+}
+
+- Record =
+Record<keysType, valueTypes>
+Using Record we can defined keys and values to be of specific type.
+
+let Order = {
+    1: 'apple',
+    2: 'banana',
+    3: 'orange',
+    'four': 'pineapple'
+}
+
+Here we are using four instead of 4, but when we use Record this will not be allowed.
+
+type OrderType = Record<number, string>
+
+let Order: OrderType = {
+    1: 'apple',
+    2: 'banana',
+    3: 'orange',
+    'four': 'pineapple'
+}
+
+This is not allowed now.
+
