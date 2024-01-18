@@ -1,0 +1,28 @@
+Props stand for properties.
+Props are data which we can send or passed into react components like an argument using HTML attribute.
+
+function Call(props){
+    return <h1>Call us at {props.number}</h1>
+}
+
+<Call number=1223345546 />
+
+- We have to use 'props' keyword to get all the props which the component is receiving.
+
+- We can even send props from one component to another.
+
+- If we want to send a variable in props not a string, then we have to warp it around curly brackets.
+
+numb = 1234567809
+<Call number={numb}>
+
+- Same if we want to send an object.
+
+obj = {
+    one: 1234567890
+    two: 9087654321
+    three: 2348991238
+}
+<Call number={obj} />
+
+- props are readonly, so if try to edit/modify them then we will get an error.

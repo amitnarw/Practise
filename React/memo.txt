@@ -1,0 +1,45 @@
+Whenever we update a state or prop, then the whole parent component re-renders. Which is fine,
+but with parent component it's child component also re-renders OR the components which we are passing
+through the parent component, even if we don't change anything in child component.
+So even without changing anything child component re-renders and this is not good for
+website performance.
+
+In this case we use memo.
+After using memo on child component, child component will only re-renders when we update something
+related to child component or else will not re-renders. This will save us memory also.
+BUT react will re-render the memoized version of the component whenever react think it should at
+regular intervals.
+Because memo is performance optimization and not a guarantee.
+
+function Parent(){
+  const [num, setNum] = useState(0);
+  const [num2, setNum2] = useState(0);
+  const NumChange = () => {
+      setNum((x)=>x+1)
+  }
+  const Num2Change = () => {
+      setNum2((x)=>x+1)
+  }
+  return(
+      <>
+          <p>Count: {num}</p>
+          <MemoChild data={num2}/>
+          <button onClick={NumChange}>Change num</button>
+          <button onClick={Num2Change}>Change num2</button>
+      </>
+  )
+}
+
+const MemoChild = memo(Child);  (If we don't use memoized version, then Child will also be called.)
+
+function Child(props){
+  console.log(props.data)
+  return(
+    <>
+      <p>Num2: {props.data}</p>
+    </>
+  )
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Parent />);

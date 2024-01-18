@@ -1,0 +1,46 @@
+Just like in js we have HTML DOM events, in React also we can perform actions on events.
+React has same events like in HTML DOM.
+
+- Adding event =
+React events are always written in camelCase syntax.
+We have onclick event in HTML DOM but in React it is onClick.
+React event handlers are written in curly brackets.
+In HTML DOM it's    = onclick='func()'
+In React            = onClick = {func}
+
+function Details(props){
+  const Call = () => {
+    alert('Calling ' + props.number)
+  }
+  return(
+    <>
+      <h1>Contact us on {props.number}</h1>
+      <button onClick={Call}>Call</button>
+    </>
+  )
+}
+
+Whether we use a normal function or an arrow function, in both we don't have to use () at the end,
+or else function will start working on page load and not on the event.
+onClick={Call()}    = wrong way
+onClick={Call}      = right way
+
+- We can directly call a function by writing it in onClick method.
+onClick={function(){alert(12)}}
+onClick={()=>alert(1223)}
+
+- And we have to write the function which we are calling on an event, inside the main function but outside
+the return() method, or else it won't work.
+
+- If we want to send an argument to this function which we are calling at an event.
+onClick={()=>Call('value')}
+We have to call the function like this, or else function will run at page load and not on the event.
+
+- React event object =
+Event handlers have access to React event that triggers/call the function. And we can access them like this
+onClick={(event)=>Call(event)}
+
+function Call(arg){
+console.log(arg)      = This will show all properties of the event we can access.
+console.log(arg.type) = This is one of the property and it shows which event call/triggers the function.
+}

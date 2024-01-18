@@ -1,0 +1,79 @@
+Forms is same in React as in HTML. It allow users to interact with the web page.
+Normal function of a form is submit and the page will reload, but this is not we generally want in React.
+We have to prevent this default behavior of the form.
+
+- Handling the data =
+Here we will handle data when values change or gets submitted.
+In react data is usually handled by component. So that's why all the data is stored in component state.
+
+<input type="text" onChange={(e)=>console.log(e.target.value)}/>
+Here we are using onChange to handle the value which user is putting in the type text.
+
+- We can prevent the default behavior of form also, in which page will reload after submitting.
+
+function sub(e){
+    e.preventDefault();
+}
+
+return(
+    <>
+        <form onSubmit={sub}>
+            <input type='text'/>
+            <input type='submit'/>
+        </form>
+    </>
+)
+
+- Multiple input fields =
+We can store these values directly in an object OR we can store them in useState.
+
+function Main(){
+    const obj = {};
+    function Change(e){
+        const na = e.target.name;
+        const va = e.target.value;
+        obj[na] = va;             (We have to use Obj[na] here, then only it will save value in name)
+    }
+
+    function sub(e){
+        e.preventDefault();
+        console.log(obj);
+    }
+
+    return(
+        <>
+            <form onSubmit={sub}>
+            <input type='text' name='one' onChange={Change}>
+            <input type='text' name='two' onChange={Change}>
+            <input type='submit'>
+        </>
+    )
+}
+
+- Select
+  const handleChange = (event) => {
+    console.log(event.target.value)
+  }
+
+  return (
+    <form>
+      <select  onChange={handleChange}>
+        <option value="One">One</option>
+        <option value="Two">Two</option>
+        <option value="Three">Three</option>
+      </select>
+    </form>
+  )
+
+In HTML if we want to show a default selected value we just ave to put selected keyword in the option
+which we want to be default.
+<select>
+<option value='One'>One</option>
+<option value='Two' selected>Two</option>
+</select>
+
+But in React we have to use value attribute in select tag.
+<select value={'One'}>
+<option value='One'>One</option>
+<option value='Two' selected>Two</option>
+</select>

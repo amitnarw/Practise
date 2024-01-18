@@ -1,0 +1,189 @@
+- Must include = extends React.Component statement.
+Because this statement creates an inheritance to React.Component and give our component functions of
+React.Component.
+
+- In class we also have to use render().
+
+class Fruit extends React.Component{
+    render(){
+        return{
+            <h1>Hello</h1>
+        }
+    }
+}
+
+- We can call for this component OR use this component by using this syntax
+<Name />
+
+Constructor =
+If we use constructor in our class component, then it will be called/execute whenever component gets
+initiated.
+We should keep component properties here.
+super() is also used here, which will inherit parents component's function and we can use all of those
+function in our child class component.
+
+class Fruit extends React.Component{
+    constructor(){
+        super();
+    }
+
+    render(){
+        return{
+            <h1>Hello</h1>
+        }
+    }
+}
+
+Props =
+Props stand for properties and we have to pass these to use them in our component.
+These will be used as function arguments and send into component like arguments.
+
+class Fruit{
+    render(){
+        return <h1>Hello {this.props.name}
+    }
+}
+
+<Fruit name='demo'/>
+
+Output = Hello demo
+
+- If we have a constructor in class component then we should always pass the props through it and
+if we have super(), then we should pass through super also.
+Because sometimes we forgot to do this and we are using parent component's prop. This mistake is harder
+to find, so it's better to use props in both.
+
+class Fruit extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    render(){
+        return <h1>Hello {this.props.name}
+    }
+}
+
+Components in component =
+- We can also use one class in another.
+
+class Age extends React.Component{
+  render(){
+      return <p>aged 40</p>
+  }
+}
+class Fruit extends React.Component{
+  render(){
+      return(
+          <>
+              <h1>Hello {this.props.name}</h1>
+              <Age />
+          </>
+      )
+  }
+}
+
+<Fruit name='demo' />
+
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Fruit name='demo' />);
+
+Output =
+Hello demo
+
+aged 40
+
+Components in file =
+In React we are reusing a code again and again, so it's better to save our components in different files.
+Then we can just import these files and use those components whenever we want.
+
+Below is a different file (named Fruit.js), from where we are exporting our component
+
+import React from 'react';
+
+class Fruit extends React.Component{
+    render(){
+        return <h1>Hello</h1>
+    }
+}
+
+export default Fruit;
+
+Below is how we import the above component to use it 
+
+import React from 'react';
+import Fruit from './Fruit.js'
+
+<Fruit />
+
+State =
+React class have built-in state object. Here we will be storing property values that belong to
+the component. 
+Whenever this state object changes, component will re-render.
+And we should always put this state in a constructor, because constructor always run whenever we
+initialize our react component.
+And we have to call super() also before using this.state, else will give error.
+
+class Fruit extends React.Component{
+    constructor(){
+        super();
+        this.state = {name: 'new'};
+    }
+    render(){
+        return <h1>Hello {this.state.name}</h1>
+    }
+}
+
+<Fruit />
+
+- We can also change this state using this.setState = ''
+
+- Object in object in state
+this.state = {name: 'new', age: 40, account: {id: 1212, pass: '2121'}};
+To access it = {this.state.account.pass}
+
+Life cycle =
+Each component in react has a lifecycle which we can check/monitor and manipulate during it's
+three phases, which are Mounting, Updating and Unmounting.
+
+1. Mounting =
+This means when we put/add element in the DOM.
+Here also there are 4 different methods that will be called in same order as below.
+    a. constructor()
+    b. getDerivedStateFromProps() (called right before rendering the elements to the DOM)
+    c. render()
+    d. componentDidMount() (called after component is rendered)
+
+In these 4 methods render() is the only when which is required, other 3 are optional.
+
+a. constructor()
+This will be called before anything else. It is called when component is initiated.
+And this is the place to put initial state and other values.
+We should call this with props and start by calling super() before anything else. super() allows
+child class component to inherit methods from parent class component.
+
+constructor(props){
+    super(props);
+    this.state = {key: 'value'};
+}
+
+b. render() method is required and this is the method which actually outputs the HTML to the DOM.
+
+2. Updating =
+Component is updated whenever there is a change in component's state or props. 
+There are 5 built-in methods that gets called on updating.
+    a. getDerivedStateFromProps() (same as in mounting)
+    b. shouldComponentUpdate() (default = true, have to return a boolean value to tell update or not)
+    c. render() (re-renders the HTML to the DOM with new changes)
+    d. getSnapshotBeforeUpdate()
+    e. componentDidUpdate() (called after the component is updated in the DOM)
+
+d. getSnapshotBeforeUpdate()
+This will give access to state and props before the update, meaning we can still check previous
+values after the update.
+But if we used this method then we also have to use componentDidUpdate() or else it will give error.
+getSnapshotBeforeUpdate(previousProp, previousState)
+
+3. Unmounting
+This is when component is removed from the DOM. And this only have 1 built-i method.
+
+componentWillUnmount() = called when component is about to be removed from the DOM.

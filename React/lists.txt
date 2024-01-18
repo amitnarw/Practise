@@ -1,0 +1,27 @@
+We can use loops to render/show all values of a list.
+
+- map()
+Preferred way is using map().
+
+function Main(){
+  const ll = ['one', 'two', 'three', 'four'];
+  return(
+    <>
+      <h1>List</h1>
+      <ul>
+        {ll.map((x)=><li>{x}</li>)}
+      </ul>
+    </>
+  )
+}
+
+- Keys
+If we use keys, we can keep track of elements. So if an item is updated/removed, then only that item
+will be re-rendered instead of the entire list. We can even use index as a key, as a last resort.
+These keys needs to be unique, so that we can track every element. But keys can be duplicated globally.
+
+{ll.map((x, i)=><li key={i}>{x}</li>)}
+OR
+{ll.map((x)=><li key={Math.random()}>{x}</li>)}
+
+key={} value should be included in the tag of the element.

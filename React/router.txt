@@ -1,0 +1,50 @@
+Page routing is not there is create react app. For this generally we use react router.
+To install we have to use =
+npm -i react-router-dom
+If we already have it installed, then we can install latest one =
+npm -i react-router-dom@latest
+
+- It's better if we create a separate folder, where we put different files for different pages.
+
+Implementation =
+First we have to import react router components
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+Then we have to follow this order to use it
+
+<BrowserRouter>
+    <Routes>
+        <Route path='/' element={<Layout />}>
+            <Route index element={<Home />}>
+            <Route path='contact' element={<Contact />}>
+            <Route path='about' element={<About />}>
+            <Route path='*' element={<NotFound />}>
+        </Route>
+    </Routes>
+</BrowserRouter>
+
+BrowserRouter have to be wrapped around the whole thing.
+Then we have to do the same but inside BrowserRouter with Routes.
+Path with '*' will catch all the undefined pages and show them only Not Found page, like for 404 page.
+
+- It's a good practice to include navigation bar related things in Layout page.
+And in this page we can use <a href=''> OR <Link> element to navigate to different page.
+<a href=''> will refresh the whole page
+<Link> will not refresh the page.
+
+const Layout = () => {
+    return(
+        <>
+            <nav>
+                <ul>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/contact">Contact</Link></li>
+                    <li><Link to="/about">About</Link></li>
+                </ul>
+            </nav>
+            <Outlet />          (Because we used Nested Route, to make it work we have to use Outlet)
+        </>
+    )
+}
+
+- If we used nested Route and didn't used <Outlet />. then it won't work.

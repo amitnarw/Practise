@@ -1,0 +1,49 @@
+We can style css in React using =
+- Inline styling
+- Using css stylesheets
+- Using css modules
+
+Inline styling =
+Using inline attribute.
+const Demo = () => {
+    return(
+        <> 
+            <h1 style={{color: 'green'}}>Hello</h1>
+        </>
+    )
+}
+
+Here 2 curly brackets are used. First one because we write JSX inside curly brackets and
+Second is because we write style on js object and objects also use {}.
+
+- In React we have to use camelCase property names.
+background-color will be backgroundColor
+
+- Because we write style in a js object, we can write style in a separate variable outside return()
+but inside the component.
+const Demo = () => {
+    const sty = {
+        color: 'green'
+    };
+    return(
+        <> 
+            <h1 style={sty}>Hello</h1>
+        </>
+    )
+}
+
+Using css stylesheets =
+We can create a separate css file and put/write all styles we want.
+Then we have to call this file in our application on that component which uses it.
+Or just call/import this .css file in index.js or App.js files, because all of our
+components will pass through these files.
+
+import "./FileName.css"
+
+Using css module =
+.css files are global. These are not for a single component for file. This causes name conflict. 
+When we use a .css file in a parent component, then that file is also used in it's child component and
+if there are same names in both files then they will conflict each other function. And only parent's
+.css file will work.
+So if we use css module and we have same names in both .css files, then still it won't conflict
+each other functions.
