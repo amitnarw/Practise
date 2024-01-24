@@ -1,0 +1,42 @@
+Higher Order Component (HOC) is an advanced type of component of react.
+In HOC we input a component and it output a modified component. 
+This is used when we want to do something again and again but with some modification.
+Because we have to use the same component everytime, it becomes time-consuming and also code becomes
+lengthy. To solve this we can just use a single component and just pass the modification what we want
+as a prop.
+
+Ex = 
+Suppose we want to show a counter but with different background color. For that we will make counter
+function Child() and pass this function through a Higher order function function HOC() and in this HOC()
+function we will pass props with different background colors.
+
+
+function Parent(){
+
+  return(
+      <>
+          <h1>HOC</h1>
+          <HOC val={Child} color="red"/>
+          <HOC val={Child} color="green"/>
+          <HOC val={Child} color="grey"/>
+      </>
+  )
+}
+
+function HOC(props){
+  return(
+    <div style={{backgroundColor: props.color}}>
+    <props.val />
+    </div>
+  )
+}
+
+function Child(){
+  const [count, setCount] = useState(0);
+  return(
+    <>
+      <p>Counter: {count}</p>
+      <button onClick={()=>setCount(count+1)}>Change</button>
+    </>
+  )
+};

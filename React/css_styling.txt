@@ -13,7 +13,7 @@ const Demo = () => {
     )
 }
 
-Here 2 curly brackets are used. First one because we write JSX inside curly brackets and
+Here 2 curly brackets are used. The first one is because we write JSX inside curly brackets and
 Second is because we write style on js object and objects also use {}.
 
 - In React we have to use camelCase property names.
@@ -33,7 +33,7 @@ const Demo = () => {
 }
 
 Using css stylesheets =
-We can create a separate css file and put/write all styles we want.
+We can create a separate css file and put/write all the styles we want.
 Then we have to call this file in our application on that component which uses it.
 Or just call/import this .css file in index.js or App.js files, because all of our
 components will pass through these files.
@@ -41,9 +41,19 @@ components will pass through these files.
 import "./FileName.css"
 
 Using css module =
-.css files are global. These are not for a single component for file. This causes name conflict. 
-When we use a .css file in a parent component, then that file is also used in it's child component and
-if there are same names in both files then they will conflict each other function. And only parent's
-.css file will work.
-So if we use css module and we have same names in both .css files, then still it won't conflict
+.css files are global. These are not for a single component or a file. This causes name conflict. 
+When we use a .css file in a parent component, then that file is also used in its child component and
+if there are same names in both files then they will conflict with each other function. And only the
+parent's .css file will work.
+This also happens in 2 separate child components that are used on the same page or under the same component.
+Here if both child components have the same style name, then they will conflict with each other.
+Generally, the child component that we used first, its css will be applied to all the same name css. 
+So if we use css module and we have the same names in both .css files, then still it won't conflict
 each other functions.
+
+- First, we have to create a new .css file or rename the old one into fileName.module.css
+- Now import this .css file where we want to use it, like this
+import sty from "../index.module.css"
+- Now we have to write className at the element on which we want to use it like this using curly brackets
+<h1 className={sty.head}>
+'head' here is the class name which we used in .css file.

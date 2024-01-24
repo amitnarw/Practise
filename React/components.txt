@@ -1,0 +1,6 @@
+There are total 4 types of components found in React js.
+
+1. Class component = used like a class and have states + lifecycle.
+2. Functional component = used like a function and also has state + lifecycle using hooks.
+3. Pure component = these components don't depend on state, used for optimization.
+4. Higher Order Component (HOC) = Input/take a component and output a modified component.

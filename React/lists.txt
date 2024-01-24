@@ -1,7 +1,9 @@
 We can use loops to render/show all values of a list.
+We can use these inside return(), but loops like for, while, etc are not supported inside return(). We
+have to use them outside return()
 
 - map()
-Preferred way is using map().
+The preferred way is using map().
 
 function Main(){
   const ll = ['one', 'two', 'three', 'four'];

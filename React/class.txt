@@ -184,6 +184,21 @@ But if we used this method then we also have to use componentDidUpdate() or else
 getSnapshotBeforeUpdate(previousProp, previousState)
 
 3. Unmounting
-This is when component is removed from the DOM. And this only have 1 built-i method.
+This is when a component is removed from the DOM. And this only has 1 built-i method.
 
-componentWillUnmount() = called when component is about to be removed from the DOM.
+componentWillUnmount() = called when the component is about to be removed from the DOM.
+
+Pure component =
+Just like memo (found in function), which helps in performance optimization by stopping Components
+from re-rendering. Pure components do the same thing as in class components.
+For this, we just have to change React.Component to React.PureComponent when creating a class.
+This will check if values are same, then it won't re-render the component.
+
+class New extends React.PureComponent(){
+    render(){
+        return <h1>Heading</h1>
+    }
+}
+
+
+

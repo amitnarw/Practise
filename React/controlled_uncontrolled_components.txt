@@ -1,0 +1,50 @@
+CONTROLLED =
+These are those components that use useState hook to change or get values of a field. Because when
+we use useState we can use value and onChange properties of a field.
+
+function Parent(){
+    const [name, setName] = useState('');
+
+    function change(e){
+        setName = e.target.value;
+    }
+    return(
+        <>
+            <p>Controlled component</p>
+            <input type="text" value={name}, onChange={change} /> 
+        </>
+    )
+};
+
+This is a controlled component because we are changing the value of the above text box to whatever
+value useState name has. And also setting/changing the value of this useState name value to whatever
+the user is putting in the input field. That's how we are controlling it right now.
+
+- We can also set a default value of an input text field which the user can't change
+<input type="text" val="1223" />
+
+- If we want to set a default value  of a text input field 
+<input type="text" defaultValue="1234" /> (To use this we can't use value property of input text field)
+OR
+const [name, setName] = useState("1234");
+<input type="text" val={name} />
+
+
+UNCONTROLLED = 
+Components that have input fields that are not controlled by the component's state. But controlled
+through javascript (document.getElementById) or ref.
+
+function Parent(){
+  let textRef = useRef("");
+
+  function click(){
+    console.log(textRef.current.value);
+  }
+  return(
+      <>
+          <p>Uncontrolled component</p>
+          <input type="text" ref={textRef} />
+          <button onClick={click}>Click</button>
+      </>
+  )
+}

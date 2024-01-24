@@ -1,0 +1,45 @@
+We can easily send data from the Parent component to the Child component using props, even if both are
+in different files.
+If both components are in the same file then we can use a variable or state and change them from both
+components and get their data.
+But if both are in different files then getting data from the Child component to the Parent component
+is different.
+
+For this, we have to make a function in the Parent component and send that function as a prop to the 
+Child component. And we have to use a prop in that function too. So whenever we change the prop
+or call that Parent component's function in Child component using prop then we can change prop
+value of function, which then changes the data of prop in the function in the Parent component.
+
+
+Parent file =
+function Parent(){
+  const [value, setValue] = useState('user');
+
+  function One(val){
+      console.log(val);
+      setValue(val)
+  }
+
+  return(
+      <>
+          <h1>Hello, {value}</h1>
+          <Home dd={One}/>
+      </>
+  )
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Parent />)
+
+Child file =
+export default function Home(props){
+    return(
+        <>
+            <h1>Hello again</h1>
+            <button onClick={()=>props.dd('new user')}>Click to send data back</button>
+        </>
+    )
+}
+
+At first, it will say Hello, User.
+But when we click the button on the Child file, it will say Hello, new user.

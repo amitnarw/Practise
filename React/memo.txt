@@ -30,7 +30,7 @@ function Parent(){
   )
 }
 
-const MemoChild = memo(Child);  (If we don't use memoized version, then Child will also be called.)
+const MemoChild = memo(Child);  (If we don't use a memoized version, then Child will also be called.)
 
 function Child(props){
   console.log(props.data)

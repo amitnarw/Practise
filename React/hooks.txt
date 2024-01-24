@@ -1,0 +1,461 @@
+Functions don't have access to states and lifecycle methods before, that's why only classes are used
+for this purpose. But classes are complicated and it's readability is also not that good. That's why
+hooks were introduced.
+Hooks allow access to states and other life cycle methods in functions. This is why now functions are
+preferred over class.
+Before using any hook, we have to import it from "react".
+
+Rules =
+- Hooks can only be called inside React function component.
+- Hooks can only be called on top-level of the component.
+- Hooks cannot be conditional.
+
+1. useState =
+This hook allows us to track the state in a functional component.
+This will help us track data or property.
+After importing it, we have to initialize it also. useState accepts an initial value (which we
+have to fill in useState()) and return two values current state and a function that updates this state.
+
+function Test(){
+    const [name, setName] = useState('');
+}
+
+This is the destructuring of returned values of useState.
+The first value 'name' is the current state and the second value 'setName' is a function
+that will change the current state 'name'.
+
+We can read the state using value 'name'
+<h1>Hi, my name is {name}.</h1>
+
+We can change the state using value 'setName'
+setName('New name')
+
+- State can hold anything we want and we can even create multiple useStates to track different values.
+Or we can use all of the values and store them in a single useState like an object.
+
+- Updating a value in an object using setState
+Whenever we update a state, the entire state will be overwritten.
+In a single value this is fine, but in the case of an object, if we try to update a value in the object
+then the whole object will get overwritten.
+To solve this we use the spread operator.
+
+function Main(){
+  const [detail, setDetail] = useState({
+      name: 'demo',
+      age: 40,
+      email: 'demo@test.com',
+      password: 1234,
+      phone: 1234567890
+  })
+
+function Change(){
+  setDetail(preVal => {return {...preVal, age: 50}})
+}
+
+return(
+  <>
+    <h1>My name is {detail.name} and is {detail.age} year old.</h1>
+    <button onClick={Change}>Click</button>
+  </>
+)
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Main />);
+
+Here when we click the button, the age will be changed to 50 from 40 and all the data of the object will
+also remain the same.
+
+2. useEffect =
+As we learned in class components, there are many methods we can use. In class component there are 
+componentDidMount(), componentDidUpdate() and componentWillUnmount() methods, and in function component
+useEffect will do the work of all these 3 methods. This is a lifecycle method. Works on every render.
+When state updates, in case of props also this useEffect will work.
+
+- We can also set conditions in it, like when useEffect should work. Suppose there are 4 states and we
+only want to use useEffect when only 2 of these states changed.
+
+- We can just like useState, use as many useEffect as we like.
+
+- Again like useState we first have to import it and then initialize it.
+
+import {useEffect} from "react";
+
+useEffect(()=>console.log('hello'));
+
+- useEffect takes 2 arguments
+
+useEffect(<function>, <dependency>)  (<dependency> is optional)
+
+- Use useEffect only on mounting (componentDidMount()) OR only once
+useEffect(<function>, [])
+This empty array [] will tell useEffect to run only once.
+
+- Use useEffect when state changes
+function Main(){
+    const [count, setCount] = useState(0);
+    const [name, setName] = useState('');
+
+    function Change(){
+        setCount(count+1);
+    }
+
+    function Edit(){
+        setName('name changed');
+    }
+
+    useEffect(Change, []);
+
+    return(
+        <>
+            <p>Count: {count}</p>
+            <p>Name: {name}</p>
+            <button onClick={Change}>Click to change count</button>
+            <button onClick={Edit}>Click to change name</button>
+        </>
+    )
+}
+
+Here if we change a value by clicking 'Click to change name' button and we still click the button
+but set the same value again and again, then useEffect will run only once that's also when the
+value was set for the first time. useEffect will always run once in the beginning when we
+ initialize the state.
+
+- Use useEffect when prop changes
+function Main(){
+  const [count, setCount] = useState(0);
+  const [count1, setCount1] = useState(0);
+
+  function Change(){
+    setCount(count+1);
+  }
+  
+  function Edit(){
+    setCount1(count1+1);
+  }
+  
+  return(
+    <>
+          <p>Count: {count}</p>
+          <p>Name: {count1}</p>
+          <button onClick={Change}>Click to change count</button>
+          <button onClick={Edit}>Click to change name</button>
+          <Prop cc={count1}/>;
+      </>
+  )
+}
+
+function Prop(props){
+  
+  function con(val){
+    console.log('changed');
+  }
+  useEffect(con, [props.cc])
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Main />);
+
+- We can also use useEffect like this, suppose we are calculating something or changing a value and
+at a certain value we want to do some other task, like running an animation. We can do this
+by following/tracking the state in useEffect.
+
+- If we have more states, then we can set some of the state's current value in useEffect dependency in
+an array separated by a comma. Doing this useEffect will run if there is a change in any of the state 
+that we used in dependency.
+
+- As we know, that child component always re-render if the parent component re-renders. We can put
+functions of child component in useEffect and send a prop to the child component and use that prop in
+useEffect dependency. Now it will behave the same as before, but if we remove the prop from useEffect
+dependency and just put an empty array, then it will only run once on initialization, after that it
+will not work.
+
+(Advance)
+- useEffect returns either a function or undefined. If returns a function, then it's called cleanup.
+Cleanup is used to prevent unwanted behaviors and optimize performance.
+
+useEffect(() => {
+        effect
+        return () => {
+            cleanup
+        }
+    }, [input])
+
+Ex = Suppose we are fetching a user using userID, and before fetch completes, we decide to fetch
+a different user using a different userID. Here we are passing userID through props, so userID is
+updated but it's still fetching previous user data. Now we must abort the previous request or else
+there will be bugs and memory leaks(usage of memory when it is not required).
+
+useEffect(()=>{
+  let ignore = false;
+
+  async function fetchProduct(){
+    const res = await fetch(url+proID);
+    const json = await res.json();
+    if(ignore==false){
+      setProduct(json);
+    }
+  }
+
+  fetchProduct();
+
+  return () => {ignore = true};
+
+}, [proID])
+
+3. useMemo =
+Just like we used memo for performance optimization, useMemo also does the same. But the process in both
+are different. 
+In memo, it stops re-rending of components if nothing is changed in that component. It works but
+sometimes React re-renders the component. But in useMemo, it uses cached values.
+A memory-eating function is a long/expensive function that takes up memory when it runs. So if we run
+it again and again, it will take memory again and again, which will slow our application.
+So useMemo saves the result of that function in a cache and use it whenever that function is called.
+But useMemo will only take cache result if nothing is changed in that function.
+If something changes then that function will run again. To define which value should useMemo check,
+to see if it needs to run that expensive function again or not, useMemo has a dependency (just like
+in useEffect).
+
+function Parent(){
+  const [name, setName] = useState(0);
+
+  const MeMo = useMemo(() => Child(), [])
+  return(
+      <>
+          <h1>Hello, {name}</h1>
+          {/* <Child /> */}
+          {MeMo}
+          <button onClick={()=>setName(name+1)}>Click to change name</button>
+      </>
+  )
+}
+
+function Child(){
+  console.log('child');
+  return(
+      <>
+          <p>Child screen</p>
+      </>
+  )
+}
+
+4. useRef =
+a. It directly manipulates DOM (document.getElementById, querySelector, etc). And because React 
+uses a Virtual DOM, (that's why React is lightweight) to minimize performance issues, that's why
+React tells us to use useRef as minimum as possible, only in emergencies.
+
+We can also use ref in the class component also
+
+import React, { createRef } from "react";
+
+class Demo extends React.Component{
+  constructor(){
+    super();
+    this.textRef = createRef();
+  }
+  change(){
+    console.log(this.textRef.current.value)
+    this.textRef.current.style.backgroundColor = "red";
+  }
+  render(){
+    return(
+      <div>
+        <p>Testing text box:</p>
+        <input type="text" ref={this.textRef} />
+        <button onClick={()=>this.change()}>Click</button>
+      </div>
+    )
+  }
+}
+
+This class component will get the value of the text box and change its background color to red on click.
+
+To use ref in function, we have to import useRef from "react"
+
+import { useRef } from "react";
+
+function Demo(){
+  let textRef = useRef(null);
+
+  function Change(){
+    console.log(textRef.current.value);
+    textRef.current.style.backgroundColor = "red";
+    textRef.current.focus();
+  }
+  return(
+    <>
+      <h1>Change text box properties</h1>
+      <input type='text' ref={textRef}/>
+      <button onClick={Change}>Click</button>
+    </>
+  )
+}
+
+This also behaves the same as the class component.
+
+forwardRef -
+- If we want to use ref in the child component, meaning the button is in the parent component and
+the things we want to change are in the child component.
+For this, we will use forwardRef.
+
+import Child from "./child";
+
+Parent component file
+
+import React, { useRef } from 'react';
+import Child from "./components/Home";
+
+function Parent(){
+
+  let textRef = useRef(null);
+  
+  function Change(){
+    console.log(textRef.current.value);
+    textRef.current.style.color = "red";
+    textRef.current.focus();
+  }
+
+  return(
+    <>
+      <p>This is in parent component</p>
+      <button onClick={Change}>Click</button>
+      <Child ref = {textRef}/>
+    </>
+  )
+}
+
+Child component file
+
+import { forwardRef } from "react";
+
+function Child(props, preRef){
+    return(
+      <>
+        <p>This is in child component</p>
+        <input type="text" ref={preRef}/> 
+      </>
+    )
+  };
+
+export default forwardRef(Child);
+
+In the class component also we have to wrap the child component in forwardRef().
+
+b. useRef also creates a mutable variable which will help in stopping re-rendering. So like useState,
+we can also store values in useRef and when we use useRef it won't trigger a re-rendering.
+
+function Parent(){
+  const [count, setCount] = useState(0);
+
+  useEffect(()=>setCount(count+1), [count]);
+
+  return(
+    <>
+      <p>Count: {count}</p>
+    </>
+  )
+}
+The above function will stuck in an infinite loop, because the value of count is 0 when useState
+is initialize and when a component is initialized useEffect also run. So useEffect will change the
+value of the count to 1. Now when the value of useState is changed, it re-renders the component
+and after it's re-rendering useEffect will again run. This is how this component will stuck in
+an infinite loop.
+
+To solve this we will useRef hook, which will stop the component's re-rendering.
+
+function Parent(){
+  const [count, setCount] = useState(0);
+  const countRef = useRef(0);
+
+  useEffect(()=>countRef.current+1);
+
+  function check(){
+    console.log(countRef.current);
+  }
+
+  return(
+    <>
+      <p>Count: {countRef.current}</p>
+      <button onClick={check}>Check</button>
+    </>
+  )
+}
+
+5. useContext =
+Using this we can share information/state b/w different components or even with deeply nested
+components.
+Suppose we have a state which we used in the parent component or the top-level component. We have 5
+different nested components, that are nested (1 is parent, 2 is nested child of 1, 3 is of 2 and so on).
+Now we want to pass a state from the parent component to the last 5th child component. 
+Here we can use props to transfer from 1st component (parent) to 5th component (child). This is
+called prop drilling because we are passing props from all components. Child components from 2 to 4
+don't even need this state but have to pass it through.
+Here we can use useContext hook.
+
+import React, { useState, createContext, useContext } from 'react';
+
+const Get = createContext();
+
+function Parent() {
+  const [name, setName] = useState('-');
+  function Change() {
+    setName('new name');
+  };
+  return (
+    <>
+      <Get.Provider value={[name, setName]}>
+        <p>Parent {name}</p>
+        <button onClick={Change}>Change</button>
+        <Child1 />
+      </Get.Provider>
+    </>
+  )
+};
+
+function Child1() {
+  return (
+    <>
+      <p>Child1</p>
+      <Child2 />
+    </>
+  )
+};
+
+function Child2() {
+  return (
+    <>
+      <p>Child2</p>
+      <Child3 />
+    </>
+  )
+};
+
+function Child3() {
+  return (
+    <>
+      <p>Child3</p>
+      <Child4 />
+    </>
+  )
+};
+
+function Child4() {
+
+  const [name, setName] = useContext(Get);
+
+  function check(){
+    setName('ll');
+    console.log(name);
+  }
+
+  return (
+    <>
+      <p>Child4 {name}</p>
+      <button onClick={()=>check()}>Click</button>
+    </>
+  )
+};
+
+In this example, we can access and also change the state from the last 5th child component.
+
+6. useCallBack =
