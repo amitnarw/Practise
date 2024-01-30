@@ -1,0 +1,82 @@
+React has several hooks like useState, useEffect, etc and these are limited in number. Sometimes
+we want to do something that is not available in a hook. Like checking the online/offline status of
+a user, fetching data, connecting to a chat room, etc. In this situation, we can make a hook,
+which is called a custom hook.
+
+Rules =
+- A hook or a custom hook, both names will start with the "use" prefix. This is not enforced but is
+a good practice. Then we will able to distinguish a hook from a normal function.
+- We should only apply the "use" prefix or make a function a custom hook when it is using at least
+one hook. Or we are not using any hook for now but planning to use a hook in the future.
+- A normal function will start with a capital letter and should use a camel case. For a hook
+it should start with "use" and then camel case.
+- A custom hook must return a value (an arbitrary/unspecific value)
+
+Custom hook lets us share stateful logic and not state itself. 
+Each call to a hook is completely independent from every other call to the same hook.
+So if we use 2 different variables to get data from the same hook/custom hook, they both will 
+extract stateful logic and then use that logic. They will not use the state that we are exporting
+from a custom hook.
+But if we want to share state, then we have to lift it up OR pass it down.
+
+Ex = A custom hook to check the online status of our network.
+
+Custom hook file =
+
+export default function useNetworkStatus(){
+
+    const [status, setStatus] = useState(true);
+
+    function online(){
+        setStatus(true)
+    };
+
+    function offline(){
+        setStatus(false)
+    };
+
+    useEffect(()=>{
+        
+        window.addEventListener("online", online);
+        window.addEventListener("offline", offline);
+
+        return() => {
+            window.removeEventListener("online", online);
+            window.removeEventListener("offline", offline);
+        }
+
+    }, []);
+
+    return status;
+
+}
+
+Main file where we are using this custom hook =
+
+import useNetworkStatus from "./useNetworkStatus";
+
+export default function App(){
+
+  const onlineStatus = useNetworkStatus();
+  console.log(onlineStatus)
+
+  return(
+    <>
+        <p>{onlineStatus ? "ONLINE" : "OFFLINE"}</p>
+    </>
+  )
+}
+
+- Code inside our custom hook will re-run every re-render of our component. This is why custom hooks
+need to be pure. That's why custom hooks receive the latest state and props.
+
+- We should only create a custom hook when it is necessary to use one. Some duplication is fine, so we
+don't have to make a custom hook if we want to do something again and again for few times.
+
+- To know if a custom hook is required, first choose a custom hook name. If we struggle to pick
+a clear name means it's not the perfect time we should use a custom hook. Because it means the 
+functioning of our hook is too much connected with a component. This may not be usable in other 
+components. The custom hook name should be clear enough that a normal person can able to guess what
+this custom hook should be doing, what it needs to perform that function and what it will return.
+
+- We should also avoid creating a custom hook for which a hook is already available.

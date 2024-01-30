@@ -210,11 +210,12 @@ In memo, it stops re-rending of components if nothing is changed in that compone
 sometimes React re-renders the component. But in useMemo, it uses cached values.
 A memory-eating function is a long/expensive function that takes up memory when it runs. So if we run
 it again and again, it will take memory again and again, which will slow our application.
-So useMemo saves the result of that function in a cache and use it whenever that function is called.
-But useMemo will only take cache result if nothing is changed in that function.
+So useMemo saves the result of that function in a cache and uses it whenever that function is called.
+But useMemo will only take cache results if nothing is changed in that function.
 If something changes then that function will run again. To define which value should useMemo check,
 to see if it needs to run that expensive function again or not, useMemo has a dependency (just like
 in useEffect).
+A function that will be used in useMemo should be pure and take no arguments. Like this ()=>
 
 function Parent(){
   const [name, setName] = useState(0);
@@ -355,8 +356,8 @@ function Parent(){
     </>
   )
 }
-The above function will stuck in an infinite loop, because the value of count is 0 when useState
-is initialize and when a component is initialized useEffect also run. So useEffect will change the
+The above function will stuck in an infinite loop because the value of count is 0 when useState
+is initialized and when a component is initialized useEffect also runs. So useEffect will change the
 value of the count to 1. Now when the value of useState is changed, it re-renders the component
 and after it's re-rendering useEffect will again run. This is how this component will stuck in
 an infinite loop.
@@ -387,7 +388,7 @@ components.
 Suppose we have a state which we used in the parent component or the top-level component. We have 5
 different nested components, that are nested (1 is parent, 2 is nested child of 1, 3 is of 2 and so on).
 Now we want to pass a state from the parent component to the last 5th child component. 
-Here we can use props to transfer from 1st component (parent) to 5th component (child). This is
+Here we can use props to transfer from the 1st component (parent) to the 5th component (child). This is
 called prop drilling because we are passing props from all components. Child components from 2 to 4
 don't even need this state but have to pass it through.
 Here we can use useContext hook.
@@ -459,3 +460,302 @@ function Child4() {
 In this example, we can access and also change the state from the last 5th child component.
 
 6. useCallBack =
+Same as useMemo, the only difference is useMemo caches a value or result of the function and
+useCallBack caches the whole function.
+
+useMemo(()=>function, [dependency]);
+
+useCallBack(function, [dependency]);
+
+Both will do the same thing, we can directly memoize a function in useCallBack instead of the first
+using a pure function and getting its return value as a function in useMemo.
+
+We can compare two values when the value is a string, number or boolean, but when the values are
+a function or an object, then both are different even if they contain the same thing.
+a = 23;
+b = 23;
+console.log(a == b)                   //true
+
+c = {first: 100, second: 200}
+d = {first: 100, second: 200}
+console.log(c == d)                   //false
+
+We can only compare their reference.
+console.log(c.first == d.first)       //true
+
+7. useReducer =
+These are like useState but allow us to use a custom state logic in useState.
+States are an important part of react, but when our app grows we have to use more useStates
+and then it becomes harder to read and understand that code when we re-visit it.
+There is a different way of handling state updates, that is reducers. And we can use
+this in functional components using useReducer hook.
+
+Function using useState =
+
+export default function Counter() { 
+  const [count, setCount] = useState(0);
+
+  function Inc(){
+    setCount(count+1);
+  }
+  
+  function Dec(){
+    setCount(count-1);
+  }
+     
+    return (
+      <>
+        <p>Count: {count}</p>
+        <button onClick={Inc}>Increase</button>
+        <button onClick={Dec}>Decrease</button>
+      </>
+    ); 
+
+};
+
+The same function using useReducer =
+In this function, we are only using one state and that's also as a variable.
+
+const initialS =  0 ;
+
+  // function reducer(state, action){
+  //   switch (action.type){
+  //     case "INC":
+  //       return state + 1
+  //     case "DEC":
+  //       return state - 1 
+  //     default:
+  //       throw new Error("error");
+  //   }
+  // }
+
+  // const [state, dispatch] = useReducer(reducer, initialS);
+
+  // function increment(){
+  //   dispatch({ type: "INC" });
+  // } 
+
+  // function decrement(){
+  //   dispatch({ type: "DEC" });
+  // } 
+     
+  //   return (
+  //     <>
+  //       <p>Count: {state}</p>
+  //       <button onClick={increment}>Increase</button>
+  //       <button onClick={decrement}>Decrease</button>
+  //     </>
+  //   ); 
+
+  In the function below, we will still use a state with one variable, bu now we will use it
+  as an object.
+
+  const initialS = { count: 0 };
+
+  function reducer(state, action){
+    switch (action.type){
+      case "INC":
+        return { count: state.count + 1 }
+      case "DEC":
+        return { count: state.count - 1 }
+      default:
+        throw new Error("error");
+    }
+  }
+
+  const [state, dispatch] = useReducer(reducer, initialS);
+
+  function increment(){
+    dispatch({ type: "INC" });
+  } 
+
+  function decrement(){
+    dispatch({ type: "DEC" });
+  } 
+     
+    return (
+      <>
+        <p>Count: {state.count}</p>
+        <button onClick={increment}>Increase</button>
+        <button onClick={decrement}>Decrease</button>
+      </>
+    ); 
+
+
+In the function below, we will use 2 different variables which we will track. Will use them
+in an object.
+
+const initialS = { count: 0, count1: 100 };
+
+  function reducer(state, action){
+    console.log(state)
+    switch (action.type){
+      case "INC":
+        return { count: state.count + 1, count1:state.count1 }
+      case "DEC":
+        return { count: state.count - 1, count1:state.count1 }
+      case "INC1":
+        return { count1: state.count1 + 10, count:state.count }
+      case "DEC1":
+        return { count1: state.count1 - 10, count:state.count }
+      default:
+        throw new Error("error");
+    }
+  }
+
+  const [state, dispatch] = useReducer(reducer, initialS);
+
+  function increment(){
+    dispatch({ type: "INC" });
+  } 
+
+  function decrement(){
+    dispatch({ type: "DEC" });
+  } 
+
+  function increment1(){
+    dispatch({ type: "INC1" });
+  } 
+
+  function decrement1(){
+    dispatch({ type: "DEC1" });
+  } 
+     
+    return (
+      <>
+        <p>Count: {state.count}</p>
+        <p>Count1: {state.count1}</p>
+        <button onClick={increment}>Increase</button>
+        <button onClick={decrement}>Decrease</button><br/>
+        <button onClick={increment1}>Increase1</button>
+        <button onClick={decrement1}>Decrease1</button>
+      </>
+    ); 
+
+- If we try to check our original data which is in initialS, we will get the same data, even after
+changing it because that changed/updated data is present in the state. We are not able to 
+get changed/updated data from the initialS because the whole component re-renders and the initialS
+variable initialized again and again to the original data.
+
+In the example below useReducer is used with useRef for CRUD operations.
+use
+  const divRef = useRef("");
+  const addRef = useRef("");
+  const saveRef = useRef("");
+  const nameRef = useRef("");
+  const ageRef = useRef("");
+  const adminRef = useRef("");
+
+  let userID = 0;
+
+  const initialS = [
+    {
+      ID: 1,
+      name: "demo",
+      age: 40,
+      admin: false
+    },
+    {
+      ID: 2,
+      name: "new",
+      age: 20,
+      admin: true
+    },
+    {
+      ID: 3,
+      name: "nn",
+      age: 55,
+      admin: false
+    }
+  ]
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case "add": {
+        console.log("New user added");
+        return [...state, action.newUser]
+      }
+      case "update": {
+        console.log('User info updated');
+        return state.map((x)=>{
+          if(x.ID == action.ID){
+            return action.updateData;
+          }
+            return x;
+        });
+      }
+      case "delete": {
+        console.log("User deleted");
+        return state.filter((x) => x.ID !== action.ID)
+      }
+      case "show": {
+        return console.log(state);
+      }
+      default:
+        throw new Error("error");
+    }
+  }
+
+  const [state, dispatch] = useReducer(reducer, initialS);
+
+  function updateUser() {
+    dispatch({
+      type: "update",
+      ID: userID,
+      updateData: {ID: userID, name: nameRef.current.value, age: ageRef.current.value, admin: adminRef.current.value}
+    })
+    divRef.current.style.display = "none";
+    addRef.current.style.display = "";
+    saveRef.current.style.display = "none";
+    nameRef.current.value = '';
+    ageRef.current.value = '';
+    adminRef.current.value = "";
+  }
+
+  function updateUser1(id){
+    divRef.current.style.display = "";
+    addRef.current.style.display = "none";
+    saveRef.current.style.display = "";
+    nameRef.current.value = state[id-1].name;
+    ageRef.current.value = state[id-1].age;
+    adminRef.current.value = state[id-1].admin;
+    userID = id;
+  }
+  
+  function deleteUser(id) {
+    const re = window.confirm("Want to delete this user?");
+    if(re){dispatch({
+      type: "delete",
+      ID: id
+    })}
+  }
+
+  function addUser() {
+    if(divRef.current.style.display == ""){
+      dispatch({
+        type: "add",
+        newUser: { ID: Math.max(...(state.map((x)=>x.ID)))+1, name: nameRef.current.value, age: ageRef.current.value, admin: adminRef.current.value }
+      })
+    }else{
+      divRef.current.style.display = "";
+      addRef.current.style.display = "";
+      saveRef.current.style.display = "none";
+    }
+  }
+
+  return (
+    <>
+      <h1>CRUD users data</h1>
+      <div style={{display: "none"}} ref={divRef}>
+        <input type="text" name="name" placeholder="name" ref={nameRef}/><br/><br/>
+        <input type="number" name="age" placeholder="age" ref={ageRef}/><br/><br/>
+        <input type="text" name="admin" placeholder="is admin?" ref={adminRef}/><br/><br/>
+      </div>
+      <button onClick={addUser} ref={addRef}>Add</button><br /><br />
+      <button style={{display: 'none'}} onClick={updateUser} ref={saveRef}>Save</button><br /><br />
+      {state.map((x, i) =>
+       <li key={i}>
+        {x.ID + ". " + x.name + " " + x.age + " " + x.admin}<br />
+        <button onClick={()=>updateUser1(x.ID)}>Edit</button>  <button onClick={()=>deleteUser(x.ID)}>Delete</button></li>)}
+    </>
+  )
