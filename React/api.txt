@@ -1,0 +1,239 @@
+API stands for application programming interface. API is a medium through which different application
+communicate with each other and return a response in real time. 
+REST which stands for REpresentation State Transfer, is a methodology (method or way of doing things)
+commonly used in the development of internet services. When a request is made via REST API, it sends
+a representation of the resource's current state to the endpoint/requester. This representation can
+be in the form of a JSON (JavaScript Object Notation), XML (Extensible Markup Language) or HTML.
+JSON is mostly used because it does not depend on a language and it is easily read by both humans
+and machine.
+
+{
+    {
+        "name": "demo",
+        "age": 40,
+        "email": "demo@new.com"
+    },
+    {
+        "name": "test",
+        "age": 50,
+        "email": "test@new.com"
+    }
+}
+
+- We can consume REST API in several ways. Like using Fetch API, which is the browser's in-built
+web API OR using Axios, which is a promised-based HTTP client.
+- For this, we can use useEffect hook, which will get data from the API when the app mounts or when
+a given state is reached. With this, we have to use something where we will store the data that we
+collect from API. Here we have to use something that is a state management tool like Redux or
+context API, but we will use useState hook.
+
+
+
+USING FETCH API = 
+
+It is an in-built browser's WEB API, so we don't have to install anything.
+It will take one mandatory argument (and can take more arguments also), which is the URL/path of the
+resource we want to fetch.
+
+fetch(URL)
+.then(response => response.json())
+.then(data => console.log(data));
+
+- Default response is usually a regular HTTP response rather than actual JSON, so we have to convert
+it into JSON using response.json() method.
+- We can perform different requests like GET, POST, DELETE, etc methods. This can be done when we
+pass these methods in the argument of the fetch method. This is optional we only have to do this
+when we want to use a method other than GET because GET is the default so even if we don't use any
+method it will still use GET method. This optional argument will be an object and we have to write 
+additional information inside this object. Using this, we can control different things in the URL.
+
+fetch(URL, {method: "GET"})
+
+ex = Example of GET method
+
+fetch("https://jsonplaceholder.typicode.com/posts?_limit=10", {method: "GET"})
+.then(res => res.json())
+.then((data) => {
+    console.log(data);
+    setData(data);
+})
+.catch(err => console.log("err"))
+
+ex2 = Example of POST method
+
+Here we will be using the body as a key and whatever we write inside it should be in JSON format.
+That's why we have to stringify the object into the JSON format using JSON.stringify(object).
+Here we also have to write headers, which will tell the type of data that is being sent.
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        body: JSON.stringify({
+          userId: 10,
+          id: 100,
+          title: "new demo",
+          body: "This is a demo text used for testing the POST method"
+        }),
+        headers: {"Content-type": "application/json"}
+    })
+      .then(res => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch(err => console.log("err"))
+
+- We cannot directly edit the file and write the data that we want to POST to the web server. For
+this, we can first store the data that we want to POST in states, this data will come from a form.
+
+ex3 = Example of delete method
+
+Just like the GET method we can send an HTTP DELETE method, to delete the data from the server.
+
+fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {method: "DELETE"})
+.then((res) =>{
+  if(res.status === 200){
+    res.json();
+  }
+})
+.then(data )
+
+This particular data is removed from the server but not immediately from the UI. For this, we can
+use a filter to filter the ID that we just removed and data related to that ID will not be shown.
+
+
+Async/await in fetch API 
+
+Fetch API uses promise syntax, which is fine but sometimes can get confusing. Also the chaining,
+sometimes we have to add more and more chains to make something work.
+To avoid this we can use async/await, which will help us to write more readable code.
+To use this first we have to make the whole function async by using the keyword "async" in front
+of the function.
+We have to use the syntax "await" in front of the process which can take some time to complete/settle
+with result.
+
+
+useEffect(() => {
+  const fetchPost = () => {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=10");
+    const data = await res.json();
+    console.log(data);
+  }
+fetchPost();
+}, []);
+
+const deletePose = async (id) => {
+  let res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {method: "DELETE"});
+  let data = await
+}
+
+In async/await we don't have anything like .catch method to catch the error. So we use
+try{}catch{} instead. Here we will put everything inside async function inside try{}
+and will use catch{} to only check the errors.
+
+useEffect(() => {
+  const fetchPost = () => {
+    try{
+      let res = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=10");
+      let data = res.json();
+      console.log(data);
+    } catch (err){
+      console.log(err);
+    }
+  }
+
+  fetchPost();
+
+}, [])
+
+
+
+USING AXIOS =
+
+Axios is an HTTP client library based on promises that send asynchronous HTTP requests to REST
+endpoints. Unlike fetch API it's not built-in, so we have to install it instead using 
+"npm i axios". 
+
+- Axios comes with its default instance. An instance is a client where all our API calls go.
+We can create our clients/custom instances, as many as we want and we can reuse them again
+when required. Doing this will reduce code usage in our project and it will save us from
+unnecessary repetition. Not only this but we can also add custom configuration in an instance
+like timeout. To create one we have to use .create() method.
+- Also unlike fetch, we don't have to convert the response in JSON because in axios the response
+we get is by default in JSON format.
+
+const client = axios.create({baseURL : "url"})
+
+
+ex = Example of GET method
+
+Unlike fetch where we have to add a method in the argument, there is no option to declare a method.
+
+import axios from "axios";
+
+const client = axios.create({baseURL: "https://jsonplaceholder.typicode.com/posts"});
+
+useEffect(()=>{
+  client.get("?_limit=10")
+  .then(res => console.log(res));
+}, []);
+
+
+ex2 = Example of POST method
+
+  const postData = (userId, id, title, body) => {
+    client1.post("", {
+      userId: userId,
+      id: id,
+      title: title,
+      body: body
+    })
+    .then((res) =>{
+      console.log(res.data)
+      setData([...data, res.data]);
+    })
+  }
+
+
+ex3 = Example of DELETE method
+
+  const deleteData = (id) => {
+    client1.delete(`${id}`);
+    setData(data.filter((x) => {
+      return x.id !== id
+    }))
+  }
+
+return(
+    <div style={{width: "100vw", height: "100vh", textAlign: "center"}}>
+      
+      <button onClick={() => postData(1, 1, "tt", "bodyyyy")}>Post</button>
+      <button onClick={() => deleteData(1)}>Delete</button>
+
+      {data.map((x, i) => {
+        return(
+            <div style={{height: "180px"}} key={x.id}>
+              <h1  onClick={()=>deleteData(x.id)}>UserID = {x.userId}</h1>
+              <p>id = {x.id}</p>
+              <p>Title = {x.title}</p>
+            </div>
+        )
+      })}
+    </div>
+  )
+
+- Similar to fetch we have to use filter method to remove the data from the UI.
+
+
+Async/await with axios =
+
+useEffect(() => {
+    const fetchData = async () => {
+      let res = await client1.get("?_limit=10");
+      console.log(res);
+      setData(res.data);
+    }
+
+    fetchData();
+
+  }, [])
+
+  

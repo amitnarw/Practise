@@ -1,6 +1,6 @@
 NEW REPO FROM SCRATCH = 
-- Get into the folder, which will be used as git repo
-get init
+- Get into the folder, which will be used as a git repo
+git init
 
 - Then add all the files in that repo
 git add
@@ -10,20 +10,20 @@ git commit
 
 
 UPDATE REPO/PUSH CHANGES INTO REPO = 
-- First check status, to see if there is any changes
+- First check the status, to see if there are any changes
 git status
 
 - Then commit these changes (here files will be under untracked files)
-git commit -am "changes title"
+git commit -am "title changed"
 
 (-a = means select all and do the task for all files)
 (-m = commit message)
 
-- At last, push these changes to git (here files will be under tracked)
+- At last, push these changes to git (here files will be under the tracked category)
 git push
 
 UPDATE REPO IF CREATED A NEW FILE/FOLDER = 
-- First check status, to see if there is any changes
+- First check the status, to see if there are any changes
 git status
 
 - Then add all the new files

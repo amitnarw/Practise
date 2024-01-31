@@ -75,7 +75,7 @@ don't have to make a custom hook if we want to do something again and again for 
 
 - To know if a custom hook is required, first choose a custom hook name. If we struggle to pick
 a clear name means it's not the perfect time we should use a custom hook. Because it means the 
-functioning of our hook is too much connected with a component. This may not be usable in other 
+functioning of our hook is too connected with a component. This may not be usable in other 
 components. The custom hook name should be clear enough that a normal person can able to guess what
 this custom hook should be doing, what it needs to perform that function and what it will return.
 
