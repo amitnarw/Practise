@@ -1,0 +1,23 @@
+ var
+- global scope
+- redeclare: true
+- reassign: true
+
+
+ let
+- block scope
+- redeclare: false
+- reassign: true
+
+
+ const
+- block scope
+- redeclare: false
+- reassign: false
+
+Hoisting = Process of moving declaration to the top of their block (during compilation phase), before running the code.
+TDZ = Temporal Dead Zone is a zone where a variable declared with let, const or class stays untill it is initialized (meaning assigned a value). Gives ReferenceError if try to access. Helps in block scoping and prevent usage before properly initialized.
+
+declaration (var a)
+assignment (a = 3)
+initialization = declaration + assignment

@@ -44,7 +44,7 @@ it into JSON using response.json() method.
 - We can perform different requests like GET, POST, DELETE, etc methods. This can be done when we
 pass these methods in the argument of the fetch method. This is optional we only have to do this
 when we want to use a method other than GET because GET is the default so even if we don't use any
-method it will still use GET method. This optional argument will be an object and we have to write 
+method it will still use the GET method. This optional argument will be an object and we have to write 
 additional information inside this object. Using this, we can control different things in the URL.
 
 fetch(URL, {method: "GET"})
@@ -99,6 +99,22 @@ fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {method: "DELETE"})
 This particular data is removed from the server but not immediately from the UI. For this, we can
 use a filter to filter the ID that we just removed and data related to that ID will not be shown.
 
+ex4 = Example of update method
+
+Just like the POST method, we can update using the PATCH method.
+
+const updateData = (id) => {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${id}` , {
+      method: "PATCH",
+      body: JSON.stringify({
+        title: "ye wala nya hai title"
+      }),
+      headers: {"Content-Type" : "application/json"}
+    })
+    .then(res => res.json())
+    .then(newData => { console.log(newData) });
+  }
+
 
 Async/await in fetch API 
 
@@ -125,8 +141,22 @@ const deletePose = async (id) => {
   let data = await
 }
 
+const updateData = async (id) => {
+  let res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}` , {
+    method: "PATCH",
+    body: JSON.stringify({
+      title: "ye wala nya hai title"
+    }),
+    headers: {"Content-Type" : "application/json"}
+  });
+
+  let newData = await res.json();
+  console.log(newData);
+  setData([newData, ...data]);
+}
+
 In async/await we don't have anything like .catch method to catch the error. So we use
-try{}catch{} instead. Here we will put everything inside async function inside try{}
+try{}catch{} instead. Here we will put everything inside the async function inside try{}
 and will use catch{} to only check the errors.
 
 useEffect(() => {
@@ -180,7 +210,7 @@ useEffect(()=>{
 ex2 = Example of POST method
 
   const postData = (userId, id, title, body) => {
-    client1.post("", {
+    client.post("", {
       userId: userId,
       id: id,
       title: title,
@@ -196,10 +226,27 @@ ex2 = Example of POST method
 ex3 = Example of DELETE method
 
   const deleteData = (id) => {
-    client1.delete(`${id}`);
+    client.delete(`${id}`);
     setData(data.filter((x) => {
       return x.id !== id
     }))
+  }
+
+
+ex4 = Example of PATCH method (Update)
+
+  const updateData = (id) => {
+   client1.patch(`${id}`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      title: "ye wala nya hai title"
+    }),
+    headers: {"Content-Type" : "application/json"}
+   })
+   .then(res => {
+    console.log(res.data)
+    setData([res.data, ...data]);
+  });
   }
 
 return(
@@ -227,7 +274,7 @@ Async/await with axios =
 
 useEffect(() => {
     const fetchData = async () => {
-      let res = await client1.get("?_limit=10");
+      let res = await client.get("?_limit=10");
       console.log(res);
       setData(res.data);
     }
@@ -236,4 +283,34 @@ useEffect(() => {
 
   }, [])
 
+  const postData = async (userId, id, title, body) => {
+    let res = await client.post("", {
+      userId: userId,
+      id: id,
+      title: title,
+      body: body
+    })
+    setData([res.data, ...data]);
+  }
+
+  const deleteData = async (id) => {
+    let res = await client.delete(`${id}`);
+    setData(data.filter((x, i) => {
+      return i !== id
+    }));
+  }
+
   
+  const updateData = async (id) => {
+   let res = await client1.patch(`${id}`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      title: "ye wala nya hai title"
+    }),
+    headers: {"Content-Type" : "application/json"}
+   })
+   
+    console.log(res.data)
+    setData([res.data, ...data]);
+
+  }

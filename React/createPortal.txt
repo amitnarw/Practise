@@ -1,0 +1,13 @@
+This will let us render selected children into a different part of the DOM.
+
+{createPortal(children, domNode, key?)}
+
+<div>
+    <p>This is inside div</p>
+    {createPortal(
+        <p>This is also inside div but will render outside div</p>, document.body
+    )}
+</div>
+
+- We can also make a function, through which we can make aby child component render to a different
+part of the DOM. And we don't have to use the same code again and again.

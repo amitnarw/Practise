@@ -1,0 +1,23 @@
+This is a tool that is used to measure how many times an application is rendered and how much time
+it takes to be rendered.
+So it helps to identify the parts of the application that are slow and we can optimize those parts
+to make our app's performance faster.
+This tool is lightweight and has no third-party dependency.
+
+<profiler id="" onRender={callbackFunction}>
+(Children)
+</profiler>
+
+The callback function will have all the information the profiler gets.
+
+function callbackFunction(id, phase, actualDuration, baseDuration, startTime, commitTime){
+
+}
+
+id = Id of the profiler. This will let us distinguish between different profilers.
+phase = (mount, update, nested-update) Whether the tree has just mounted or rerendered.
+actualDuration = (milliseconds) Time taken to render the profiler and its children for
+the current update. We can check effects of memo and useMemo here.
+baseDuration = (milliseconds) Most recent render time duration. (Without any optimization)
+startTime = When react begins rendering the component.
+commitTime = The time at which an update has been done.

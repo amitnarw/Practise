@@ -1,0 +1,80 @@
+A code can be written in many ways. There are several ways to achieve something, some of these ways
+are time-consuming and some are not, some are optimized and some are not. 
+A developer should try his/her best to optimize the code for the smooth and fast running of the
+application.
+
+1. LAZY LOADING OF PAGE/COMPONENTS =
+This will help us to not load a component when the page renders and only load a component when it's
+needed. This is also called code splitting. When we finally build our application for production
+purposes, it will create a JS file in which every page and component will be included. As 
+the application grows this JS file will also grow.
+Users have to download this file when he/she visits the application to see the content. 
+Lazy loading will divide this JS file into smaller chunks. Only the most important chunks will
+load at first and when needed then smaller chunks will be loaded. This will also help users with
+low-end devices or slow internet speed.
+
+To use it instead of importing pages/components directly, we will be using React lazy loading.
+
+import Home from "./components/Home"
+To
+const Home = lazy(() => import("./components/Home"));
+
+And when these less-needed pages/components start to load, we have to show something to show
+what will load here OR something like "Loading...". For this, we will use React Suspense.
+
+
+SUSPENSE =
+This lets us display a fallback (component) until its children have finished loading.
+
+Main file =
+
+  function loadPage(){
+    setLoad("sd");
+  }
+
+import { Suspense, useState, lazy } from "react"
+
+const Page = lazy(()=>import ("./components/Page"));
+
+
+  return(
+    <div style={{width: "100vw", height: "100vh", textAlign: "center"}}>
+      
+      <button onClick={loadPage}>Load Page</button>
+      {load===""?"":<Suspense fallback={<h2>LOADING...</h2>}><Page /></Suspense>}
+
+    </div>
+  );
+
+  Page file =
+
+  export default function Page(){
+    return(
+        <>
+            <h1>This is a page with image.</h1>
+            <img src="https://images.unsplash.com/photo-1706773183831-223a782307ec?q=80"></img>
+        </>
+    )
+}
+
+- Here we are not directly importing the Page component instead, we are lazy importing it.
+Now this component will only run when required OR called.
+And the time it will take to load this Page component we have to show something in its place,
+like "Loading, please wait". For this, we have to use Suspense. We have to wrap that
+lazy component or its parent into the Suspense boundary. 
+
+
+2. LAZY LOADING FOR IMAGE =
+When we try to load a page or component with lots of images, all images will try to load at
+once. This will put a burden on the user's internet connection or device and will also look bad
+because when an image is still loading, nothing will be shown at that image place. So only a
+black area will be shown.
+To stop this we use lazy loading. This is an inbuilt feature of images.
+So we just have to write loading="lazy" in all images we used. Some images will load when the page
+loads and when the user moves to other images those images will only start loading at that time.
+
+<img src="url" loading="lazy"/>
+
+3. memo
+4. useMemo hook
+5. useCallback hook

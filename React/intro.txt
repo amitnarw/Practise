@@ -1,14 +1,15 @@
-React is a js library (not framework) for building user interfaces.
-It is use to make single page applications and it also allow us to reuse a component.
-React sometimes also called frontend js framework, but it's a library made by facebook.
+React is a JS library (not a framework) for building user interfaces.
+It is used to make single-page applications (SPA) and it also allows us to reuse a component.
+React is sometimes also called frontend js framework, but it's a library made by Facebook.
 
-- Instead manipulating browser's DOM directly, React create a virtual DOM in memory and here it make 
-necessary changes before making changes in browser's DOM. Also React only changes what is needed to be
-changed and changed only them. Virtual DOM is light weight.
+- Instead of manipulating the browser's DOM directly, React creates a virtual DOM in memory and here
+it makes necessary changes before making changes in the browser's DOM. Also, React only changes what
+needs to be changed and changes them. Virtual DOM is lightweight.
 
-- For testing purpose we can directly use React in HTML using 3 CDN. First 2 let us write React in js
-and third one (Babel) allow us write JSX syntax.
-This is ok for testing purpose but if we want it for production, then we need to setup React environment.
+- For testing purposes, we can directly use React in HTML using 3 CDN. First 2 let us write React in
+js and the third one (Babel) allows us to write JSX syntax.
+This is ok for testing purposes but if we want it for production, then we need to set up a React
+environment.
 
 React environment = 
 - To create a new react app we can use official way to create react app and for this we need nodejs
@@ -16,13 +17,13 @@ npx create-react-app my-react-app
 my-react-app is app name. If we want to use latest create-react-app the first we have to uninstall it
 npm uninstall -g create-react-app
 
-After the app is created, we can run it using (3000 is default port)
+After the app is created, we can run it using (3000 is the default port)
 npm start
 
 - JSX (Javascript XML)
-It allow us to write HTML in react and it makes it easier to write and add HTML in react.
+It allows us to write HTML in React and it makes it easier to write and add HTML in React.
 Using JSX we can create HTML elements and place them in DOM. As in js we have to createElement()
-and then appendChild() to make it work, but using JSX we don't have to anything like that.
+and then appendChild() to make it work, but using JSX we don't have to do anything like that.
 JSX converts HTML tags into react elements.
 
 Without JSX =
@@ -33,13 +34,13 @@ With JSX =
 
 - If we want to write any expressions then we have to use {} and write any expression b/w them.
 
-- We have to wrap HTML code in one Top level element.
+- We have to wrap HTML code in one Top-level element.
 For this we can use <div></div> or we can use fragments <></>
-Fragments will prevent us using/adding any unnecessary extra nodes to the DOM.
+Fragments will prevent us from using/adding any unnecessary extra nodes to the DOM.
 
-- As a JSX rule, elements must be closed properly or else will give error.
+- As a JSX rule, elements must be closed properly or else will give the error.
 
-- Because class word is reserved in js, we have to use className in JSX for class attribute.
+- Because the class word is reserved in JS, we have to use className in JSX for the class attribute.
 
 - if else are not supported inside JSX, so we have to use them outside.
 Or else we have to use ternary expressions.
@@ -96,3 +97,8 @@ function Main(props){
   )
 }
 root.render(<Main num='1' />);
+
+Strict mode =
+If we use strict mode then it will re-render (on which it is used) extra time to find bugs
+caused by impure components.
+It will also re-run effects extra time to find bugs caused by missing effects cleanup.
