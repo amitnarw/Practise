@@ -17,7 +17,7 @@ function callbackFunction(id, phase, actualDuration, baseDuration, startTime, co
 id = Id of the profiler. This will let us distinguish between different profilers.
 phase = (mount, update, nested-update) Whether the tree has just mounted or rerendered.
 actualDuration = (milliseconds) Time taken to render the profiler and its children for
-the current update. We can check effects of memo and useMemo here.
+the current update. We can check the effects of memo and useMemo here.
 baseDuration = (milliseconds) Most recent render time duration. (Without any optimization)
 startTime = When react begins rendering the component.
 commitTime = The time at which an update has been done.

@@ -1,0 +1,107 @@
+Applications built using React can crash at any time because of unhandled errors. 
+For any error during the rendering of a component or in lifecycle methods, React will show a blank
+page without showing any error message. React error boundaries will handle these errors.
+Error boundary catches the error during rendering, in lifecycle methods and the whole tree below them.
+
+Error boundaries are React components that catch JS errors anywhere in their child component tree
+log those errors and show a fallback UI instead of a component tree that crashed.
+
+In some cases where we might not handle it properly, we might get an error in production and because
+of this, we will just see a blank page. In production applications, this is not a good user
+experience. Using an error boundary here helps us to handle this error.
+
+In the development build, we can see the error on our screens, but not in the production build.
+Also if any of our child components got any error, the whole parent component will crash OR will not
+be shown on the screen. That's why we see a blank page. When we use the error boundary on a
+child component, all other unaffected child components will be shown as it is and only
+the child component on which we are using the error boundary (in case of an error) a fallback
+UI will be showing.
+
+Conditions =
+- For now, we can only use it in a class component.
+- It can only catch errors at the time of rendering and re-rendering/lifecycle methods.
+- It won't work on event handlers.
+- Won't work with Asynchronous code (setTimeout)
+- Won't work with server-side rendering
+- Won't work when errors are thrown in the error boundary itself, rather than its children.
+
+To use error boundary we need to provide static getDerivedStateFromError and componentDidCatch.
+We will use a state to check if there is an error or not.
+
+static getDerivedStateFromError = will lets us update the state in case of an error
+componentDidCatch = provides us with information about the error, which we can use to show that
+info or log it to an analytics service.
+
+NOTE: It will not work if we try to make a component in the same file where we are using an error boundary.
+We have to make a separate component, import it and wrap the error boundary around it. Then only it works.
+
+Error boundary file =
+
+import React from "react";
+
+export default class ErrorBoundary extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { hasError: false };
+    }
+  
+    static getDerivedStateFromError(error) {
+      return { hasError: true };
+    }
+  
+    componentDidCatch(error, info) {
+    }
+  
+    render() {
+      if (this.state.hasError) {
+        return <h1>ERRRRR</h1>;
+      }
+  
+      return this.props.children;
+    }
+  }
+
+
+
+  Main file =
+
+  export default function App(){
+
+  return(
+    <div>
+      <p>CHECK</p>
+      <ErrorBoundary>
+        <Screen />
+      </ErrorBoundary>
+    </div>
+  )
+}
+
+
+
+File/component on which error boundary is used =
+
+import React, { useState } from 'react'
+
+const Screen = () => {
+
+  const [count, setCount] = useState(0);
+
+    if(count > 6){
+      throw new Error("E");
+    }
+
+  return (
+          <>
+            <h2>COUNTER</h2>
+            <p>{count}</p>
+            <button onClick={()=>setCount(count+1)}>Click</button>
+          </>
+        )
+      };
+
+export default Screen;
+
+
+- ErrorBoundary will act as a parent and on which it is wrapped will be his children.
+So we are sending these children in the props of the ErrorBoundary and showing these children if there is no error.

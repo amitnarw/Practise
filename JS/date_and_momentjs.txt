@@ -1,7 +1,7 @@
 Like everything in js, dates are also objects.
-Dates are static object. By default js will use browser's time zone to display a date.
+Dates are static objects. By default, js will use the browser's time zone to display a date.
 Js by default gives dates using toString() method.
-Timezone is not a list of time zones but a historical data of all time zone changes since 1970.
+Timezone is not a list of time zones but historical data of all time zone changes since 1970.
 
 console.log(new Date()) = Thu Jan 11 2024 14:58:28 GMT+0530 (India Standard Time)
 
@@ -41,10 +41,10 @@ new Date().toUTCString() = Thu, 11 Jan 2024 09:54:08 GMT
 
 ISO (International Organization for Standardization) standard time
 new Date().toISOString() = 2024-01-11T09:52:02.929Z (toJSON() works same)
-Here time is separated with T and Z define UTC time.
-If we want to modifify time relative to UTC, we have to remove Z and add +HH:MM or subtract -HH::MM
+Here time is separated with T and Z defined UTC time.
+If we want to modify time relative to UTC, we have to remove Z and add +HH:MM or subtract -HH::MM
 If T and Z are not included in date-time string, different browsers can give different results. 
-UTC is same as GMT (Greenwich Mean Time)
+UTC is the same as GMT (Greenwich Mean Time).
 
 If we request for a date, without specifying a time zone, then result will be in browser's time zone.
 
@@ -64,7 +64,7 @@ new Date().toLocaleTimeString() = 4:42:05 pm
 
 
 DATE METHODS = 
-Date method allow use to operate on dates.
+Date method allows us to operate on dates.
 
 Get methods =
 
@@ -106,8 +106,8 @@ console.log(dd) = Mon Jan 11 2021 16:12:28 GMT+0530 (India Standard Time)
 Compare dates = 
 new Date('01-02-2020') < new Date('02-02-2020') = true
 
-There is no method available in js to know timezone of a differnet country, also parsing, validating, 
-manipulating and displaying date/time becomes easy when using js library MomentJS.
+There is no method available in js to know the timezone of a different country, also parsing,
+validating, manipulating and displaying date/time becomes easy when using js library MomentJS.
 
 MOMENT JS =
 To start using moment js we first have to include it's script or download npm when using nodejs.

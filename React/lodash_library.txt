@@ -1,0 +1,194 @@
+Lodash is a JS library that makes it easier to handle arrays, objects, strings and collections.
+We can even chain the Lodash function to perform complicated array OR object manipulations easily.
+It is very light (69kb), efficient and popular.
+
+We can load Lodash using a script, in JS
+<script type = "text/JavaScript" 
+   src = "https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js">
+</script>
+
+OR we can load it by installing, it in react
+npm i lodash
+
+
+- We can check if an object or an array is empty or not using Lodash.
+With lodash =
+Lodash.isEmpty(arr)
+Lodash.isEmpty(obj)
+
+Without lodash =
+arr.length === 0
+Object.keys(obj).length === 0
+
+returns true/false
+
+.chunk = return a new array of chunks of specified size
+
+    const arr = ['a', 'b', 'c', 'd']
+console.log(Lodash.chunk(arr, 2)) = [['a', 'b'], ['c', 'd']]
+
+.compact = Return an array without any falsey values. Like 0, NaN, false, null, undefined, ""
+
+    let arr = [1, 2, "", 3, false, null, 4, undefined, 5, 0, 6, NaN, 7];
+console.log(Lodash.compact(arr)) = [ 1, 2, 3, 4, 5, 6, 7 ]
+
+.map = return a new mapped array according to the function we provide
+
+    let arr1 = [1, 2, 3];
+console.log(Lodash.map(arr1, (x) => x*x)) = [ 1, 4, 9 ]
+
+.filter = returns a new array that fulfills the condition
+
+    let arr1 = [1, 2, 3];
+console.log(Lodash.filter(arr1, (x) => x > 2)) = [ 3 ]
+
+.reduce = returns the result of calculating the sum
+
+    let arr1 = [1, 2, 3];
+console.log(Lodash.reduce(arr1, (sum, num) => sum + num)) = 6
+
+.orderBy = returns a new array of objects in an ordered fashion
+
+    let arr1 = [
+        { name: 'Alice', age: 30 },
+        { name: 'Bob', age: 25 },
+        { name: 'Charlie', age: 35 },
+    ];
+Lodash.orderBy(arr1, ["age"], ["asc"]) =  
+
+{ name: "Bob", age: 25 }​
+{ name: "Alice", age: 30 }
+{ name: "Charlie", age: 35 }
+
+.groupBy = returns a new array of objects which follows the condition provided
+
+  let arr1 = [
+    { name: 'Alice', age: 30 },
+    { name: 'Bob', age: 25 },
+    { name: 'Charlie', age: 35 },
+    { name: 'Sam', age: 20 },
+  ];
+console.log(Lodash.groupBy(arr1, ({age}) => age > 20)) = 
+
+{
+  "true": [
+    {"name": "Alice", "age": 30},
+    {"name": "Bob", "age": 25},
+    {"name": "Charlie", "age": 35}
+  ],
+  "false": [
+    {"name": "Sam", "age": 20}
+  ]
+}
+
+.assign = work just like spread operator. But here same key values will be overwritten with the new
+one.
+
+  let arr1 = [
+    { name: 'Alice', age: 30 },
+    { name: 'Bob', age: 25 },
+    { name: 'Charlie', age: 35 },
+    { name: 'Sam', age: 20 },
+  ];
+  let arr2 = [4, 5];
+console.log(Lodash.assign(arr1, arr2)) =
+
+[
+  4,
+  5,
+  {"name": "Charlie", "age": 35},
+  {"name": "Sam", "age": 20}
+]
+
+Here values at keys 0 and 1 were replaced/overwritten by new objects with key values 0 and 1.
+
+.times(n, fn()) = run fn() function n number of times
+
+console.log(Lodash.times(4, (i)=> {return i * 2})) = [ 0, 2, 4, 6 ]
+
+.debounce = returns a function after waiting for the time given and here waiting time is calculated 
+after the first time the function is called. This is different from setTimeout because in setTimeout 
+we will be calling a function after the specified time, but in Debounce once a function runs for the
+first time this same function will be called after the specified time.
+Like in autocomplete, if we try to guess the word after every input, it can get heavy
+so here we can call the function after 200ms is passed after clicking a button.
+
+.debounce(function, wait, options{})
+
+const call = Lodash.debounce(()=>console.log("ok"), 2000);
+call();
+call();
+call();
+call();
+call();
+
+No matter how many times we call this call() function, it will only run once.
+
+.find() = Same as .filter but .find() only returns first value that follows the condition 
+
+  var users = [
+    { firstName: "John", lastName: "Doe", age: 28, gender: "male" },
+    { firstName: "Jane", lastName: "Doe", age: 5, gender: "female" },
+    { firstName: "Jane", lastName: "Doe", age: 5, gender: "male" },
+    { firstName: "Jim", lastName: "Carey", age: 54, gender: "male" },
+    { firstName: "Kate", lastName: "Dude", age: 40, gender: "female" }
+  ];
+let user1 = Lodash.find(users, (x) => x.age > 30) = 
+{ firstName: "Jim", lastName: "Carey", age: 54, gender: "male" }
+
+let user = Lodash.find(users, { age: 5 }) = 
+{ firstName: "Jane", lastName: "Doe", age: 5, gender: "female" }
+
+.get = gets the value at the path provided
+
+    let users1 = { firstName: "John", lastName: "Doe", age: 28, gender: "male" }
+console.log(Lodash.get(users1, "age", "not found")) = 28
+console.log(Lodash.get(users1, "ag", "not found")) = not found
+
+Here 3rd argument is if it didn't find the path or the path is invalid then it will show 3rd
+argument. If 3rd argument is not used and the path is invalid then it will simply return undefined.
+
+.set = will set a new value at the path provided
+
+console.log(Lodash.set(users1, "age", "new value"))
+console.log(Lodash.get(users1, "age", "not found")) = new value
+
+.deburr = returns a new string with all combining diacritical marks removed
+
+  console.log(Lodash.deburr("déjà vu")) = deja vu
+
+.keyBy = Returns all object that contains the specified key. We can also use this to get the first
+object that has a value that we want. Used for organizing object collection.
+
+  console.log((Lodash.keyBy(users, "age"))[54]); =
+{
+  "firstName": "Jim",
+  "lastName": "Carey",
+  "age": 54,
+  "gender": "male"
+}
+
+.clone = returns a clone of an object. It can clone anything. Both object's values will be
+same if we try to check it.
+
+  var users = [
+    { firstName: "John", lastName: "Doe", age: 28, gender: "male" },
+    { firstName: "Jane", lastName: "Doe", age: 5, gender: "female" },
+    { firstName: "Jane", lastName: "Doe", age: 5, gender: "male" },
+    { firstName: "Jim", lastName: "Carey", age: 54, gender: "male" },
+    { firstName: "Kate", lastName: "Dude", age: 40, gender: "female" },
+    { firstName: "Kate", lastName: "Dude", gender: "female" }
+  ];
+
+let us = Lodash.clone(users)
+console.log(us[0] === users[0]) = true
+
+.cloneDeep = same as .clone but the new object will have a new address in memory. And because of
+that both objects values will be different if we try to check it.
+
+
+.sortedUniq = returns a new array with all duplicate values removed.
+
+  let users1 = [1, 1, 2, 3, 3, 3, 4];
+
+console.log(Lodash.sortedUniq(users1)) = [ 1, 2, 3, 4 ]
