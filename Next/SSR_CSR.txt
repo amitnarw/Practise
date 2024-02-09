@@ -1,0 +1,49 @@
+SSR = Server Side Rendering
+CSR = Client Side Rendering
+
+- If we try to use a click event on a newly made create-next-app, then it will give the error.
+Because by default Next.js tries to use SSR to get data (all components by default are 
+server-side components), meaning Next.js will first render data on the server and then send it
+to the client. We can also say that Next.js pre-renders every page, meaning Next.js generates HTML
+for each page in advance instead of rendering the page on client-side JavaScript. This is better
+for performance and SEO.
+
+- In React, when a page is loaded by the browser first HTML will be loaded and then JS runs
+and makes the page interactive. This is called hydration.
+
+Advantage of server-side components over client-side components =
+- Maintained security (when using secret codes/keys, authentication, etc)
+- Improvements in performance
+- SEO
+
+So there are 2 components based on rendering Server-side components and Client-side components.
+Where to use these =
+
+Server-side component
+- fetch data
+- access backend resources directly
+- keep sensitive info on the server (access tokens, API keys, etc) 
+- keep large dependencies on server to reduce client-side js
+
+Client-side components.
+- interactivity and event listeners (onClick, onChange, etc)
+- state and lifecycle (useState, useEffect, etc)
+- browser only APIs
+- custom hooks depend on state, effect or browser API
+- react's class component
+
+- There are 2 types of pre-rendering = Static generation and SSR
+1. Static generation = HTML will be generated at build time and will be reused on each request.
+2. SSR = HTML will be generated on every request.
+
+We can use both in an application. Static-generated pages are much faster than SSR because
+these can be cached by CDN without doing anything, which will boost performance.
+
+We can even use all of these 3 in Next.js app according to our needs.
+
+- By default Next.js will be using SSR, to make it use CSR we have to type "use client" at the
+top of our code. It should be the first thing Next.js checks.
+We don't have to do that to every page we make. If a Parent file is using "use client" then
+Child files don't have to use it again. Because child files come under parent files.
+But if a file is not a child file, then in that we have to use it again.
+

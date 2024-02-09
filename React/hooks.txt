@@ -483,6 +483,70 @@ console.log(c == d)                   //false
 We can only compare their reference.
 console.log(c.first == d.first)       //true
 
+Difference between useMemo and useCallBack = 
+
+We have a parent component and a child component. If we are changing a state in our parent
+component on a button click and this button is also in the parent, whole parent component will 
+re-render because the state is also changing, which is normal. But our child component is also
+re-rendering even though we are not changing anything in the child component. This is only
+because our child component is inside our parent component and when the parent component
+re-renders, it also renders our child component.
+
+function Parent(){
+  const [num, setNum] = useState(0);
+  return(
+    <div>
+      <p>{num}</p>
+      <button onClick={() => setNum(num+1) }>Increase</button>
+      <Child />
+    </div>
+  )
+}
+
+function Child(){
+  return(
+    <p>Hello</p>
+  )
+}
+
+To stop this we use useMemo hook. 
+
+function Parent(){
+  const [num, setNum] = useState(0);
+  const memoized = useMemo(()=><Child />, []);
+  return(
+    <div>
+      <p>{num}</p>
+      <button onClick={() => setNum(num+1) }>Increase</button>
+      {memoized}
+    </div>
+  )
+}
+
+Now our child component will not re-render with our parent component.
+Suppose we are using a function in our Parent component which is only doing console.log().
+And we are passing this function to our child component.
+If we do the same thing of changing the state, our parent and child components will
+re-render but if we use useMemo to stop our child component from re-rendering, it
+should stop our child component from re-render. But our child component will still re-render,
+the reason is when our parent component re-renders it also re-renders the function that we are
+passing to our child component (re-render means that the function got re-created).
+To stop this from happening here we have to use useCallBack hook.
+
+function Parent(){
+  const [num, setNum] = useState(0);
+  const memoizedFn = useCallBack(() => console.log("Hello"), []);
+  const memoized = useMemo(()=><Child cc={memoizedFn} />, []);
+
+  return(
+    <div>
+      <p>{num}</p>
+      <button onClick={() => setNum(num+1) }>Increase</button>
+      {memoized}
+    </div>
+  )
+}
+
 7. useReducer =
 These are like useState but allow us to use a custom state logic in useState.
 States are an important part of react, but when our app grows we have to use more useStates

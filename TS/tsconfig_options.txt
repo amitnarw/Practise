@@ -1,13 +1,23 @@
+- We can tell tsc to watch a particular folder and if we made any changes in a file in that folder, then
+tsc will automatically compile ts files to js files, without running the compiling code again
+and again, when we save the ts file.
+
+tsc --watch 
+
+- If we only want tsc to check changes only in a file
+
+tsc --watch folderName/fileName
+
 - We can also exclude some files, which we don't want to execute. (We have to use double quotes in tsconfig)
 We can do this by adding these files/folder names in tsconfig file in an array named exclude.
 "exclude": ["fileName.ts", "folderName"]
-If we want to exclude a file which is in a folder = "src/fileName.ts"
-If we want to exclude a file which is present in different folder/places but have same name = "*/fileName.ts"
+If we want to exclude a file that is in a folder = "src/fileName.ts"
+If we want to exclude a file that is present in different folders/places but has the same name = "*/fileName.ts"
 
 - We can also include some files/folder, which we want to execute.
 "include": ["fileName.ts", "folderName"]
 
-- In tsconfig file under compilerOptions we can choose target, using which we can tell ts to compile
+- In tsconfig file under compilerOptions we can choose the target, using which we can tell ts to compile
 my ts file to js using specified ECMA script. Older ones will use var instead of let, const but newer
 ones will use let and const. Older one uses older rules and newer one uses newer rules.
 

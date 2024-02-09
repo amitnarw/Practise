@@ -1,13 +1,14 @@
-Page routing is not there is create react app. For this generally we use react router.
+Page routing is not there in the "create-react-app". For this generally, we use a react-router.
+
 To install we have to use =
 npm -i react-router-dom
-If we already have it installed, then we can install latest one =
+If we already have it installed, then we can install the latest one =
 npm -i react-router-dom@latest
 
 - It's better if we create a separate folder, where we put different files for different pages.
 
 Implementation =
-First we have to import react router components
+First, we have to import react-router components
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 Then we have to follow this order to use it
@@ -23,14 +24,20 @@ Then we have to follow this order to use it
     </Routes>
 </BrowserRouter>
 
-BrowserRouter have to be wrapped around the whole thing.
+BrowserRouter has to be wrapped around the whole thing.
 Then we have to do the same but inside BrowserRouter with Routes.
-Path with '*' will catch all the undefined pages and show them only Not Found page, like for 404 page.
+Path with '*' will catch all the undefined pages and show them only the Not Found page, like for
+the 404 page.
 
-- It's a good practice to include navigation bar related things in Layout page.
-And in this page we can use <a href=''> OR <Link> element to navigate to different page.
+- It's a good practice to include navigation bar-related things in the Layout page.
+
+
+Link =
+On this page, we can use <a href=''> OR <Link> element to navigate to different page.
 <a href=''> will refresh the whole page
 <Link> will not refresh the page.
+
+import { Link } from "react-router-dom"
 
 const Layout = () => {
     return(
@@ -42,9 +49,50 @@ const Layout = () => {
                     <li><Link to="/about">About</Link></li>
                 </ul>
             </nav>
-            <Outlet />          (Because we used Nested Route, to make it work we have to use Outlet)
+            <Outlet />    (Because we used Nested Route, to make it work we have to use Outlet)
         </>
     )
 }
 
-- If we used nested Route and didn't used <Outlet />. then it won't work.
+- If we used nested Route and didn't use <Outlet />. then it won't work.
+
+
+NavLink = 
+This is another component available in react-router-dom which does the same thing that Link
+does, but with NavLink we will know which component is currently being displaced. Here in
+the anchor tag, one new class will be added which is class = "active".
+
+We can use this close to use CSS on this active anchor tag.
+
+
+Nested routing =
+Suppose we have some pages where we are showing posts and we have more than 1 post. There is only
+one post per page page. If we want to open post 1 or post 5 we have to write /posts/1 for page 1
+and /posts/5 for page 5. As we can see /posts/ is common in both. So here we can use nested routing.
+
+    <Route path="/posts/">
+        <Route path="1" element={<Posts num="1"/>}></Route>
+        <Route path="2" element={<Posts num="2"/>}></Route>
+    </Route>
+
+Shared routing =
+Routing which is shared by all pages. Suppose our home page is on domain.com/. To show home we use
+"/". And if we write any page's name after "/" like "/Posts" it will open another page. So all
+pages are sharing this "/". We can use it in such a way that we don't have to write "/" again and
+again.
+But to make it work, we have to use one more component which is <Outlet />.
+We also have to make our home page as an index.
+
+        <BrowserRouter>
+          <Routes>
+            <Route path="/">
+              <Route index="0" element={<Page />}></Route>
+              <Route path="Screen" element={<Screen />}></Route>
+              <Route path="posts/">
+                <Route path="1" element={<Posts num="1"/>}></Route>
+                <Route path="2" element={<Posts num="2"/>}></Route>
+              </Route>
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        <Outlet />

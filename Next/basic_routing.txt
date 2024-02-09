@@ -1,0 +1,72 @@
+In Next.js routing is built-in unlike in React.js where we have to import react-router-dom dependency.
+Next.js uses file-system-based routing. Meaning unlike in React.js where we can make a page just by
+creating a new file.js, in Next.js we first have to make a folder with the name that we want to give
+to that page and then make a file.js with the name page.js. All files that will open a page in Next.js
+have the same name page.js, only their folder name is different.
+
+This routing also should be made in the folder "app" which should be present inside the folder "src".
+If there is no folder with the name "app" then we can make a routing folder in the "src" folder.
+
+- There should already be a page with the name "page.js" in the "src" OR "src/app" folder.
+This "page.js" is also inside a folder.
+As it's a file-based routing, we don't have to import page2 to page1 to navigate from page1 to page2.
+
+We can also use any react-router-dom library in Next.js because it has its advantages.
+
+Link = 
+In React.js where we use "Link" to navigate between pages, in Next.js we use the same "Link" to
+navigate b/w pages. This is meant to be used in the navigation bar. It is a declarative action.
+Here we are sending "href" as a prop.
+
+import Link from "next/link";
+
+<Link href="/page1">Go to page1</Link>
+
+
+useRouter =
+In React.js where we use "useNavigatin" to redirect to a page, in Next.js we use "useRouter"
+to redirect to a page. Not be used in the navigation bar. It is imperative action.
+
+import { useRouter } from "next/navigation";
+
+const route = useRouter();
+
+<button onClick={route.push("/page1")}></button>
+
+
+
+Nested routing =
+When a page also has different pages under it like in a drop-down menu. There we use Nested routing.
+All pages under the main page are connected to the main page.
+ex = 
+mainpage
+mainpage/page1
+mainpage/page2
+mainpage/page3
+Pages page1, page2 and page3 are child pages of the parent page mainpage.
+
+To show these pages we have to use nested routing.
+Because Next.js uses file-based routing, we have to make a new folder "page1" inside the folder
+"mainpage" and have to make a new file page.js inside this "page1" folder. And everything else
+will be handled by the Next.js routing system.
+
+And we can access these child pages like this =
+
+import { useRouter } from "next/navigation";
+
+const route = useRouter();
+
+<button onClick={() => router.push("mainpage/Page1")}>Page1</button>
+
+
+
+Common Layout =
+If we want a common UI on some or all of our pages then we can do that by using layout.js file.
+There is already a file named "layout.js" available in "src/app" folder. This acts like
+"index.js" file which we found in React.js. 
+This is a single file where all of our files are exported to. And that's why if we make
+something in this file, it will be visible/available on all of our pages.
+Here we can make the navigation bar. 
+
+Also if we want a common layout/UI in the nested route then we can do the same thing by 
+making a "layout.js" file in the main file of our nested route.

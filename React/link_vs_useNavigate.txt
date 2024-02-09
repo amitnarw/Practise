@@ -1,0 +1,29 @@
+Link, NavLink and useNavigate all are imported from react-router-dom.
+
+All do the same thing but the way they do is different. useNavigate is a hook which returns a
+function which we can use to redirect to a page.
+
+- Link and NavLink are declarative programming (describes WHAT the program does something).
+- useNavigate is imperative programming (describe HOW the program does something).
+
+Declarative = 
+We declare what we want to happen. Components handle everything
+<button><Link to="/pageName">Click</Link></button>
+Here we are just telling the button to go to this page.
+
+Imperative =
+We issue a command to navigate now and we also tell them how to do it.
+const navigate = useNavigate();
+<button onClick={() => {navigate("/pageName")}}>Click</button>
+Here we are telling the button to navigate on a page on click.
+
+- Link and NavLink should be used in the Navigation bar.
+- useNavigate should be used anywhere except in the Navigation bar.
+
+- There is no method available in Link to go back to the previous page.
+- In useNavigate we have a method to back to the previous page.
+
+For this, we just have to write -1 in place of the page address.
+
+const navigate = useNavigate();
+<button onClick = {() = > {navigate(-1)}}>Go Back</button>

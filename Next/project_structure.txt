@@ -1,0 +1,35 @@
+1. project.json = same as in React.js
+
+2. next.config.js = 
+We will be doing Next.js framework configurations here. Like declaring assets, changing/applying
+base path, declaring environment(env), etc
+
+3. jsconfig.json = 
+We will do JS language configurations here. Like for assigning path to /src/ folder (files will be read
+from this path), choosing ECMAscript, etc.
+
+4. README.md = same as in React.js
+
+5. package.json = same as in React.js (details of packages installed)
+
+6. package-lock.json = same as in React.js (details of packages dependent on other packages in depth)
+
+7. .gitignore = same as in React.js (files that we don't want to upload on git)
+
+8. .eslintrc.json = maintain ECMAscript standard. Like if we want to use let instead of var, we have
+lots of variables that we are not using then it will warn us about that, etc.
+
+9. .next folder = same as build folder in React.js (build project will be saved here)
+
+10. node_modules folder = same as in React.js
+
+11. public folder = same as in React.js (files that are made available for public use)
+
+12. src folder = It may not be available in the older version of Next.js. The source of our
+application will be in this folder.
+
+Inside this src folder =
+a. favicon.ico - A smaller version of logo of an application, used in tabs, history, bookmarks, etc.
+b. globals.css - css used globally will be available here.
+c. layout.js = same as index.js in React.js. Entry file of JS. First file to be executed in JS.
+d. page.js = kind of Home page

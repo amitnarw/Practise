@@ -1,0 +1,48 @@
+Next.js is a framework of React.js. We get everything that is in React + extra features and 
+optimization. So we can say that Next.js is an advanced version of React.js and also React team
+suggests a framework rather than React.js directly. According to the React team, React is ok for
+building small applications but if we need to build something big then we should use Next.js.
+
+Traditional React.js apps are rendered on the client-side whereas Next.js apps provide us 
+server-side rendering also. This helps in SEO (Search Engine Optimization) because the search
+engine's crawler cannot able to collect data from a website which will render on the client
+side. Client-side rendering can be slow because most of the clients don't have high end
+devices. Which makes applications that render on the server side faster.
+
+In React.js we have to install libraries to use their functionality, but most of these 
+libraries are already built in Next.js. Like routing in React, we have to use react-router-dom.
+
+These and a lot more improvements are in Next.js.
+
+But there are some disadvantages in Next.js =
+- It is less flexible and almost everything has to be coded from scratch.
+- Have fewer plugins than others.
+- It doesn't have an inbuilt state manager so we have to use an external one like Redux.
+
+In Next.js we cannot simply start/check our app in the browser using "npm start" as in React.js.
+We have to use "npm run dev" for that.
+There are other commands also "npm run start", which will only work if we have already built
+a production-ready code using "npm run build".
+
+So, in short
+"npm run dev" to run the application "npm start".
+"npm run build" to build our app for production.
+"npm run start" to access that built application.
+
+And here also default port is 3000. So the address will be localhost:3000
+
+- index.js is the main file in React.js but in Next.js it is layout.js
+- App.js is the app in which we do all the changes in React, but in Next it is page.js
+
+
+Behind the scenes, the components are split into 2 module graphs.
+1. Server module graph/tree = contains all server components that render on the server.
+2. Client module graph/tree = contains all client components.
+
+- First Server components render and then a special data format RSC (React Server
+Component Payload) is sent to the client. This RSC payload contains 
+a. Rendered result of the server components
+b. Placeholders/holes for client components, telling where client components should
+be rendered and reference to their JS files.
+
+React uses this info to join the Server and Client Components and update the DOM on the client.

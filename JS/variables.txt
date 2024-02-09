@@ -15,8 +15,19 @@
 - redeclare: false
 - reassign: false
 
-Hoisting = Process of moving declaration to the top of their block (during compilation phase), before running the code.
-TDZ = Temporal Dead Zone is a zone where a variable declared with let, const or class stays untill it is initialized (meaning assigned a value). Gives ReferenceError if try to access. Helps in block scoping and prevent usage before properly initialized.
+Hoisting = Process of moving declaration to the top of their block (during compilation phase),
+before running the code. Moving to the top of their scope.
+Hoisting is done in all var, let and const. The only difference is when we try to access a var
+before its initialization (meaning assigning a value to it), it gives us an "undefined" as
+a value because var initialized with "undefined".
+But if we try the same thing with let and const, it will give us ReferenceError
+because let and const are not initialized with any value or even "undefined".
+So, var is initialized when we declare the var value but let and const are not.
+
+
+TDZ = Temporal Dead Zone is a zone where a variable declared with let, const or class stays
+until it is initialized (meaning assigned a value). Gives ReferenceError if try to access it.
+Helps in block scoping and prevents usage before properly initializing.
 
 declaration (var a)
 assignment (a = 3)
