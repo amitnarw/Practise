@@ -1,0 +1,35 @@
+Next.js already has a 404/not-found page if we try to access a URL that is not available.
+But this is a basic page that only shows 404 messages.
+To make it useful or add additional things, we have to make our own 404 page.
+
+We made a layout.js page (which is common for all pages inside that folder in which
+layout.js is present) or page.js (where we save our work/UI), just like these, we have
+to use the same name for every 404 page, which is "not-found.js".
+And this file will only be used for showing 404/not-found pages. And just like with 
+layout.js and page.js we have to make a similarly named file for every route/URL, we
+have to make a similarly named file for a 404 page for every route/URL or we can make a
+common 404 file for every route.
+
+const notFound = () => {
+  return (
+    <div>
+      <p>Not found</p>
+    </div>
+  )
+}
+
+export default notFound;
+
+Everything else will be handled by Next.js.
+If we made this page directly in the src/app folder, then this 404 page will be treated as
+a global 404 page. This means a 404 page will be shown if we try to access a URL/route
+after any route.
+So, if we try to access 
+localhost:3000/first/first1/ABC OR localhost:3000/abc
+in both cases, we will see the same 404 page. 
+But if we want to show a different 404 page in a route that is not available after "first"
+OR "first/first1" then here we first have to make a similar folder like we made in 
+catch-all folder.
+[...not-found] (folder name can be anything)
+Inside this folder, we have to make a file named "page.js".
+In this file, we can make our separate 404-page UI.

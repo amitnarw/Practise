@@ -6,7 +6,7 @@ building small applications but if we need to build something big then we should
 Traditional React.js apps are rendered on the client-side whereas Next.js apps provide us 
 server-side rendering also. This helps in SEO (Search Engine Optimization) because the search
 engine's crawler cannot able to collect data from a website which will render on the client
-side. Client-side rendering can be slow because most of the clients don't have high end
+side. Client-side rendering can be slow because most of the clients don't have high-end
 devices. Which makes applications that render on the server side faster.
 
 In React.js we have to install libraries to use their functionality, but most of these 

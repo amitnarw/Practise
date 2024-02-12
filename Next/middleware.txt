@@ -1,0 +1,123 @@
+Middleware is a self-executing code that executes before any routing request and it is a part
+of Next.js routing.
+Or we can say that middleware allows us to run code before any request is completed.
+Based on incoming requests we can modify the response by rewriting, redirecting or modifying.
+
+We can use it for redirecting or for authentication.
+
+- We can only make a middleware file in the root folder and not inside any other folder.
+
+To check the paths on which our middleware should run, there are 2 ways =
+1. conditional statement
+2. custom matcher config
+
+If the function and file have the same names (should be middleware), then there is no
+need to write export default. By only writing "export" is also enough.
+But if we choose a different name for the function, then using the keyword "default" is
+a must.
+
+1. Conditional statement =
+(if-else statement)
+
+export default function Middleware(req){
+    if(req.nextUrl.pathname === "/first"){
+
+    }
+}
+
+2. Custom matcher config =
+
+export default function Middleware(){
+    
+}
+
+export const config = {
+    matcher: "/first"
+}
+
+Then we have to use a hook "NextResponse" to redirect to some other route.
+
+With conditional statement =
+import { NextResponse } from "next/server";
+
+export function middleware(req){
+    if(req.nextUrl.pathname === "/first"){
+        return NextResponse.redirect(new URL("/", req.url));
+    }
+}
+
+With custom matcher config =
+import { NextResponse } from "next/response";
+
+export function middleware(req){
+    return NextResponse.redirect(new URL("/", req.url));
+}
+
+export const config = {
+    matcher: "/first"
+}
+
+- This will only work if we go to /first/, this will not redirect a route if it is a nested
+route like /first/first1.
+We also have to add this nested route in our function and if there are any other nested
+routes where we have to do the same thing then we have to add all of those nested routes.
+Which is not a good thing. 
+Here we can use the custom matcher config instead. Like this
+
+export const config = {
+    matcher: "/first/:path*"
+}
+
+Now every nested route under "first" will redirect.
+
+- But what if we want to redirect more than one route, then we can add all of those routes
+in the if-else condition statement or add those routes in an array in the custom matcher
+config.
+
+export const config = {
+    matcher: ["/first", "/login"]
+}
+
+And we can also use nested routes with them
+
+export const config = {
+    matcher: ["/first/:path*", "/login/:path*"]
+}
+
+- If we want only nested routes under "/first" to redirect, then instead of * at the end
+of the path, we have to use +
+
+matcher: "/first/:path+"
+
+- If we want only 1 or no nested route under "/first" to redirect and if we write more than
+1, then it will not work
+
+matcher: "/first/first1?"
+
+Rules =
+ - must start with /
+ - /first OR /first/:path = redirect if no nested route used
+ - /first/:path? = redirect if no nested route or only one is used
+ - /first/:path+ = redirect if at least one or more nested route is used
+ - /first/:path* = redirect if a nested route is used or not
+
+NextResponse API allows =
+- redirect incoming req to a different URL
+- rewrite the response by displaying the given URL
+- set req headers for API routes
+- set response cookies
+- set response headers
+
+
+waitUntil =
+Takes a promise as an argument, and will not send a response until the promise is settled.
+
+export function middleware(req, event){
+    event.waitUntil(fetch("URL", {
+        method: "POST",
+        body: "body"
+    }))
+    
+    return NextResponse.next();
+
+}

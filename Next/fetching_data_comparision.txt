@@ -1,0 +1,50 @@
+CLIENT-SIDE RENDERING =
+
+"use client"
+
+import { useEffect, useState } from "react";
+
+const page = () => {
+    
+    const [pro, setPro] = useState([]);
+    
+    useEffect(()=>{
+        async function fetchData(){
+            let res = await fetch("https://dummyjson.com/products");
+            let data = await res.json();
+            setPro(data.products);
+        }
+        fetchData();
+    }, [])
+  return (
+    <div style={{backgroundColor: "white", width: "100vw", height: "100vh"}}>
+      {pro.map((x, i) => {
+        return <li style={{color: "black"}} key={i}>Name: {x.title} Price: {x.price}</li>
+      })}
+    </div>
+  )
+}
+
+export default page;
+
+
+SERVER-SIDE RENDERING =
+
+async function allProducts(){
+    let res = await fetch("https://dummyjson.com/products");
+    let data = await res.json();
+    return data.products;
+}
+
+const page = async () => {
+    let all = await allProducts();
+  return (
+    <div style={{backgroundColor: "white", width: "100vw", height: "100vh"}}>
+      {all.map((x, i) => {
+        return <li style={{color: "black"}} key={i}>Name: {x.title} Price: {x.price}</li>
+      })}
+    </div>
+  )
+}
+
+export default page;

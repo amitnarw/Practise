@@ -1,0 +1,34 @@
+Rendering simply means converting our code into HTML/UI.
+Just like in C/C++ where we compile our program to get results, in JS and JS-related programs
+we get HTML/UI.
+
+
+Rendering environments =
+There are 2 types of rendering environments.
+1. Client-side environment = Code of our web application will be saved on a server at the time
+of build. We will get that code from the server and the code will then render on the client device.
+2. Server-side environment = Code of our web application will render and not just be saved at the
+time of build on the server. We will directly get rendered HTML/UI on the client device.
+
+
+Component-level rendering =
+In a single component, we can do both client as well as server rendering. Meaning we can render
+a part of a component on the server side and remaining on the client side. 
+For things or parts of our component that will not change or have no event handler (meaning in no
+way we can interact with that part), we can render them on the server. The interactive parts
+(like a button) are rendered on the client side so the client can interact with that part.
+
+We can do this by creating a different file for the interactive components (here we have to use
+"use client" on top) and import these files in the server-side rendering file.
+
+
+Pre=rendering =
+This means generating HTML/UI in advance on the server side. It is made up of 2 parts.
+
+1. Static generation = At build time, both server-side and client-side components will
+render at the server side and this render will be reused every time a user requests
+for this component.
+
+2. Server-side rendering = Whenever a user requests for this component, it will render
+at that time and then be sent to the user's device. This component will not render at
+build time but renders when the user requests it.
