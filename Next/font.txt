@@ -1,0 +1,96 @@
+next/font will automatically optimize the fonts including custom fonts. It removes the external
+network requests which improves privacy and performance.
+It also automatically self-hosts the fonts we use, which means that our fonts will be downloaded
+at build time and requests will be sent by the browser if fonts load from a URL.
+We also have to specify font properties for performance optimization.
+
+Why font optimization is necessary =
+If not optimized it can result in poor user experience, like the website loading first and
+then after some time fonts load. This can shift the layout of the website.
+FOUT (Flash Of Unstyled Text) = This happens when the web page loads first and then the fonts
+load. This is a special case of FOUC (Flash Of Unstyled Content) where the browser renders the
+whole page but the CSS loads after some seconds and the web page layout is again changed,
+which can be disorienting for the user.
+FOIT (Flash Of Invisible Text) = Here browser renders the layout of the page and when the
+fonts load, then all the text will load on that web page. This leaves the page unusable
+for a short duration of time.
+FOFT (Flash Of Faux Text) = In this a very light-weight OR a tiny subsetted font file
+will be used and a separate full font request will be sent. Users will see a very
+quick flash when the main font loads.
+
+
+GOOGLE FONTS =
+
+Without optimization = We have to create a <head> tag under <html> tag and above <body> tag in the
+layout.js file and paste the copied <link> of the font from Google fonts inside this <head> tag.
+
+export default function RootLayout({ children }) {
+  const path = usePathname();
+  return (
+    <html lang="en">
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap"
+        rel="stylesheet" />
+    </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+
+Now we can use this font anywhere in the page.js file, like 
+<p style={{fontFamily: "Poppins"}}>Demo text</p>
+
+But if we use it like this, it will send a separate font request to Google Fonts this font.
+
+
+With Optimization = Font will be served from the same domain on which our website is deployed.
+
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({     (this is a function, so we have to get fonts out of it)
+    weight: "100",
+    subset: ["latin"],
+    display: "swap"
+});
+
+<h1 className={poppins.className}>Demo heading</h1>
+
+
+Font options =
+- weight = boldness of a font
+- subset = Subsetting is an act of removing glyphs and other info from the font file and
+creating a file which is called subset. Modern fonts often support different languages and
+that's why have different characters. In a subset, we split font into different parts (numbers,
+letters, symbols, etc) and load only that part that is needed.
+- display: swap = This will let the browser render the page with a fallback font until 
+the new font is fully loaded.
+
+
+LOCAL FONTS =
+The process is similar (not the same) to google fonts. First, we have to put the font in a
+folder and then where we want to use it, we have to import it like this using Next.js
+next/font/local
+
+import localfont from "next/font/local";
+
+const lf = localfont({
+    src: "../folderName",
+    display: "swap"
+});
+
+<p className={lf.className}>Demo txt</p>
+
+
+PRELOADING AND REUSE =
+When a font function is called it is not available globally, which means if we call this function
+on page 1 then it will not be available on page 2. To use it on page 2 we have to call
+this function. But this function will be available for children on that page.
+If this function is called in a layout.js file which is shared with other files or the main
+layout.js file which is connected with all files (called root layout), then that font function
+will be available everywhere meaning the function will be preloaded on all routes.
+
+Whenever we call local font or Google font a new instance of that font is hosted for the app.
+So if we call the font in different files then it will create a new instance again and again.
+Which is not good for optimization. It is recommended to call the font in a shared file.

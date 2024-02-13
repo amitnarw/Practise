@@ -1,0 +1,24 @@
+In Next.js we have the same types of CSS as in React.js.
+
+Global CSS = 
+In global CSS we can set a style globally for all elements of the same kind. Meaning if we want to
+set the same style for all the h1 elements in our code we can do it by using Global CSS.
+
+Inline CSS =
+This is element-specific, so it will only apply to those elements where we are using it. And
+this inline CSS has priority over global CSS, so if there is a style that is common in both
+inline and global, the inline one will be applied.
+
+Module CSS =
+Sometimes when we use the same style name in different CSS files and import those style files
+in the same JS file, then these files will conflict with each other in their functioning.
+To solve this issue we can use modular CSS.
+Here we import CSS like an object. By doing this we can still import different style files
+in the same JS file but now these files will not conflict in their functioning.
+
+For this, we have to rename the CSS files and add the "module" keyword in the name.
+style1.css will be changed to style1.module.css
+
+
+Conditional CSS =
+We can use useState hook for conditional CSS.

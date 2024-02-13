@@ -1,0 +1,60 @@
+Metadata is a set of data that describes and gives information about other data like a website.
+A website is also where we have lots of data on different pages and to describe a website data
+in short for SEO we use metadata. Metadata will improve SEO and shareability over the internet.
+There are 2 ways to add metadata to a website =
+1. Config-based
+2. File-based
+
+1. Config-based =
+We can add a static metadata or a dynamic one. Static metadata is useful where the page is static
+and the information is also will stay the same, like on the home page.
+Dynamic data is useful when we have to change the whole info of a page like a different post page
+or product page.
+
+STATIC METADATA
+- We can set metadata in the layout.js file as well as on the page.js file. But the metadata
+we set on the page.js file will have priority and will replace the metadata that we getting from 
+the layout.js file.
+It's better if we use static metadata on the layout.js file because then it will be available
+on all pages under that layout.js file.
+Metadata is the in-built function of the Next.js, so we don't have to import it.
+
+export const metadata = {                   (we can only use keyword metadata for this)
+    title: "Title of the page",
+    description: "Description of the page"
+}
+
+- We can make metadata like this for all static pages on a website. All pages will have
+different metadata because of this.
+
+
+DYNAMIC METADATA
+To set dynamic metadata which requires dynamic values, we can't use normal "metadata"
+keyword. For this, we have to use generateMetadata keyword which will fetch metadata.
+
+export function generateMetadata(){
+    return{
+        title: "Title of the page",
+        description: "Description of the page"
+    }
+}
+
+- We can also use parameters in this function and get values related to this parameter from
+the API.
+
+- There is a property called open graph, which is a protocol that controls what content to
+display when sharing links on social media. If not found then social media will select a
+random content to show about the link we shared.
+
+export async function generateMetadata({ params }){
+    let data = await fetchData();
+    return{
+        title: data[params.day[0]].title,
+        description: data[params.day[0]].description,
+        openGraph: {
+            title: data[params.day[0]].title,
+            description: data[params.day[0]].description,
+            images: data[params.day[0]].images
+        }
+    }
+}

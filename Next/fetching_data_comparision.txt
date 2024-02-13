@@ -48,3 +48,51 @@ const page = async () => {
 }
 
 export default page;
+
+
+Server-side fetch will be much faster as compared to client-side fetch.
+
+
+SERVER-SIDE + CLIENT-SIDE RENDERING =
+
+Main page.js file =
+
+import Pro from "./Pro";
+
+async function fetchData(){
+    let res = await fetch("https://dummyjson.com/products");
+    let data = await res.json();
+    return data.products;
+}
+
+const page = async () => {
+    let allPro = await fetchData();
+  return (
+    <div>
+      {allPro.map((x, i) => {
+      return <li key={i}>Name: {x.title}<br/><Pro price={x.price}/><br/></li>
+      }
+      )}
+    </div>
+  )
+}
+
+export default page;
+
+Pro.js file which we are only using for client component =
+
+"use client"
+
+const Pro = ({price}) => {
+    return (
+      <div>
+        <button onClick={() => alert(price)}>Check price</button>
+      </div>
+    )
+  }
+  
+  export default Pro;
+
+
+  By diving the work into server and client-side rendering, according to things that server-side
+  rendering can't do, we get the same high speed when we are only using server-side rendering.

@@ -1,0 +1,56 @@
+In a web application generally, images are the ones that are larger as compared to other elements.
+This can impact the performance of a web application.
+
+That's why Next.js's Image component is an extended version of the normal HTML image element with
+features for automatic optimization. Like
+- size optimization = automatically serves correctly sized images as per the devices with modern
+image formats like WebP and AVIF (WebP and AVIF are compressed formats of images for better
+quality and performance)
+- visual stability = prevent layout shift when images are loading
+- faster page loads = image only loads when they enter the viewport of the user
+- asset flexibility = on-demand image resizing even if the image is on a remote server.
+
+We have to import the Image component from "next/image".
+import Image from "next/image";
+
+Local images = 
+Import just like we normally import an image in React.js and Next.js will automatically determine
+the width and height of the image. This is used to prevent layout shifts when images are loading.
+await import() or require() are not supported in this Image component. Because Next.js has to
+analyze the image at build time for optimization.
+
+import pic from "./img1.jpg";
+
+<Image src={pic} alt="demo image" />
+
+Remote images =
+Next.js doesn't have access to remote files during the building process, so we have to provide
+all Props manually. We have to add a list of domains where these remote images are stored to
+safely allow optimization.
+
+<Image
+src="https://images.unsplash.com/photo-1621155346337-1d19476ba7d6"
+height={200}
+width={200} />
+
+next.config.mjs file =
+const nextConfig = {
+    images: {
+        domains: ["images.unsplash.com"]
+    }
+};
+
+Props used in this Image component
+- src = to provide the source of the image
+- alt = provide an alternative if an image is not loaded
+- height = height of the image
+- width - width of the image
+- blurDataURL = a placeholder before the image is successfully loaded. Must be a base64-encoded image
+- placeholder = empty | "blur" | "data:image/..." "blur" is valid if blurDataURL is provided.
+- priority = this property is added to the image that will be LCP for every page.
+- quality = {number} will set the quality of the optimized image.
+- fill = {true} will fill the parent element, useful when height and width are unknown.
+
+LCP = Largest Contentful Paint is a web metric for measuring perceived load speed. 
+If we add the "priority" property as a prop in Image then that image will be treated as LCP
+and Next.js will boost LCP with its optimization.

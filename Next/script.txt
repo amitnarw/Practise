@@ -1,0 +1,7 @@
+Script component is used to load third-party scripts. This is different from the script tag that
+we found in HTML because the HTML tag will load a script in the whole project, which can reduce
+the performance of the web app.
+Also, we may not need that script in our whole project and only need it in some of the
+components or only one component. For this, we need a script component in Next.js.
+
+Script component will only load that script in the component in which we imported it in.
