@@ -1,0 +1,24 @@
+Just like we make routes to access different pages. TO access different APIs we have to make it's
+different routes.
+
+- We have to make all APIs and their routes inside the folder named "api".
+- To make a route in our API, we have to write inside the file named "route.js".
+- This is how the structure of an API will look, where we will show all products =
+src/app/api/products/routes.js
+
+- And we will write everything that is in the file "getAll.js".
+
+
+API route for a single product =
+- Inside "src/app/api/products" folder we will make a new dynamic folder named "[id]".
+- Inside this folder, we will make a new file same name "route.js".
+src/app/api/products/[id].route.js
+(We have to use the same name "route.js" if we want to make an API route inside it)
+Inside this file, we will write everything that is in the file "getSingle.js".
+
+- We have to add all methods like GET, PUT, and DELETE inside this same file. Because we are doing
+these methods for a single product.
+
+
+If we want to do these methods (GET, PUT, and DELETE) for all products, then we have to add these
+methods inside "src/api/products/route.js" file.

@@ -1,0 +1,7 @@
+Static Site Generation (SSG)
+
+export async function generateStaticParams(){
+    //get fetched data in a variable
+    //using a map we will return whole page
+}
+

@@ -1,0 +1,65 @@
+In Nextjs to improve performance and speed, cache is used with fetch() by default.
+This is a great feature, but sometimes this can become a problem where we want the latest data
+on our page.
+
+We can tell fetch() to remove cache (stop using cache OR make a new cache) by using 
+cache: 'no-cache'  OR cache: 'no-store'
+
+
+Ex = 
+
+let res = await fetch("http://localhost:3000/api/products", { cache: 'no-cache' });
+
+fetch("url", { cache: 'force-cache' })   (This is default)
+
+
+REVALIDATING DATA =
+Revalidating is a process in which the Data Cache is removed and the latest data is re-fetched.
+This is helpful when our data changes and we want to make sure that we show the latest information.
+
+This is done in 2 ways 
+1. Time-based revalidation = 
+Automatically revalidate data after a certain amount of time has passed. This is useful when
+data is not changing frequently and new fresh data is not as critical.
+
+fetch("url", { next: { revalidate: 3600 } })      (3600 seconds which means 60 minutes = 1 hr)
+
+This will only revalidate this fetch request. If we made multiple fetch requests and used
+different revalidation frequency, then the lowest time will be used for all requests.
+
+To time-based revalidate all requests in a route segment, we have to use segment config options
+
+export const revalidate = 3600
+
+2. On-demand revalidation =
+Manually revalidate data on an event (form submission). This uses a tag-base or path-based
+approach, where we revalidate a group of data at once. This is when we want to make sure that
+we get the latest data. Like content from your headless CMS.
+
+- When we use fetch, we have options available to tag cache entries with 1 or more tags.
+
+let res = await fetch("url" , { next: { tags: ['collection'] } })
+
+- Then we can call revalidate tag, to revalidate all entries associated with that tag.
+
+import { revalidateTag } from 'next/cache'
+
+export async function action(){
+    revalidateTag('collection')
+}
+
+ERROR = 
+If an error is thrown while attempting to revalidate data, then the last successfully generated
+data will continue to be served from the cache. On the next subsequent request, it will retry
+revalidating the data.
+
+OPTING OUT OF DATA CACHE =
+
+fetch requests will not be cached if 
+1. cache: 'no-store' OR cache: 'force-cache' property added with fetch() request
+fetch("url", { cache: 'force-cache' })      
+
+
+ON THIRD-PARTY LIBRARIES =
+- If a third party library doesn't support fetch, then we can use the "route segment
+config option" and "React cache function" for revalidation.

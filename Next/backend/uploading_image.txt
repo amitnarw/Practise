@@ -1,0 +1,73 @@
+We can make the backend also in NextJS, so we can upload an image without any need for
+external libraries.
+
+- We will upload an image in our public folder, which is available in our project.
+
+FILE USED FOR UPLOADING = (page.js)
+
+"use client"
+
+import { useState } from "react";
+
+const page = () => {
+
+    const [file, setFile] = useState();
+
+    async function submit(e){
+        e.preventDefault();
+
+        let fileData = new FormData();
+        fileData.set("file", file);
+        
+        if(file === undefined){
+            alert("Please choose a file");
+        } else {
+            let res = await fetch("api/upload", {
+                method: "POST",
+                body: fileData
+            });
+            let data = await res.json();
+            
+            if(data.success = true){
+                alert(data.result)
+            } else {
+                alert("Error");
+            }
+        }
+    }
+
+  return (
+    <div style={{textAlign: "center"}}>
+      <form onSubmit={submit}>
+        <h1>Upload File</h1>
+        <input type="file" name="file" onChange={(e) => setFile(e.target.files?.[0])}/>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+  )
+}
+
+export default page;
+
+
+
+
+FILE USED AS API =
+
+import { NextResponse } from "next/server";
+import { writeFile } from "fs/promises";
+
+export async function POST(req){
+    let data = await req.formData();
+    let file = data.get("file");
+    if(!file){
+        return NextResponse.json({result: "No image found", success: false}, {status: 400});
+    } else {
+        const imageData = await file.arrayBuffer();
+        const buffer = Buffer.from(imageData);
+        const path = `./public/${file.name}`;
+        await writeFile(path, buffer);
+        return NextResponse.json({result: "File uploaded successfully", success: true}, {status: 200});
+    }
+
+}

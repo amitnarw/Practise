@@ -1,0 +1,28 @@
+Runtime in context to Next.js is a set of libraries, APIs and general functionality available to the
+code at the time of execution.
+
+On the server, there are 2 runtimes available where parts of our code can be rendered.
+1. Node.js runtime (default) = has access to all Node.js API and packages from the ecosystem.
+2. Edge runtime = based on WEB APIs.
+
+EDGE RUNTIME =
+It is a subset of Node.js APIs and that's why it's lightweight.
+It is ideal for:
+- If we want to deliver dynamic, personalized content at low latency with small, simple functions.
+- Its speed comes from its minimal use of resources.
+- Security is also better.
+- It's cheaper to run at scale.
+- Can't maintain a DB connection.
+- Can be limiting in many scenarios. Like a lot of libraries won't work.
+
+NODE.JS RUNTIME =
+Gives access to all Node.js APIs and npm packages that rely on them.
+But it is not as fast as Edge runtime. It has its advantages and disadvantages.
+
+
+Next.js allows us to define runtime on every page or every route. This means we can do things which
+are not possible on edge runtime on Node.js runtime and use Edge runtime when it's possible.
+
+By default, the runtime is set to Node.js, to change it to the edge =
+
+export const runtime = "edge"

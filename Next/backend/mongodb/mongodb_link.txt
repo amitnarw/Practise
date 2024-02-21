@@ -1,0 +1,22 @@
+First, we have to put the MongoDB link in a file usually named "db.js".
+This file will be in a folder named "lib" under src/app.
+
+- This is what we have to write inside this file =
+export const connectionStr = "mongodb://localhost:27017/productDB"; (Here, productDB is database name)
+
+- After this, we have to make a folder named "model" inside the "lib" folder. This is where we save
+the schema (structure) of the table/collection in which we save our data.
+We will make a file inside this "model" folder named "product.js" and this is where we will
+make schema, like this =
+
+import mongoose from "mongoose";
+
+const productModel = new mongoose.Schema({
+    name: String,
+    price: Number,
+    company: String,
+    color: String,
+    category: String
+});
+
+export const Product = mongoose.models.products || mongoose.model("products", productModel);

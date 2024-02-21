@@ -22,7 +22,7 @@ We can do this by creating a different file for the interactive components (here
 "use client" on top) and import these files in the server-side rendering file.
 
 
-Pre=rendering =
+Pre-rendering =
 This means generating HTML/UI in advance on the server side. It is made up of 2 parts.
 
 1. Static generation = At build time, both server-side and client-side components will
@@ -32,3 +32,39 @@ for this component.
 2. Server-side rendering = Whenever a user requests for this component, it will render
 at that time and then be sent to the user's device. This component will not render at
 build time but renders when the user requests it.
+
+
+
+CSR (Client-Side Rendering)
+SSR (Server-Side Rendering)
+SSG (Static Site Generation)
+ISR (Incremental Static Regeneration)
+
+SSR =
+We send all the data to the server at the time of build. Whenever the user requests the
+page, the server collects all the data, renders that page and then sends that pre-rendered
+page to the client/user. Here browser will show the data as it is. There is no need to render
+the data by the browser. (Servers are faster than the client device so rendering on the server
+is always faster)
+
+SSG =
+Here also server first has to collect the data and then render the page. Even if Servers
+are fast they will still take some time to render the page. Like when we are using a slow API,
+so here server has to wait for the API to get the data and then render the page, which makes
+the website slow even if we use SSR. In this case, we use SSG, where at the time of build
+we render the page first and then store it to the server. Now we are storing the whole page to
+the server and because of this build time here will be longer. But now whenever a user/client
+requests a page the server can directly show/send that pre-built page which will be even
+faster. Here server doesn't have to collect data from the API because data will be collected
+at the time of build and that data also will be saved in the build file.
+
+ISR =
+The main problem with SSG is that the data that we saved at the build time will be the same.
+So if we build the page today using SSG and request for that page we will get the same data,
+even if we request that data after a month also. But if we want to change that data again
+then we have to build the whole website again. And build time in SSG is also very long.
+To solve this issue, in ISR static-generation will happen per page, which means now the
+website as a whole won't be statically generated but all pages independently will be
+statically generated. So now if we want to change something on a single page, we won't
+have to build the whole website again but only have to build that single page that we
+just changed.

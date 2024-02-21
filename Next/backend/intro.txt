@@ -1,0 +1,77 @@
+As we know Nextjs is a framework of Reactjs, that's why we can also create the backend inside Nextjs.
+This is not mandatory, we can also use the backend in Nodejs.
+So we can say that Nextjs is a full-stack framework.
+
+STATUS CODE = 
+100-199 = Informational responses
+200-299 = Successful responses
+300-399 = Redirection responses
+400-499 = Client error responses
+500-599 = Server error responses
+
+200 = After successful GET
+201 = After successful POST/PUT
+400 = Bad request (client error like invalid request format, deceptive request)
+401 = Unauthorized
+403 = The client does not have access. Unlike 401 in 403 server knows the identity of the client.
+404 = Not found
+408 = Server terminates the connection due to the request taking too long to complete.  
+429 = Too many requests (rate limiting)
+500 = Internal server error and the server does not know how to handle it.
+501 = Not Implemented
+502 = Bad request (Got invalid response)
+503 = Service unavailable (Server down)
+504 = Gateway timeout
+
+
+- To make an API in Nextjs, we have to create a new folder under "src/app" with a name that we use
+only for the server. It is a good practice to make a folder with the name "api" and create
+more folders inside it to make different routes in that API.
+- Inside this "api" folder we make a new folder that will denote a route "src/app/api/users"
+and we create a file with the name "route.js" where we will write our API functioning.
+- File should always be "route.js".
+
+Ex = basic structure an API
+
+export async function GET(request, {params}){
+    return NextResponse.json("Hello users");
+}
+
+Output when we access "localhost:3000/api/users" =
+Hello users
+
+- return NextResponse is a new function that is added in the newer version of Nextjs. In older
+versions we have to use 
+
+return new Response.json("Hello")
+
+
+GET method =
+
+- DB file, which we made in a different folder "util". This "util" is in folder "src".
+
+export const users = [
+    {
+        id: 1,
+        name: "demo",
+        age: 20,
+        email: "demo@demo.com"
+    },
+    {
+        id: 2,
+        name: "new",
+        age: 25,
+        email: "new@new.com"
+    }
+]
+
+
+- "route.js" file in folder "src/app/users/[id]"
+
+import { NextResponse } from "next/navigation";
+
+export async function GET(req, {params}){
+    return NextResponse.json(
+        data.length === 0 ? {result: "User not found", success: false} : {result: data, success: true}
+    )
+}

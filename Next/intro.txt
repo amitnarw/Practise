@@ -46,3 +46,32 @@ b. Placeholders/holes for client components, telling where client components sho
 be rendered and reference to their JS files.
 
 React uses this info to join the Server and Client Components and update the DOM on the client.
+
+Static assets/static files =
+When we make a build, all of our files and their names will be minified, meaning
+converted/compressed. But static files don't, they remain the same. There will be no changes
+in their name, their structure, content, etc.
+So here we put configuration files that configure SEO, like sitemap, robot.txt, etc OR files
+which is used globally in our projects like JS or CSS files.
+
+- We put these files under the Public folder, which doesn't have that much security and anyone
+can access these files.
+- We can access these files by using "/" and then writing that file's name.
+<img src="/logo.jpg" />
+- Next.js cannot safely cache assets in the public folder.
+
+BUILDS =
+There can be different types of builds. Some of those builds are =
+1. development build = which we use when we are building the website (non-minified + slow)
+2. production build = which is ready to be used as a website (minified version + fast)
+3. custom build = which is made by doing some configurations
+
+- Development build will be built and run with a single command "npm run dev"
+- Production build will be first built using the command "npm run build" and run
+using the command "npm start"
+
+
+STATIC HTML EXPORT = 
+These are small websites in which features doesn't require a server to work. We can deploy
+this static HTML to anywhere where we can serve HTML/CSS/JS. This also doesn't support Next.js
+features that require a server.

@@ -4,4 +4,57 @@ the performance of the web app.
 Also, we may not need that script in our whole project and only need it in some of the
 components or only one component. For this, we need a script component in Next.js.
 
-Script component will only load that script in the component in which we imported it in.
+Script component will only load that script in the component in which we imported it.
+
+First, we have to make a separate file from where we will load our script.
+We made this file in our public folder. Now we want to access that script on route /location.
+After creating the folder and page.js file we can use that script, just like we use an image
+that is stored in the public folder. But first, we have to import <Script /> component on
+this page.
+
+import Script from "next/script";
+
+export default function Location(){
+    return(
+        <div>
+            <Script src="/loc.js" />
+        </div
+    )
+}
+
+- Next.js will make sure to load this script only once even if the user navigates between
+multiple routes in the same layout.
+
+- We can also fine-tune script loading behavior by using strategy property.
+
+<Script src="/loc.js" strategy="beforeInteractive" />
+
+1. beforeInteractive = Load before any Next.js code and before any page hydration occurs (hydration
+means attaching JS behavior to the HTML which is generated on the server. It is necessary to make
+the page interactive)
+In this, the script is injected into the initial HTML from the server, downloaded before any Next.js
+module and before any hydration occurs on the page. These scripts should only be placed inside the
+root layout and are designed to load scripts on the entire site.
+Ex = Bot detector and cookie consent manager are some of the examples.
+
+2. afterInteractive = (default) Load early but after some hydration
+Injected into the HTML client-side and loaded after some (or all) hydration. Can be placed on any
+page or layout. And will load only when some pages are opened in the browser. 
+Ex = Tag managers, analytics
+
+3. lazyOnLoad = Load during browser idle time.
+Injected into HTML client-side during browser idle time and will load when all resources on the
+page have been fetched. Used for low-priority scripts or for any background tasks that do not need
+to load early. Can be placed on any page or layout.
+Ex = Chat support plugins, social media widgets
+
+4. worker = (experimental)
+
+
+EVENT HANDLERS =
+Event handlers can be used with the Script component to execute some additional code after an event.
+- onLoad: execute code after the script has finished loading
+- onReady: onLoad + every time component is mounted
+- onError: execute if script failed to load
+
+<Script src="loc.js" onLoad={() => console.log("Script loaded")} />

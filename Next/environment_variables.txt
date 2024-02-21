@@ -1,0 +1,77 @@
+It is a variable whose value is set outside the program (typically through functionality built into
+the OS or microservices).
+It is made up of name/value pair and it is available to use in our application at any point in time.
+
+- During application initialization, these are loaded into "process.env". These can be accessed by
+writing the name of the variable in our code.
+
+- At runtime, the environment's names are replaced by their values.
+
+- In short, environment variables are used to store app secrets and configuration data, which are
+retrieved by our running app when needed.
+This is how it adds dynamicity to our static code base. We can switch between internal/external 
+resources based on the value of the environment variable passed.
+
+- Values of these variables can come from a range of sources like text files, third-party secret
+managers, calling scripts, etc.
+
+Types = 
+There are 3 prominent types. 
+
+1. System environment variables
+Resides on the topmost root of the system and is the same for all processes, running in a system,
+under all user profiles. OS/system administrator sets these.
+One most common usage is to set the PATH variable to a global package/library to be used by all
+the users.
+
+2. User environment variables
+These are local to a user profile in OS. Store user-specific info and do not need an
+administrator to make changes.
+
+3. Runtime/process environment
+These are only available/associated with process/runtime. Set by the parent process and available
+for both system and user environment variables.
+
+
+Usage =
+We need to make them separately because it follows a design principle - separation of concern.
+Which states that computer programs should be divided into distinct sections to manage them
+efficiently.
+
+- We can use a different file which is not an environment variable for this purpose. But we don't
+use that because ".env" files can be accessed anywhere in our app without importing them.
+
+- Securing secrets = If the wrong people have access to this information, they can have
+unauthorized access to our app. This results in the loss of data, and accounts and hackers can
+restrict the working of our app.
+
+- Use to store environment type (development, production mode). using which we can use disables/
+enables certain features/sections of the app.
+- Domain names can vary based on their environment. Changing all occurrences throughout the 
+app is not ideal, so this will automatically change the domain name.
+- Different environments can have different APIs.
+- Private keys of a paid service.
+- Account numbers
+
+
+STORING =
+We usually make a file named ".env".
+Every info is stored in a name/value pair in different lines.
+
+VAR1 = "demo"
+VAR2 = "test"
+
+
+
+IN NEXTJS =
+- In Nextjs there are 2 types of environment variables. Built-in and other ones that we define.
+- We can only see these variables on the server side. These will not be visible on the client side.
+
+Builtin = process.env
+Ex = console.log(process.env.NODE_ENV) = development
+
+We can change our info using this. 
+
+{process.env.NODE_ENV === "development"?
+<p>This is a development build.</p>:
+<p>This is a production build.</p>}

@@ -1,0 +1,54 @@
+Using 2 ways =
+
+REDIRECT A STATIC PAGE =
+1. Using redirect component from "next/navigation" library
+Do this on the page.js file of the route that we want to redirect to some other router.
+
+import { redirect } from "next/navigation";
+
+export default function Page(){
+    redirect("/");
+    return(
+        <h1>This is a demo page</h1>
+    )
+}
+
+Now this Page will be redirected to "/" whenever a user tries to access this route.
+
+2. By config file 
+
+const nextConfig = {
+    redirects:async() => {
+        return [
+            {
+                source: "/demo",        (From where to redirect)
+                destination: "/",       (Redirect to which route)
+                permanent: false       
+            }
+        ]
+    }
+}
+
+permanent: false
+This will tell Google bots that this redirect is not permanent and developer is only temporarily 
+doing this because of some work on this "demo" page.
+If we make this 
+permanent: true
+then Google will think this is permanent (in case this page/route is not available anymore)
+and Google bots will not index this page for SEO.
+
+
+
+REDIRECT A DYNAMIC PAGE =
+
+const nextConfig = {
+    redirects:async() => {
+        return [
+            {
+                source: "/users/:id",
+                destination: "/",
+                permanent: false
+            }
+        ]
+    }
+}

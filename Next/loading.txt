@@ -1,0 +1,43 @@
+Also known as "Loader". It is a loading feature similar to what we have in React.js where we 
+show a loading UI when our data is still loading in the background. In React.js, first, we have
+to make a JS file where we store our loading UI and have to use Lazy loading + Suspense
+to make it work.
+But in Next.js we just have to create a JS file where we will be storing our loading UI and 
+everything else will be handled by Next.js.
+
+- We have to create a JS file with the name "loading.js" (we have to use only this name),
+and we don't have to implement anything. Everything will be handled by Next.js.
+
+Also called Instant Loading states. 
+We have to put that loading.js file in the folder where we want to show a loader.
+Doing this we can use different loaders for different pages. 
+It will automatically wrap the "page.js" file and any children below in a <Suspense> boundary.
+
+
+STREAMING WITH SUSPENSE =
+In addition to the "loading.js" file, we can still use the old React.js method, where
+we have to use <Suspense> and wrap its boundary around the component.
+
+In SSR, some steps need to be completed before a user can see and interact with the page. These
+steps are sequential and blocking, meaning the user can't interact with the page until all of
+the following steps are completed first.
+1. All data of a given page is fetched on the server.
+2. The server then renders HTML for the page.
+3. HTML, CSS and JS then sent to the client.
+4. A non-interactive UI is shown using HTML and CSS.
+5. Finally React hydrates the UI to make it interactive.
+
+This means the server can only render the HTML until it gets all the data required to be fetched.
+After this, the client can only hydrate the UI until all the data has been downloaded.
+Still, SSR with React and Next helps in showing loading performance by showing a
+non-interactive page to the user ASAP. But it can still be slow.
+
+Here comes the streaming, which allows us to break down the page's HTML into smaller chunks
+and progressively send those chunks from the server to the client.
+This enables a part of UI to be displayed sooner, without waiting for all data to be loaded and
+any UI to be rendered.
+Streaming works well with React components because every component can be considered a chunk.
+Components with higher priority (information about a product) or data that don't rely on
+data, can be sent first and then React can start hydration here. Then components with low
+priority (product reviews, related products) can be sent to the same server after their
+data has been fetched.
